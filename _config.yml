@@ -1,13 +1,13 @@
 # Site settings
-title: My Blog
-SEOTitle: 我的博客 | My Blog
+title: ZY in NJU
+SEOTitle: ZY In NJU
 header-img: img/post-bg-desk.jpg
-email: 暂无
-description: "写一句你想写的话"
+email: 201250182@smail.nju.edu.cn
+description: "记录在NJU SE学习的心得体会~"
 keyword: "我的博客"
-url: "http://name.github.io"          # your host, for absolute URL
+url: "https://martin7-1.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/name/name.github.io.git" # you code repository
+github_repo: "https://github.com/Martin7-1/Martin7-1.github.io.git" # you code repository
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
