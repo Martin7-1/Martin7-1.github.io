@@ -1,0 +1,128 @@
+I"x%<h1 id="设计模式1--代理模式">设计模式（1） – 代理模式</h1>
+
+<blockquote>
+  <p>Purpose: Controls and manage access to the object they are protecting</p>
+</blockquote>
+
+<p>代理模式是用某个类来代理一个实体对象的行为的一种模式，其目的是为了保护和管理对这个实体对象的访问。</p>
+
+<p><img src="https://s2.loli.net/2022/01/29/sOCuFzAb7Q1kwpR.png" alt="" /></p>
+
+<p>同时，代理模式有可能会在代理类中添加一些附属功能来扩展我们对实体对象（Server）的需求与访问。我们一般采用在代理类中与实体对象<strong>组合</strong>来实现代理模式</p>
+
+<h2 id="什么时候需要使用代理模式">什么时候需要使用代理模式？</h2>
+
+<p>当我们需要创建一个包装器（wrapper）来覆盖客户端的主要对象的复杂性时，我们可以使用代理模式。主要解决在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。代理模式分为以下几种类型：</p>
+
+<h3 id="远程代理">远程代理</h3>
+
+<p>他们负责表示位于远程的对象。与真实对象交谈可能涉及数据的编组和解组以及与远程对象的交谈。所有这些逻辑都封装在这些代理中，客户端应用程序无需担心它们。</p>
+
+<h3 id="虚拟代理">虚拟代理</h3>
+
+<p>如果真实对象需要一些时间来产生结果，这些代理将提供一些默认和即时结果。这些代理启动对真实对象的操作并向应用程序提供默认结果。一旦真实对象完成，这些代理将实际数据推送到它之前提供了虚拟数据的客户端。</p>
+
+<h3 id="保护代理">保护代理</h3>
+
+<p>如果应用程序无权访问某些资源，则此类代理将与有权访问该资源的应用程序中的对象对话，然后返回结果。</p>
+
+<h3 id="智能代理">智能代理</h3>
+
+<p>智能代理通过在访问对象时插入特定操作来提供额外的安全层。一个例子可以是在访问之前检查真实对象是否被锁定，以确保没有其他对象可以更改它。</p>
+
+<h2 id="例子">例子</h2>
+
+<p>我们将创建一个 <code class="language-plaintext highlighter-rouge">Image</code> 接口和实现了 <code class="language-plaintext highlighter-rouge">Image</code> 接口的实体类。<code class="language-plaintext highlighter-rouge">ProxyImage</code> 是一个代理类，减少 <code class="language-plaintext highlighter-rouge">RealImage</code> 对象加载的内存占用。</p>
+
+<p><code class="language-plaintext highlighter-rouge">ProxyPatternDemo</code> 类使用 <code class="language-plaintext highlighter-rouge">ProxyImage</code> 来获取要加载的 <code class="language-plaintext highlighter-rouge">Image</code> 对象，并按照需求进行显示。</p>
+
+<p><img src="https://s2.loli.net/2022/01/29/FA1aQ9xsVYyPTMz.png" alt="" /></p>
+
+<p>创建<code class="language-plaintext highlighter-rouge">Image</code>接口</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Image</span> <span class="o">{</span>
+   <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>创建接口的实现类，也就是实体对象</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RealImage</span> <span class="kd">implements</span> <span class="nc">Image</span> <span class="o">{</span>
+ 
+   <span class="kd">private</span> <span class="nc">String</span> <span class="n">fileName</span><span class="o">;</span>
+ 
+   <span class="kd">public</span> <span class="nf">RealImage</span><span class="o">(</span><span class="nc">String</span> <span class="n">fileName</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">;</span>
+      <span class="n">loadFromDisk</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+   <span class="o">}</span>
+ 
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Displaying "</span> <span class="o">+</span> <span class="n">fileName</span><span class="o">);</span>
+   <span class="o">}</span>
+ 
+   <span class="kd">private</span> <span class="kt">void</span> <span class="nf">loadFromDisk</span><span class="o">(</span><span class="nc">String</span> <span class="n">fileName</span><span class="o">){</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Loading "</span> <span class="o">+</span> <span class="n">fileName</span><span class="o">);</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>创建代理类</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyImage</span> <span class="kd">implements</span> <span class="nc">Image</span><span class="o">{</span>
+ 
+   <span class="kd">private</span> <span class="nc">RealImage</span> <span class="n">realImage</span><span class="o">;</span>
+   <span class="kd">private</span> <span class="nc">String</span> <span class="n">fileName</span><span class="o">;</span>
+ 
+   <span class="kd">public</span> <span class="nf">ProxyImage</span><span class="o">(</span><span class="nc">String</span> <span class="n">fileName</span><span class="o">){</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">;</span>
+   <span class="o">}</span>
+ 
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">realImage</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+         <span class="n">realImage</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RealImage</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="n">realImage</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>使用代理对象来获取真正的对象</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyPatternDemo</span> <span class="o">{</span>
+   
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProxyImage</span><span class="o">(</span><span class="s">"test_10mb.jpg"</span><span class="o">);</span>
+ 
+      <span class="c1">// 图像将从磁盘加载</span>
+      <span class="n">image</span><span class="o">.</span><span class="na">display</span><span class="o">();</span> 
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
+      <span class="c1">// 图像不需要从磁盘加载</span>
+      <span class="n">image</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>  
+   <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="代理模式的某些应用">代理模式的某些应用</h2>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">SpringAOP</code>的底层实现实际上就是jdk的动态代理和cglib动态代理技术</li>
+  <li>Windows下的快捷方式</li>
+</ol>
+
+<h2 id="代理模式的优点">代理模式的优点</h2>
+
+<ol>
+  <li>职责清晰</li>
+  <li>高扩展性</li>
+  <li>智能化</li>
+</ol>
+
+<h2 id="代理模式的缺点">代理模式的缺点</h2>
+
+<ol>
+  <li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。</li>
+  <li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
+</ol>
+:ET
