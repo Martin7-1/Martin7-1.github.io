@@ -60,7 +60,7 @@ gitalk:
   clientID:                             #生成的clientID
   clientSecret:     #生成的clientSecret
   repo: Martin7-1.github.io    #仓库名称
-  owner:     #github用户名
+  owner: Martin7-1    #github用户名
   admin: 
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
