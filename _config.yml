@@ -1,7 +1,7 @@
 # Site settings
 title: ZY in NJU
 SEOTitle: ZY In NJU
-header-img: img/post-bg-desk.jpg
+header-img: img/bg.jpg
 email: 201250182@smail.nju.edu.cn
 description: "记录在NJU SE学习的心得体会~"
 keyword: "我的博客"
@@ -11,8 +11,8 @@ github_repo: "https://github.com/Martin7-1/Martin7-1.github.io.git" # you code r
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "苟利国家生死以，岂因祸福避趋之~"
-sidebar-avatar: /img/avatar_binggan.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "miku fan~"
+sidebar-avatar: /img/avatar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -20,12 +20,10 @@ sidebar-avatar: /img/avatar_binggan.jpg      # use absolute URL, seeing it's use
 RSS: false
 # weibo_username:     暂无
 zhihu_username:     暂无
-github_username:    暂无
+github_username:    Martin7-1
 facebook_username:  暂无
 jianshu_username:   暂无
 #twitter_username:   暂无
-
-
 
 
 # Build settings
@@ -62,7 +60,7 @@ gitalk:
   enable: true    #是否开启Gitalk评论
   clientID:                             #生成的clientID
   clientSecret:     #生成的clientSecret
-  repo: name.github.io    #仓库名称
+  repo: Martin7-1.github.io    #仓库名称
   owner:     #github用户名
   admin: 
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
