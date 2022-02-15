@@ -13,6 +13,8 @@ tags:
 
 
 
+
+
 # COA Review
 
 
@@ -3476,11 +3478,11 @@ PC：程序计数器
 
 1. 条件转移指令能使若干指令的读取变为无效
 
-	![image-20220106213139814](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220106213139814.png)
+	![](https://s2.loli.net/2022/02/15/Kcy3MJk2pEvr4V1.png)
 
 2. 中断 -- 流水线失效
 
-	![image-20220106213133342](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220106213133342.png)
+	![](https://s2.loli.net/2022/02/15/Kcy3MJk2pEvr4V1.png)
 
 #### 流水线性能
 
@@ -3588,9 +3590,9 @@ $$
 	* 发生 / 不发生切换
 	* 转移历史表
 
-![image-20220106213849418](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220106213849418.png)
+![](https://s2.loli.net/2022/02/15/7T2OUxMqX8ek3d9.png)
 
-![image-20220106213901647](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220106213901647.png)
+![](https://s2.loli.net/2022/02/15/4ft7rcdAox6mpBV.png)
 
 ***
 
@@ -3777,7 +3779,7 @@ $$
 
 	> 00：取指，01：间址，10：执行，11：中断
 
-	![image-20211219194052302](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20211219194052302.png)
+	![](https://s2.loli.net/2022/02/15/gj1oqZ7hAaxvSiC.png)
 
 
 
@@ -3789,7 +3791,7 @@ $$
 
 > 一时间在CPU内部总线上只能够有一个数据，否则多个数据会混淆起来
 
-![image-20220107091204447](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107091204447.png)
+![](https://s2.loli.net/2022/02/15/rzf3cqIAyMoKpB6.png)
 
 ![image-20220107091213879](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107091213879.png)
 
@@ -3851,9 +3853,9 @@ CPU需要完成的微操作：
 
 ##### 控制信号示例：取指周期
 
-![image-20220107091737447](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107091737447.png)
+![](https://s2.loli.net/2022/02/15/pSlCJNrvYQDtIF5.png)
 
-![image-20220107091742633](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107091742633.png)
+![](https://s2.loli.net/2022/02/15/51ZDwTLtl2qmCuy.png)
 
 > 1. 传送PC的内容到MAR
 > 	* 打开 $C_2$：PC传到MAR
@@ -3911,7 +3913,7 @@ CPU需要完成的微操作：
 
 	> $PQ = 00$：取指周期，$PQ = 01$：间址周期， $PQ = 10$：执行周期，$PQ = 11$：中断周期
 
-	![image-20211219195612170](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20211219195612170.png) 
+	![](https://s2.loli.net/2022/02/15/ok1TULmuZz6Frd9.png) 
 
 （注：乘是与，加是或）
 
@@ -4003,7 +4005,7 @@ CPU需要完成的微操作：
 
 通过系统总线或中央交换器和存储器连接，通过专用数据线与一个或多个外设连接。<span style='color: red'>**I/O模块是计算机内部系统和外设之间的桥梁**</span>
 
-![image-20220107094043044](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107094043044.png)
+![](https://s2.loli.net/2022/02/15/gAv4JnoQd68YTOD.png)
 
 #### 外围设备的接口
 
@@ -4012,7 +4014,7 @@ CPU需要完成的微操作：
 * 缓冲器用于缓存输入/输出模块和外设之间传送的数据
 	* 缓冲器的大小一般为8位或16位
 
-![image-20220107094209776](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107094209776.png)
+![](https://s2.loli.net/2022/02/15/nVF96N2DEwOHLqT.png)
 
 #### I/O 模块的功能
 
@@ -4053,7 +4055,7 @@ CPU需要完成的微操作：
 
 #### I/O 模块的结构
 
-![image-20220107094810755](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107094810755.png)
+![](https://s2.loli.net/2022/02/15/zwbKdqhn2kWEOgQ.png)
 
 ##### 外部接口
 
@@ -4072,7 +4074,7 @@ CPU需要完成的微操作：
 2. **中断驱动式I/O**：处理器发送一条I/O命令后，继续执行其他指令；并且当I/O模块完成其工作后，才去中断处理器工作
 3. **直接存储器读取**（Direct Memory Access, DMA）：I/O模块与主存直接交换数据，而不需要处理器的干涉。
 
-![image-20220107095235362](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107095235362.png)
+![](https://s2.loli.net/2022/02/15/uOERqZABksifP6p.png)
 
 #### 编程式I/O
 
@@ -4080,7 +4082,7 @@ CPU需要完成的微操作：
 * I/O模块将执行所要求的的动作，然后在I/O状态寄存器中设置一些适当的位
 * I/O**不会中断**处理器，因此处理器需要周期性地检查I/O的状态，直到发现该操作完成。
 
-![image-20220107095418865](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107095418865.png)
+![](https://s2.loli.net/2022/02/15/8Uha9rdx76Zg3qw.png)
 
 ##### I/O 命令
 
@@ -4113,7 +4115,7 @@ CPU需要完成的微操作：
 * 当I/O模块准备和处理器交换数据时，它中断处理器以请求服务
 * 处理器执行数据传送，最后恢复它原先的处理工作
 
-![image-20220107202550387](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107202550387.png)
+![](https://s2.loli.net/2022/02/15/pdMsH3FGoguaPDU.png)
 
 **从I/O模块的角度来看**
 
@@ -4135,7 +4137,7 @@ CPU需要完成的微操作：
 
 ##### 中断允许和中断禁止
 
-![image-20220107203001055](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107203001055.png)
+![](https://s2.loli.net/2022/02/15/pWRyHLazkCMAume.png)
 
 ##### 响应优先级和处理优先级
 
@@ -4145,7 +4147,7 @@ CPU需要完成的微操作：
 >
 > 注：掩码字/屏蔽字：即如果某个中断程序可以对另一个中断程序屏蔽（处理优先级高），则标记为1
 
-![image-20220107203423758](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107203423758.png)
+![](https://s2.loli.net/2022/02/15/M3fqr9v4cHmTZVL.png)
 
 **过程描述**
 
@@ -4182,7 +4184,7 @@ CPU需要完成的微操作：
 
 **直接存储器存取**：无需经过处理器即可直接访问内存的模块
 
-![image-20220107204801841](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107204801841.png)
+![](https://s2.loli.net/2022/02/15/Qc9f1JCDxR2kKwj.png)
 
 * 处理器通过发送以下信息向DMA模块发出命令：读/写，I/O设备地址，内存中的起始位置，字数
 * 处理器继续进行其它工作
@@ -4195,7 +4197,7 @@ CPU需要完成的微操作：
 
 ###### CPU停止法
 
-![image-20220107205025667](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205025667.png)
+![](https://s2.loli.net/2022/02/15/zRr7hdPBgL3Jnxq.png)
 
 * 优点：控制简单
 * 缺点：影响CPU，没有充分利用内存
@@ -4203,7 +4205,7 @@ CPU需要完成的微操作：
 
 ###### 周期窃取
 
-![image-20220107205111529](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205111529.png)
+![](https://s2.loli.net/2022/02/15/mV9GlKanuSFfsN2.png)
 
 * 优点：充分利用CPU和内存，及时响应I/O请求
 * 缺点：DMA每次都请求总线
@@ -4211,7 +4213,7 @@ CPU需要完成的微操作：
 
 ###### 交替分时访问
 
-![image-20220107205208317](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205208317.png)
+![](https://s2.loli.net/2022/02/15/1VLQue5YqcySnvH.png)
 
 * 优点：CPU未停止或等待，DMA不请求总线
 
@@ -4227,21 +4229,21 @@ CPU需要完成的微操作：
 * DMA模块使用编程式I/O，通过DMA模块在存储器和I/O模块之间交换数据
 * 便宜但低效
 
-![image-20220107205604288](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205604288.png)
+![](https://s2.loli.net/2022/02/15/uQDJqHCj8PIf25e.png)
 
 ###### 单总线集合的DMA-I/O
 
 * DMA逻辑实际上可能是I/O模块的一部分，也可能是控制一个或多个I/O模块的单独模块
 * 减少总线周期数
 
-![image-20220107205651670](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205651670.png)
+![](https://s2.loli.net/2022/02/15/JxNAfDotUOqwMaH.png)
 
 ###### I/O总线
 
 * 使用I/O总线将I/O模块连接到DMA模块
 * 多个I/O模块共享DMA，且易于扩展
 
-![image-20220107205726115](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220107205726115.png)
+![](https://s2.loli.net/2022/02/15/WrAFvmf6YJkZxUt.png)
 
 
 
