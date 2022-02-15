@@ -18,7 +18,7 @@ header-img: "img/post-bg-rwd.jpg"
     <p>NJU软件工程大二学生，萌新Coder一枚。擅长Java后端开发和Unity游戏开发。</p>
 
     <p></p>
-    
+
     <h5>Talks</h5>
 
     <ul>
@@ -40,15 +40,15 @@ header-img: "img/post-bg-rwd.jpg"
     window.addEventListener('hashchange', _render);
 
     // handle render
-    function _render(){
+    function _render() {
         var _hash = window.location.hash;
         // en
-        if(_hash == "#en"){
+        if (_hash == "#en") {
             $select.selectedIndex = 1;
             $en.style.display = "block";
             $zh.style.display = "none";
-        // zh by default
-        }else{
+            // zh by default
+        } else {
             // not trigger onChange, otherwise cause a loop call.
             $select.selectedIndex = 0;
             $zh.style.display = "block";
@@ -57,10 +57,10 @@ header-img: "img/post-bg-rwd.jpg"
     }
 
     // handle select change
-    function onLanChange(index){
-        if(index == 0){
+    function onLanChange(index) {
+        if (index == 0) {
             window.location.hash = "#zh"
-        }else{
+        } else {
             window.location.hash = "#en"
         }
     }
@@ -77,20 +77,20 @@ header-img: "img/post-bg-rwd.jpg"
 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
 
 <div id="gitalk-container"></div>
-    <script type="text/javascript">
+<script type="text/javascript">
     var gitalk = new Gitalk({
-    clientID: '{{site.gitalk.clientID}}',
-    clientSecret: '{{site.gitalk.clientSecret}}',
-    repo: '{{site.gitalk.repo}}',
-    owner: '{{site.gitalk.owner}}',
-    admin: ['{{site.gitalk.admin}}'],
+        clientID: '{{site.gitalk.clientID}}',
+        clientSecret: '{{site.gitalk.clientSecret}}',
+        repo: '{{site.gitalk.repo}}',
+        owner: '{{site.gitalk.owner}}',
+        admin: ['{{site.gitalk.admin}}'],
     });
     gitalk.render('gitalk-container');
 </script>
 {% endif %}
 <!-- Gitalk end -->
 
- <!-- disqus 评论框 start  -->
+<!-- disqus 评论框 start  -->
 {% if site.disqus.enable %}
 
 <div class="comment">
@@ -106,12 +106,13 @@ header-img: "img/post-bg-rwd.jpg"
     var disqus_identifier = "{{site.disqus.username}}/{{page.url}}";
     var disqus_url = "{{site.url}}{{page.url}}";
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <!-- disqus 公共JS代码 end -->
 {% endif %}
-
