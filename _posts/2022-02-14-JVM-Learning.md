@@ -4,7 +4,7 @@ title:      JVM Learning
 subtitle:   软件工程与计算一大作业过程中学到的JVM知识总结
 date:       2022-2-14
 author:     ZY
-header-img: img/JVM_struct.png
+header-img: img/JVM-bg.png
 catalog: true
 tags:
     - JVM
