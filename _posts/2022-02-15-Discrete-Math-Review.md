@@ -12,7 +12,7 @@ tags:
 
 
 
-# 离散数学复习
+# Discrete Math Review
 
 
 
