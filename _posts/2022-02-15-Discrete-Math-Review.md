@@ -49,7 +49,7 @@ tags:
 
 **Definition(公式的长度)**
 
-公式 $\alpha$ 的长度 |$\alpha$| 定义如下:
+公式 $\alpha$ 的长度 $\| \alpha \|$ 定义如下:
 
 1. 如果 $\alpha$ 是命题符号，那么|$\alpha$| $=$ 1;
 2. 如果 $\alpha$ $=$ ($\lnot \beta$), 则 |$\alpha$| $=$ 1 + |$\beta$|
