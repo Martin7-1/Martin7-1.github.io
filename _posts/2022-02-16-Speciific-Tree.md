@@ -4,7 +4,7 @@ title:      Specific Tree
 subtitle:   NJU SE大二上数据结构课程，简要介绍二叉搜索树，AVL树和B树
 date:       2022-2-16
 author:     ZY
-header-img: img/bg5.jpg
+header-img: img/bg6.jpg
 catalog: true
 tags:
     - Dynamic Programming
