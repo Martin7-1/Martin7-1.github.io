@@ -51,9 +51,9 @@ tags:
 
 公式 $\alpha$ 的长度 $\| \alpha \|$ 定义如下:
 
-1. 如果 $\alpha$ 是命题符号，那么|$\alpha$| $=$ 1;
-2. 如果 $\alpha$ $=$ ($\lnot \beta$), 则 |$\alpha$| $=$ 1 + |$\beta$|
-3. 如果 $\alpha = (\beta * \gamma)$, 则 $|\alpha| = 1 + |\beta| + |\gamma|$
+1. 如果 $\alpha$ 是命题符号，那么$\| \alpha \|$ $=$ 1;
+2. 如果 $\alpha$ $=$ ($\lnot \beta$), 则 $\| \alpha\|$ $=$ 1 + $\|\beta \|$
+3. 如果 $\alpha = (\beta * \gamma)$, 则 $\| \alpha \| = 1 + \| \beta \| + \| \gamma \|$
 
 **<span style='color:red'>Theorem</span>**
 
