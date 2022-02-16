@@ -165,7 +165,7 @@ tags:
 		\exists x.(\alpha \land \beta) \leftrightarrow (\exists x.\alpha) \land \beta
 		$$
 
-9. 
+
 
 ### 推理规则
 
@@ -253,7 +253,7 @@ tags:
 
 **Theorem(概括原则)**
 
-对于任意性质/谓词 $P(x)$， 都存在一个集合 $X$:  $X = \{x | P(x) \}$
+对于任意性质/谓词 $P(x)$， 都存在一个集合 $X$:  $X = \{x \| P(x) \}$
 
 
 
@@ -271,10 +271,10 @@ tags:
 
 **Definition(集合的并、交、相对补，绝对补)**
 
-1. $A \cup B = \{x|x \in A \lor x \in B \}$
-2. $A \cap B = \{x|x \in A \land x \in B \}$
-3. $A \setminus B = \{x| x \in A \land x \notin B \}$
-4. $\overline{A} = U \setminus A = \{x \in U | x \notin A\}$
+1. $A \cup B = \{x\|x \in A \lor x \in B \}$
+2. $A \cap B = \{x\|x \in A \land x \in B \}$
+3. $A \setminus B = \{x\| x \in A \land x \notin B \}$
+4. $\overline{A} = U \setminus A = \{x \in U \| x \notin A\}$
 
 <span style='color: red'>**Remark**:</span> 不存在包罗万象的全集
 
@@ -328,15 +328,15 @@ tags:
 <span style='color: red'>**Definition(广义并)**</span>
 
 设 $\mathbb{M}$ 是一组集合 $(a\ collection\ of\ sets)$
-
-​									$\bigcup M = \{x|\exists A \in M.x \in A \}$
-
+$$
+\bigcup M = \{x |\exists A \in M.x \in A \}
+$$
 <span style='color: red'>**Definition(广义交)**</span>
 
 设 $\mathbb{M}$ 是一组集合$(a\ collection\ of\ sets)$
-
-​									$\bigcap M = \{x|\forall A \in M.x \in A \}$
-
+$$
+\bigcap M = \{x |\forall A \in M.x \in A \}
+$$
 **Theorem(德摩根律)**
 
 1. $X \setminus \bigcup_{\alpha \in I}A_{\alpha} = \bigcap_{\alpha \in I}(X \setminus A_{\alpha})$
@@ -347,12 +347,13 @@ tags:
 ### 集合的运算(三)
 
 <span style='color: red'>**Definition(幂集)**</span>
-
-​							$\mathbb{P}(A) = \{X | X \subseteq A\}$
-
+$$
+\mathbb{P}(A) = \{X | X \subseteq A\}
+$$
 **Theorem**
-
-​							${\color{Red} S \in \mathbb{P}(X) \Longleftrightarrow S \subseteq X}$
+$$
+{\color{Red} S \in \mathbb{P}(X) \Longleftrightarrow S \subseteq X}
+$$
 
 ****
 
