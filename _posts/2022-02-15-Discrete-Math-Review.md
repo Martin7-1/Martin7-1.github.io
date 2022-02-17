@@ -8,6 +8,7 @@ header-img: img/bg3.jpg
 catalog: true
 tags:
     - Discrete Math
+    - SELearning
 ---
 
 
