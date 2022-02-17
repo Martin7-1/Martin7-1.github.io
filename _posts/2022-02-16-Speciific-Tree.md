@@ -7,8 +7,8 @@ author:     ZY
 header-img: img/bg6.jpg
 catalog: true
 tags:
-    - Dynamic Programming
-    - algorithm
+    - Data Structure
+    - Tree
 ---
 
 
