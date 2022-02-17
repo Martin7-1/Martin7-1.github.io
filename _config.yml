@@ -53,6 +53,7 @@ highlighter: rouge
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
   math_engine: null
+  syntax_highlighter: rouge
 
 
 
