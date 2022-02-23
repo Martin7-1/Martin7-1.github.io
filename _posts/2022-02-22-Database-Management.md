@@ -623,8 +623,6 @@ tags:
 
 
 
-
-
 ## 7 关系代数
 
 ### 7.1 基本的关系操作
@@ -659,7 +657,7 @@ tags:
 
 1. $R$ 和 $S$ 具有相同的目 $n$（即两个关系都有 $n$ 个属性），且相应的属性取自同一个域
 2. $R \cup S$ 仍为 $n$ 目关系，由属于 $R$ 或属于 $S$ 的元组组成
-3. $R \cup S = \left \{ t \| t \in R \wedge t \in S \right \}$
+3. $R \cup S = \left \{ t \| t \in R \lor t \in S \right \}$
 
 ![](https://s2.loli.net/2022/02/22/AZmkQLswxWGt2C7.png)
 
@@ -667,7 +665,112 @@ tags:
 
 ### 7.3 差
 
+**差（Difference）**：
 
+1. $R$ 和 $S$ 具有相同的目 $n$ ，且相应的属性取自同一个域
+
+2. $R - S$ 仍为 $n$ 目关系，由属于 $R$ 而不属于 $S$ 的所有元组组成
+
+3. $R -S = \left \{ t \|t \in R \wedge t \notin S \right \}$
+
+![](https://s2.loli.net/2022/02/23/ogDZdabWmFsr1Ni.png)
+
+
+
+### 7.4 交
+
+**交（Intersection）**：
+
+1. $R$ 和 $S$ 具有相同的目 $n$ ，且相应的属性取自同一个域
+
+2. $R \cap S$ 仍为 $n$ 目关系，由既属于 $R$ 又属于 $S$ 的元组组成
+
+3. $R \cap S = \left \{ t \| t \in R \land t \in S \right \}$
+
+4. $R \cap S = R – (R - S)$
+
+![](https://s2.loli.net/2022/02/23/TxAIvauSq7w1nbl.png)
+
+
+
+### 7.5 笛卡尔积
+
+>严格来讲应该是广义的笛卡尔积（Extended Cartesian Product）
+
+1. $R$: $n$ 目关系，$k_1$ 个元组，$S$: $m$ 目关系，$k_2$ 个元组
+
+2. $R \times S$： 
+	1. 列：$(n + m)$ 列元组的集合
+		* 元组的前 $n$ 列是关系 $R$ 的一个元组
+		* 后 $m$ 列是关系 $S$ 的一个元组
+	2. 行：$k_1 \times k_2$ 个元组
+		* $R \times S = \left \{t_r, t_s \|t_r \in R \land t_s \in S \right \}$
+
+![image-20220223200700591](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220223200700591.png)
+
+
+
+### 7.6 使用的记号
+
+#### 7.6.1 元组的连接
+
+![](https://s2.loli.net/2022/02/23/lkymY65irK3wFG7.png)
+
+1. $R$ 为 $n$ 目关系，$S$ 为 $m$ 目关系。
+
+2. $t_r \in R,t_s \in S$，称为元组的连接。
+
+3. 元组的连接是一个 $n + m$ 列的元组，前 $n$ 个分量为 $R$ 中的一个 $n$ 元组，后 $m$ 个分量为 $S$ 中的一个 $m$ 元组。 
+
+
+
+#### 7.6.2 象集
+
+1. 给定一个关系 $R(X，Z)$，$X$ 和 $Z$ 为属性组。
+
+2. 当 $t[X]=x$ 时，$x$ 在 $R$ 中的象集（Images Set）为：
+	1. $Z_x =\left \{t[Z] \|t \in R, t[X]=x \right \}$
+	2. 它表示 $R$ 中属性组 $X$ 上值为 $x$ 的诸元组在 $Z$ 上分量的集合
+
+![](https://s2.loli.net/2022/02/23/Ois7x582K1aNuGF.png)
+
+ 
+
+### 7.7 选择
+
+> 选择（Selection）又称为限制（Restriction）
+
+选择运算符的含义：
+
+* 在关系 $R$ 中选择满足给定条件的所有元组
+* $\sigma_F(R) = \left \{t \| t \in R \land F(t)= true \right \}$
+* $F$：选择条件，是一个逻辑表达式，取值为“真”或“假”
+	* 基本形式为：$X_1 \theta Y_1$，$\theta$ 表示比较运算符，它可以是$＞, \ge,＜, \le, ＝, \ne$
+	* 在基本的选择条件上可以进一步进行逻辑运算（与，或，非）
+
+![](https://s2.loli.net/2022/02/23/TNROxyeCmKL3b7A.png)
+
+
+
+### 7.8 投影
+
+**投影（Projection）**：
+
+* 从 $R$ 中选择出若干属性列组成新的关系
+
+* $\pi_A(R) = \left \{ t[A] \| t \in R \right \}$
+
+	>  $A$：$R$ 中的属性列 
+
+* 投影之后不仅取消了原关系中的某些列，而且还可能取消某些元组（避免重复行）
+
+![](https://s2.loli.net/2022/02/23/rOwcIUYNDFlxTMV.png)
+
+
+
+### 7.9 连接
+
+> 连接（Join）也称为 $\theta$ 连接
 
 
 
