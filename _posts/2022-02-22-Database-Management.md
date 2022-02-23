@@ -772,6 +772,71 @@ tags:
 
 > 连接（Join）也称为 $\theta$ 连接
 
+* 连接运算的含义：从两个关系的笛卡尔积中选取属性间满足一定条件的元组。
+* $R \Join  S = \left \{ \overline{t_r t_s} \| t_r \in R \land t_s \in S \land t_r[A] \theta t_s[B]  \right \}$
+	* $A,B$：分别为 $R$ 和 $S$ 上度数相等且可比的属性组
+	* $\theta$ ：比较运算符
+* 连接运算从 $R$ 和 $S$ 的广义笛卡尔积 $R \times S$ 中选取 $R$ 关系在 $A$ 属性组上的值与 $S$ 关系在 $B$ 属性组上的值满足比较关系θ的元组 
+
+
+
+#### 7.9.1 等值连接
+
+* $\theta$ 为“＝”的连接运算称为等值连接
+* 从关系 $R$ 与 $S$ 的广义笛卡尔积中选取 $A$、$B$ 属性值相等的那些元组，即等值连接为：
+* $R \Join  S = \left \{ \overline{t_r t_s} \| t_r \in R \land t_s \in S \land t_r[A] = t_s[B]  \right \}$
+
+
+
+#### 7.9.2 自然连接
+
+> 一种特殊的等值连接
+
+* 两个关系中进行比较的分量必须是相同的属性组
+
+* 在结果中把重复的属性列去掉
+
+* 自然连接的含义：$R$ 和 $S$ 具有相同的属性组 $B$
+	* $R \Join  S = \left \{ \overline{t_r t_s}[U-B] \| t_r \in R \land t_s \in S \land t_r[B] = t_s[B]  \right \}$
+
+![](https://s2.loli.net/2022/02/23/T9q2mzNK7MnB4sl.png)
+
+
+
+#### 7.9.3 悬浮元组
+
+两个关系 $R$ 和 $S$ 在做自然连接时，关系 $R$ 中某些元组有可能在 $S$ 中不存在公共属性上值相等的元组，从而造成 $R$ 中这些元组在操作时被舍弃了，这些被舍弃的元组称为悬浮元组。
+
+
+
+#### 7.9.4 外连接
+
+> Outer Join
+
+* 如果把悬浮元组也保存在结果关系中，而在其他属性上填空值(Null)，就叫做外连接
+
+* 左外连接(LEFT OUTER JOIN或LEFT JOIN)：只保留左边关系 $R$ 中的悬浮元组
+
+* 右外连接(RIGHT OUTER JOIN或RIGHT JOIN)：只保留右边关系 $S$ 中的悬浮元组
+
+
+
+### 7.10 除运算
+
+* 给定关系 $R (X, Y)$ 和 $S (Y, Z)$，其中 $X, Y, Z$ 为属性组。
+
+* $R$ 中的 $Y$ 与 $S$ 中的 $Y$ 可以有不同的属性名，但必须出自相同的域集。
+
+* $R$ 与 $S$ 的除运算得到一个新的关系 $P(X)$，$P$ 是 $R$ 中满足下列条件的元组在 $X$ 属性列上的投影：
+
+	* 元组在 $X$ 上分量值 $x$ 的象集 $Y_x$ 包含 $S$ 在 $Y$ 上投影的集合，记作：
+
+	* $R \div S = \left \{t_r[X] \| t_r \in R \land \pi_Y(S) \subseteq Y_x \right \}$
+
+		> $Y_x$：$x$ 在 $R$ 中的象集，$x = t_r[x]$ 
+
+![](https://s2.loli.net/2022/02/23/nl3uWkzC8JSTaRI.png)
+
 
 
 ## Reference
