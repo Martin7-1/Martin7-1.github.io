@@ -73,8 +73,6 @@ tags:
 
 数据库系统是由数据库、数据库管理系统（及其应用开发工具）、应用程序和数据库管理员（Database Administrator, DBA）共同组成的存储、管理、处理和维护数据的系统。
 
-![](https://s2.loli.net/2022/02/17/SOyRu3AwcdCPsMf.png)
-
 
 
 ### 1.2  数据管理技术的产生和发展
