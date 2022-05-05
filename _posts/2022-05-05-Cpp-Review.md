@@ -2,7 +2,7 @@
 layout:     post
 title:      Cpp Review
 subtitle:   Cpp 学习中的一些简单记录？
-date:       2022-5-4
+date:       2022-5-5
 author:     ZY
 header-img: img/bg13.jpg
 catalog: true
@@ -11,11 +11,13 @@ tags:
     - Cpp
 ---
 
+
+
 # Cpp Review
 
 > 记载学习cpp的过程中一些比较容易遗忘和比较特殊的点（相比Java）
 
-## Const
+## Const in Cpp
 
 ```cpp
 const int* p1; // 不能改变指针指向的地址的值
@@ -33,6 +35,173 @@ public:
         return m_x;
     }
 }
+```
+
+
+
+## Static in Cpp
+
+Cpp中的 `static` 变量分成两类：
+
+1. `Static Variables`：函数中用 `static` 修饰的变量或者类中的成员变量。
+2. `Static Members of Class`：`static` 修饰的类对象和类成员方法。
+
+
+
+### Static Variables
+
+#### static variables in a function
+
+当一个变量被声明为 `static` 的时候，尽管可能是在某个函数中声明的，但 `static` 让其的声明周期延长到了程序结束运行，即使我们多次调用同一个函数，这个变量还是只能够初始化一次（其所在内存空间会一直保存，不会随着方法的退栈而被清空）。并且前一次调用中的变量值将通过下一次函数调用进行传递。比如如下的代码：
+
+```cpp
+#include <iostream>
+#include <string>
+
+void demo()
+{
+    static int count = 0;
+    std::cout << count << " ";
+    
+    // value is updated and
+    // will be carried to next
+    // function calls
+    // 下一次函数调用count的值就会是1
+    count++;
+}
+
+int main()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        demo();
+    }
+    
+    return 0;
+}
+```
+
+Output:
+
+```cpp
+0 1 2 3 4
+```
+
+
+
+#### static variables in class
+
+由于声明为静态的变量仅被初始化一次，因为它们在单独的静态存储中分配空间，因此，类中的静态变量由对象共享。不同对象不能有相同静态变量的多个副本。也因为这个原因，静态变量不能使用构造函数初始化。（这个特性和Java中类的静态成员变量是一样的）。我们可以看如下的示例代码。
+
+```cpp
+#include <iostream>
+
+class GFG
+{
+public:
+    static int i;
+    
+    GFG() 
+    { 
+        // do nothing
+    }
+};
+
+int GFG::i = 1;
+
+int main()
+{
+    GfG obj;
+    // prints value of i
+    cout << obj.i; 
+}
+```
+
+Output
+
+```cpp
+1
+```
+
+
+
+### Static Members of Class
+
+#### class objects as static
+
+类的静态对象和在函数中声明的静态变量是一样的，其生命周期被延长到了程序运行结束的时候，比如如下的代码：
+
+```cpp
+#include <iostream>
+
+class GFG
+{
+    int i = 0;
+public:
+    GFG()
+    {
+        i = 0;
+        std::cout << "Inside Constructor" << std::endl;
+	}
+    
+    ~GFG()
+    {
+        std::cout << "Inside Destructor" << std::endl;
+	}
+};
+
+int main()
+{
+    {
+        static GFG obj;
+    }
+    
+    std::cout << "End of main" << std::endl;
+    return 0;
+}
+```
+
+Output:
+
+```cpp
+Inside Constructor
+End of main
+Inside Destructor
+```
+
+可以看到在程序的末尾才调用了析构函数，而不是在作用域一结束时就调用了析构函数 这说明静态对象的生命周期被延长到了整个程序运行结束的时候。
+
+
+
+#### static funcations in a class
+
+类的静态成员方法和Java中是一样的，支持被类名直接调用，且在该方法中只能访问类的静态变量。（在Cpp中，类名直接调用的方式是`ClassName::MethodName()`）
+
+就像类内部的静态数据成员或静态变量一样，静态成员函数也不依赖于类的对象。我们可以使用对象和“.”运算符调用静态成员函数，但建议使用类名和**范围解析运算符(`::`)**调用静态成员。 静态成员函数只允许访问静态数据成员或其他静态成员函数，不能访问类的非静态数据成员或成员函数。
+
+```cpp
+#include <iostream>
+
+class GFG
+{
+public:
+    static void PrintMsg()
+    {
+        std::cout << "Welcom to GFG!";
+	}
+};
+
+int main()
+{
+    GFG::PrintMsg();
+    return 0;
+}
+```
+
+Output:
+
+```cpp
+Welcome to GfG!
 ```
 
 
@@ -897,6 +1066,204 @@ int main()
 | :------------ | :-------------- | :----------------------------------- | :----------------------------------- |
 | Base Class    | Yes             | Yes                                  | Yes                                  |
 | Derived Class | No              | Yes (inherited as private variables) | Yes (inherited as private variables) |
+
+
+
+## Switch In Cpp
+
+作为一款追求性能的语言，Cpp的编译器会通过不同的方式来提升 `switch` 语句的性能，方式主要有以下的三种：
+
+1. 逐条件判断（类似 `if-else`）
+2. 跳转表实现
+3. 二分查找法（类似二叉搜索树）
+
+
+
+### 逐条件判断
+
+这种方法主要是用于 `switch-case` 比较少的场景，即使使用逐个条件判断也不会导致大量时间和空间的浪费，比如说下面这段代码：
+
+```cpp
+#include <algorithm>
+
+int TestSwitch()
+{
+    int i;
+    int a = std::rand();
+    
+    switch(a)
+    {
+        case 0:
+            i = 0;
+            break;
+        case 1:
+            i = 1;
+            break;
+        case 2:
+            i = 2;
+            break;
+        default:
+            i = 3;
+            break;
+	}
+    
+    return i;
+}
+```
+
+对应的汇编如下：
+
+```
+	movl	-4(%rbp), %eax
+	cmpl	$1, %eax
+	je	.L3
+	cmpl	$2, %eax
+	je	.L4
+	testl	%eax, %eax
+	jne	.L8
+	movl	$0, -8(%rbp)
+	jmp	.L6
+.L3:
+	movl	$1, -8(%rbp)
+	jmp	.L6
+.L4:
+	movl	$2, -8(%rbp)
+	jmp	.L6
+.L8:
+	movl	$3, -8(%rbp)
+	nop
+```
+
+其实就是逐一比较，如果条件满足的话就跳转到对应的代码段执行。
+
+
+
+### 跳转表实现法
+
+该方法是用空间换时间的一种典型应用，在编译 `switch` 语句的时候，会生成一张跳转表，跳转表存放着各个 `case` 语句指令快的位置，程序运行时就判断 `switch` 条件的值，然后把该条件值作为跳转表的**偏移量**去找到对应 `case` 语句的指令地址。这种情况适用于 `case` 比较多但是相差的数值不大的情况。
+
+```cpp
+#include <algorithm>
+
+int TestSwitch()
+{
+    int i;
+    int a = std::rand();
+    
+    switch (a)
+    {
+        case 0: i = 0; break;
+        case 1: i = 1; break;
+        case 2: i = 2; break;
+        case 3: i = 3; break;
+        case 4: i = 4; break;
+        case 5: i = 5; break;
+        case 6: i = 6; break;
+        case 7: i = 7; break;
+        case 8: i = 8; break;
+        case 9: i = 9; break;
+        default: i = 10; break;
+	}
+}
+```
+
+对应的汇编代码如下：
+
+```
+	movl	-4(%rbp), %eax
+	movq	.L4(,%rax,8), %rax
+	jmp	*%rax
+.L4:
+	.quad	.L3
+	.quad	.L5
+	.quad	.L6
+	.quad	.L7
+	.quad	.L8
+	.quad	.L9
+	.quad	.L10
+	.quad	.L11
+	.quad	.L12
+	.quad	.L13
+	.text
+.L3:
+	movl	$0, -8(%rbp)
+	jmp	.L14
+.L5:
+	movl	$1, -8(%rbp)
+	jmp	.L14
+```
+
+一般情况下会先将 `switch` 的变量（这里是 `a`） 先减去最小的 `case` 值，然后再与 最大和最小的 `case` 值的差值比较，如果大于的话说明是 `default` ，然后再根据值跳转到对应的地址。
+
+
+
+### 二分查找法
+
+如果case值较多且分布极其离散的话，如果采用逐条件判断的话，时间效率会很低，如果采用跳转表方法的话，跳转表占用的空间就会很大，前两种方法均会导致程序效率低。在这种情况下，编译器就会采用二分查找法实现switch语句，程序编译时，编译器先将所有case值排序后按照二分查找顺序写入汇编代码，在程序执行时则采二分查找的方法在各个case值中查找条件值，如果查找到则执行对应的case语句，如果最终没有查找到则执行default语句。对于如下C++代码编译器就会采用这种二分查找法实现switch语句：
+
+```cpp
+#include <algorithm>
+
+int TestSwitch()
+{
+    int i;
+    int a = std::rand();
+    
+    switch (a)
+    {
+        case 4: i = 4;break;
+        case 10: i = 10;break;
+        case 50: i = 50;break;
+        case 100: i = 100;break;
+        case 200: i = 200;break;
+        case 500: i = 500;break;
+        default: i = 0;break;
+	}
+}
+```
+
+对应的汇编如下：
+
+```
+    movl	-4(%rbp), %eax
+	cmpl	$50, %eax
+	je	.L3
+	cmpl	$50, %eax
+	jg	.L4
+	cmpl	$4, %eax
+	je	.L5
+	cmpl	$10, %eax
+	je	.L6
+	jmp	.L2
+.L4:
+	cmpl	$200, %eax
+	je	.L7
+	cmpl	$500, %eax
+	je	.L8
+	cmpl	$100, %eax
+	je	.L9
+	jmp	.L2
+```
+
+实际上就是二叉搜索树，先与中间的 `case` 值比较，然后再一步步往叶节点走，直到找到符合的 `case` 值或者什么也没找到。
+
+综上，cpp中 `swtich` 会根据不同的使用场景有不同的性能优化，但缺点就在于只能使用整型值作为 `case` 的量。
+
+
+
+
+
+## Reference
+
+1. [TheCherno](https://www.bilibili.com/video/BV1VJ411M7WR?from=search&seid=3108701982078670756&spm_id_from=333.337.0.0)
+2. 南京大学软件学院2022年春季学期C++高级程序设计
+3. [GeeksforGeeks Cpp](https://www.geeksforgeeks.org/c-plus-plus/?ref=shm)
+4. [cppreference](https://en.cppreference.com/w/)
+5. [cplusplus](https://www.cplusplus.com/)
+
+
+
+
 
 
 
