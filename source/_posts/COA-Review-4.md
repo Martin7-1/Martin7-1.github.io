@@ -7,15 +7,11 @@ tags:
     - SELearning
     - Computer Organization and Architecture
 categories:
-    - Computer Structure
+    - Computer Science
+    - Computer Organization and Architecture
 ---
 
-# COA Review (4)
-
-
 ## 15 指令周期和指令流水线
-
-<!--more-->
 
 ### 指令周期
 

@@ -10,11 +10,7 @@ categories:
     - Cpp
 ---
 
-# Cpp Review
-
 > 记载学习cpp的过程中一些比较容易遗忘和比较特殊的点（相比Java）
-
-<!--more-->
 
 ## Const in Cpp
 

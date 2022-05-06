@@ -7,15 +7,12 @@ tags:
     - SELearning
     - Computer Organization and Architecture
 categories:
-    - Computer Structure
+    - Computer Science
+    - Computer Organization and Architecture
 ---
-
-# COA Review (2)
 
 
 ## 8 内部存储器
-
-<!--more-->
 
 **存储器（Memory）**由一定数量的单元构成，每个单元可以被唯一标识，每个单元都有存储一个数值的能力
 

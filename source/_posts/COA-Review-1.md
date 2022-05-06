@@ -7,17 +7,12 @@ tags:
     - SELearning
     - Computer Organization and Architecture
 categories:
-    - Computer Structure
+    - Computer Science
+    - Computer Organization and Architecture
 ---
 
 
-# COA Review (1)
-
-
-
 ## 1 计算机系统概述
-
-<!--more-->
 
 ### What is computer
 
@@ -865,7 +860,7 @@ $$
 * 有效值相除
 * 结果规格化和舍入处理
 
-![image-20220105213331445](C:/Users/Zyi/AppData/Roaming/Typora/typora-user-images/image-20220105213331445.png)
+![](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220105213331445.png)
 
 ### 精度考虑
 

@@ -7,14 +7,11 @@ tags:
     - SELearning
     - Computer Organization and Architecture
 categories:
-    - Computer Structure
+    - Computer Science
+	- Computer Organization and Architecture
 ---
 
-# COA Review (3)
-
 ## 13 总线
-
-<!--more-->
 
 > 总线时连接两个或多个设备的通信通路
 
