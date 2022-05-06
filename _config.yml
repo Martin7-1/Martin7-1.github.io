@@ -129,6 +129,6 @@ live2d:
     superSample: 2
     width: 210
     height: 420
-    position: left # Where the model is displayed on the web page
-    hOffset: 0
-    vOffset: -20
+    position: right # Where the model is displayed on the web page
+    hOffset: -20
+    vOffset: -50
