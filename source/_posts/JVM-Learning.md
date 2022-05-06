@@ -2,7 +2,7 @@
 title: JVM-Learning
 date: 2022-02-14 16:08:03
 description: Java Virtual Machine Learning notebook
-top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/bg.jpg
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku21.jpg
 tags:
     - SELearning
     - Java

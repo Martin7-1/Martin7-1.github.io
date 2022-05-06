@@ -2,7 +2,7 @@
 title: COA Review (4)
 date: 2022-02-15 16:08:03
 description: 南京大学2021秋季学期《计算机组织与结构》课程笔记(4)
-top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220506163457.png
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku23.jpg
 tags:
     - SELearning
     - Computer Organization and Architecture

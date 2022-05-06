@@ -2,7 +2,7 @@
 title: Object-oriented Encapsulation
 date: 2022-02-14 16:10:18
 description: Object oriented Encapsulation
-top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220506162502.png
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku20.jpg
 tags:
     - SELearning
     - Java
