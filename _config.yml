@@ -114,3 +114,21 @@ markdown_it_plus:
       enable: true
       options:
         strict: false
+
+# Live2D
+live2d:
+  enable: true
+# enable: false
+  scriptFrom: local # default
+  pluginRootPath: live2dw/ # Plugin on the root of the site
+  pluginJsPath: lib/ # Script file relative to the plugin root directory path
+  pluginModelPath: assets/ # Model file relative to plugin root directory path
+  model:   
+    use: live2d-widget-model-tororo # Downloaded animated model name
+  display:
+    superSample: 2
+    width: 210
+    height: 420
+    position: left # Where the model is displayed on the web page
+    hOffset: 0
+    vOffset: -20
