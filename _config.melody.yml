@@ -26,7 +26,7 @@ menu:
 
 # Favicon
 # ---------------
-favicon: /melody-favicon.ico
+# favicon: /melody-favicon.ico
 
 # PWA
 # See https://github.com/JLHwung/hexo-offline
@@ -254,8 +254,8 @@ since: 2021
 footer_custom_text: hitokoto
 
 ICP:
-  enable: false
-  #text:
+  enable: true
+  text: '闽ICP备2022001541号-1'
 
 # busuanzi count for PV / UV in site
 busuanzi:
