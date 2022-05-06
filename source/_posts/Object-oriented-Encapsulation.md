@@ -1,8 +1,15 @@
 ---
-layout: object-oriented
-title: Encapsulation
-date: 2022-05-06 16:10:35
+title: Object-oriented Encapsulation
+date: 2022-02-14 16:10:18
+description: Object oriented Encapsulation
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220506162502.png
 tags:
+    - SELearning
+    - Java
+    - '面向对象'
+    - '编程范式'
+categories:
+    - coding
 ---
 
 
