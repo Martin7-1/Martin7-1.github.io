@@ -102,7 +102,9 @@ theme: melody
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/Martin7-1/Martin7-1.github.io.git
+  branch: main
 
 markdown_it_plus:
   plugins:
