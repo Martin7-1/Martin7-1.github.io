@@ -3,8 +3,6 @@ title: about
 date: 2022-05-06 23:38:14
 ---
 
-# About Me
-
 来自NJU SE的Miku Fan~
 
 正在学习Java Web服务端开发及部署

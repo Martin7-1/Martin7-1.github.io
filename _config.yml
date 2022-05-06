@@ -132,3 +132,9 @@ live2d:
     position: right # Where the model is displayed on the web page
     hOffset: -25
     vOffset: -50
+  mobile:
+    show: false
+    scale: 0.5
+  react:
+    opacityDefault: 0.7
+    opacityOnHover: 0.2
