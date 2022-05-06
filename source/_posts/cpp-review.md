@@ -1,12 +1,12 @@
 ---
-title: cpp-review
+title: Cpp Review
 date: 2022-05-05 23:46:09
 description: This is Cpp review in Cpp advance Design Course
 tags:
     - SELearning
     - Cpp
 categories:
-    - Coding
+    - Cpp
 ---
 
 # Cpp Review
