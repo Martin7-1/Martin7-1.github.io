@@ -130,5 +130,5 @@ live2d:
     width: 210
     height: 420
     position: right # Where the model is displayed on the web page
-    hOffset: -20
+    hOffset: -25
     vOffset: -50
