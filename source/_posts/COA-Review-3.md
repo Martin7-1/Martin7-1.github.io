@@ -8,7 +8,7 @@ tags:
     - Computer Organization and Architecture
 categories:
     - Computer Science
-	- Computer Organization and Architecture
+    - Computer Organization and Architecture
 ---
 
 ## 13 总线
