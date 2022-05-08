@@ -15,6 +15,8 @@ categories:
 
 >  软件的可维护性（Maintainability）和可复用性（Reusability）是两个非常重要的用于衡量软件质量的属性，软件的可维护性是指软件能够被理解、改正、适应及扩展的难易程度，软件的可复用性是指软件能够被重复使用的难易程度。 -- Java设计模式
 
+<!--more-->
+
 ![](https://s2.loli.net/2022/03/17/CyJYc2qv1gxBANm.png)
 
 ## 2 SRP 单一职责原则

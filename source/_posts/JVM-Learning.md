@@ -15,6 +15,8 @@ categories:
 
 要学习Java虚拟机（Java Virtual Machine），您必须会**Java的基本语法**和**Java特性**
 
+<!--more-->
+
 ## 1 JVM内存结构
 
 Java虚拟机的内存空间由以下的五个部分组成：

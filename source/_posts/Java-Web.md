@@ -35,6 +35,7 @@ categories:
 
 	> Mybatis是Java中的一款数据持久化框架，能够在Java实体类和SQL语句间建立映射关系，是一种半自动化的ORM（Object Relational Mapping）实现
 
+<!--more-->
 
 
 ## 1 What is a web application

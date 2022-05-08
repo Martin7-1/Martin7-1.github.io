@@ -152,7 +152,7 @@ post_copyright:
 
 # Please see doc for more details: https://molunerfinn.com/hexo-theme-melody-doc/theme-config.html#auto-excerpt
 auto_excerpt:
-  enable: true
+  enable: false
   length: 20
 
 # slide
@@ -255,7 +255,7 @@ disqus:
 # ---------------
 since: 2021
 
-footer_custom_text: hitokoto
+footer_custom_text: just a miku fan
 
 ICP:
   enable: true

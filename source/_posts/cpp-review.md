@@ -32,6 +32,8 @@ public:
 }
 ```
 
+<!--more-->
+
 
 ## Static in Cpp
 

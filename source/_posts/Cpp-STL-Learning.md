@@ -15,6 +15,8 @@ categories:
 
 ![img](https://oi-wiki.org/lang/csl/images/container1.png)
 
+<!--more-->
+
  **序列式容器**
 
 1. **vector**：后端可高效增加元素的序列表（有点类似Java的**ArrayList**）

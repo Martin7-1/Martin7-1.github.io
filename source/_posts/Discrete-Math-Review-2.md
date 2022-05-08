@@ -23,6 +23,8 @@ $$
 1. V 是顶点的集合
 2. $E \subseteq \{\{x, y\}\ |\ x, y \in V \land x \neq y\}$ 是边的集合
 
+<!--more-->
+
 **Definition(Walk 道路)**
 
 图 $G$ 中的(有限)道路是指像以下形式的一群边：

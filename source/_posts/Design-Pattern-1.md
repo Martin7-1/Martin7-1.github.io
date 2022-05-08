@@ -19,6 +19,8 @@ categories:
 
 创建模式描述了怎样构造和封装这些动态决定
 
+<!--more-->
+
 
 
 ## Simple Factory 简单工厂
