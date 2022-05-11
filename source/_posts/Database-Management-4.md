@@ -1,6 +1,6 @@
 ---
 title: Database Management Review (4)
-date: 2022-05-09 16:52:03
+date: 2022-05-11 17:43:03
 description: 南京大学2022春季学期《数据管理基础》课程笔记 (4)
 top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku4.jpg
 tags:
@@ -568,6 +568,126 @@ WHERE <条件表达式>
 SELECT *
 FROM student, student_class
 WHERE `student`.`student_no` = `student_class`.`student_no`;
+```
+
+**嵌套循环算法（Nested Loop Join）**：
+
+* 对外层循环（`student` 表）的每一个元组，检索内层循环（`student_class` 表）中的每一个元组。
+* 检查这两个元组在连接属性 `student_no` 上是否相等。
+* 如果满足连接条件，则串接后作为结果输出，直到外层循环表中的元组处理完为止。
+
+> 即一个二重循环，Java等价代码可以这样表示：
+>
+> ```java
+> List<Student> studentList;
+> List<StudentClass> studentClassList;
+> List<Answer> ansList; // 这是student和student_class 连接的答案元组
+> 
+> for (Student student : studentList) {
+>     for (StudentClass studentClass : studentClassList) {
+>         if (studentList.studentNo == studentClass.studentNo) {
+>             // 连接加入ansList中
+>             break;
+>         }
+>     }
+> }
+> ```
+
+
+
+**排序-合并算法（Sort-Merge Join 或 Merge-Join）**
+
+1. 如果连接的表没有排好序，先对 `student` 表和 `student_class` 表按连接属性 `student_no` 排序。
+2. 取 `student` 表中第一个 `student_no`，依次扫描 `student_class` 表中具有相同 `student_no` 的元组。
+3. 当扫描到 `student_no` 不相同的第一个 `student_class` 元组时，返回 `student` 表扫描它的下一个元组，再扫描 `student_class` 表中具有相同 `student_no` 的元组，把它们连接起来。
+
+> 即大概的流程如下：比如现在 `student` 表中有三个元组，`student_no` 分别为1,2,3，`student_class` 表中有六个元组，分别为1,1,2,3,3,3。则先排序（这里已经排序好了），然后扫描`student` 的第一个元组，得到 `student_no = 1`，然后扫描 `student_class`，前两个元组的 `student_no` 都相同，扫描到 `student_no = 2` 时，因为与 `student` 表中取出的 `student_no` 不同，则返回 `student` 表，然后取下一个 `student_no = 2`，然后回到 `student_class` 取下一个， `student_no = 2`。如此遍历下去即可。
+
+优点：
+
+* `student` 表和 `student_class` 表都只要扫描一遍
+* 如果两个表原来无序，执行时间要加上对两个表的排序时间
+* 对于大表，先排序后使用排序-合并连接算法执行连接，总的时间一般仍会减少
+
+
+
+**索引连接（Index Join）算法**：
+
+1. 在 `student_class` 表上已经建立属性 `student_no` 的索引
+2. 对 `student` 中的每一个元组，由 `student_no` 值通过 `student_class` 的索引查找相应的 `student_class` 元组。
+3. 把这些 `student_class` 元组和 `student` 元组连接起来。
+4. 循环执行第二步和第三步，直到 `student` 表中的元组处理完为止。
+
+
+
+**Hash Join算法**
+
+1. 把连接属性作为hash码，用同一个hash函数把 `student` 表和 `student_class` 表中的元组散列到hash表中
+2. 划分阶段（building phase, 也称为 partitioning phase）
+	* 对包含较少元组的表（`student` 表）进行一遍处理
+	* 把它的元组按hash函数分散到hash表的桶中
+3. 试探阶段（probing phase, 也称为连接阶段 join phase）
+	* 对另一个表（`student_class` 表）进行一遍处理
+	* 把 `student_class` 表的元组也按同一个hash函数（hash码是连接属性）进行散列
+	* 把 `student_class` 元组与桶中来自 `student` 表并与之相匹配的元组连接起来。
+
+Hash Join算法的前提：假设两个表中较小的表在第一阶段后可以完全放入内存的hash桶中。
+
+
+
+## 32 查询优化
+
+**关系系统的查询优化**：
+
+* 是关系数据库管理系统实现的关键技术又是关系系统的优点所在
+* 减轻了用户选择存取路径的负担
+
+关系查询优化是影响关系数据库管理系统性能的关键因素
+
+由于关系表达式的语义级别很高，使关系系统可以从关系表达式中分析查询语义，提供了执行查询优化的可能性
+
+**非关系系统的查询优化**：
+
+* 用户使用过程化的语言表达查询要求，执行何种记录级的操作以及操作的序列是由用户来决定的。
+* 用户必须了解存取路径，系统要提供用户选择存取路径的手段，查询效率由用户的存取策略决定。
+* 如果用户做了不当的选择，系统是无法对此加以改进的。
+
+
+
+**查询优化的优点**：
+
+* 用户不必考虑如何最好地表达查询以获得较好的效率
+* 系统可以比用户程序的“优化”做得更好
+	* 优化器可以从数据字典中获取许多统计信息，而用户程序则难以获得这些信息。
+	* 如果数据库的物理统计信息改变了，系统可以自动对查询重新优化以选择相适应的执行计划。在非关系系统中必须重写程序，而重写程序在实际应用中往往是不太可能的。
+	* 优化器可以考虑数百种不同的执行计划，程序员一般只能考虑有限的几种可能性。
+	* 优化器中包括了很多复杂的优化技术，这些优化技术往往只有最好的程序员才能掌握。系统的自动优化相当于使得所有人都拥有这些优化技术。
+
+
+
+**查询优化的总目标**
+
+* 关系数据库管理系统通过某种代价模型计算出各种查询执行策略的执行代价，然后选取代价最小的执行方案
+	* 集中式数据库
+		* 执行开销主要包括：磁盘存取块数（I/O代价） + 处理机时间（CPU代价） + 查询的内存开销
+		* I/O代价是最主要的
+	* 分布式数据库
+		* 总代价=I/O代价+CPU代价+内存代价＋通信代价
+* 查询优化的总目标
+	* 选择有效的策略
+	* 求得给定关系表达式的值
+	* 使得查询代价最小（实际上是较小，因为需要权衡多因素，不可能达到最完美）
+* 一个关系查询可以对应不同的执行方案，其效率可能相差非常大。
+
+
+
+## 33 代数优化
+
+代数优化策略：通过对关系代数表达式的等价变换来提高查询效率
+
+关系代数表达式的等价：指用相同的关系代替两个表达式中相应的关系所得到的结果是相同的
+
+两个关系表达式 $E_1$ 和 $E_2$ 是等价的，可记为 $E_1 \equiv E_2$
 ```
 
 
