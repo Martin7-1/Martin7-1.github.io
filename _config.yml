@@ -105,7 +105,7 @@ deploy:
   type: git
   repo: git@github.com:Martin7-1/Martin7-1.github.io.git
   branch: main
-
+  
 
 markdown_it_plus:
   plugins:
