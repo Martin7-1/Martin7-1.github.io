@@ -345,6 +345,202 @@ public class MementoCareTaker {
 
 
 
+## 7 观察者模式 Observer Pattern
+
+### 7.1 概述
+
+* 软件系统：一个对象的状态或行为的变化将导致其他对象的状态或行为也发生改变，它们之间将产生联动。
+* 观察者模式：
+	* 定义了对象之间一种**一对多**的依赖关系，让一个对象的改变能够影响其他对象
+	* 发生改变的对象称为观察目标，被通知的对象称为观察者
+	* 一个观察目标可以对应多个观察者。
+
+**定义**：观察者模式定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象都得到通知并被自动更新。
+
+> 对象行为型模式
+
+别名：
+
+* 发布-订阅（Public/Subscribe）模式
+* 模型-视图（Model/View）模式
+* 源-监听器（Source/Listener）模式
+* 从属者（Dependents）模式
+
+
+
+### 7.2 结构与实现
+
+#### 7.2.1 结构
+
+![image-20220517162134530](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220517162134530.png)
+
+其中，`Subject`的 `nofity` 方法一般实现如下：
+
+```java
+for (Observer obs : observerList) {
+    obs.update();
+}
+```
+
+`ConcreteObserver` 的 `update` 方法一般实现如下：
+
+```java
+observerState = subject.getState();
+```
+
+观察者模式包含以下4个角色：
+
+* `Subject`（目标）
+* `ConcreteSubject`（具体目标）
+* `Observer`（观察者）
+* `ConcreteObserver`（具体观察者）
+
+#### 7.2.2 实现
+
+* 典型的**目标类**实现
+
+```java
+public abstract class Subject {
+    
+    /**
+     * 定义一个观察者集合用于存储所有观察者对象
+     */
+    protected List<Observer> observerList = new ArrayList<>();
+    
+    /**
+     * 注册方法，用于向观察者集合中增加一个观察者
+     *
+     * @param observer: 要添加的观察者
+     */
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+    
+    /**
+     * 注销方法，用于在观察者集合中删除一个观察者
+     *
+     * @param observer: 要移除的观察者
+     */
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+    
+    /**
+     * 声明抽象通知方法
+     */
+    public abstract void notify();
+}
+```
+
+* 典型的**具体目标类**代码
+
+```java
+public class ConcreteSubject extends Subject {
+    
+    /**
+     * 实现通知方法
+     */
+    public void notify() {
+        for (Observer obs : observerList) {
+            obs.update();
+        }
+    }
+}
+```
+
+* 典型的**抽象观察者**代码
+
+```java
+public interface Observer {
+    
+    /**
+     * 声明响应方法
+     */
+    public void update();
+}
+```
+
+* 典型的**具体观察者**代码
+
+```java
+public class ConcreteObserver implements Observer {
+    
+    /**
+     * 实现响应方法
+     */
+    public void update() {
+        // 具体响应代码
+    }
+}
+```
+
+<span style='color: red'>**说明**</span>：
+
+* 有时候在具体观察者类`ConcreteObserver`中需要使用到具体目标类`ConcreteSubject`中的状态（属性），会存在关联或依赖关系。
+* 如果在具体层之间具有关联关系，系统的扩展性将受到一定的影响，<span style='color: red'>增加新的具体目标类有时候需要修改原有观察者的代码</span>，在一定程度上违背了开闭原则，但是如果原有观察者类无须关联新增的具体目标，则系统扩展性不受影响
+
+* 典型的客户端代码片段：
+
+```java
+......
+Subject subject = new ConcreteSubject();
+Observer observer = new ConcreteObserver();
+
+subject.attach(observer); // 注册观察者
+subject.notify();
+......
+```
+
+### 7.3 实例
+
+### 7.4 JDK对观察者模式的支持
+
+`java.util.Observer` 和 `java.util.Observable` 
+
+> 需要注意的是，相比于 Java 传统的以形容词为接口，名词为类不同，这里的 `java.util.Observer` 是一个接口， 代表观察者类，`java.util.Observable` 是一个类，代表目标类
+
+`java.util.Observer` 接口中只有唯一的方法 `update`，用来在目标类更新状态时被调用同步状态。
+
+### 7.5 观察者模式与Java时间处理
+
+* **事件源（Event Source）**：`Subject`
+	* 例如：`JButton`、`addActionListener()`：注册方法，`fireXXX()`：通知方法
+* **事件监听器（Event Listener）**：`Observer`
+	* 例如：`ActionListener`，`actionPerformed()`：响应方法
+* **事件处理类（Event Handling Class）**：`ConcreteObserver`
+	* 例如：`LoginHandling`：实现 `ActionListener` 接口
+
+### 7.6 观察者模式与MVC
+
+* Model、View、Controller
+* 模型可对应于观察者模式中的观察目标，而视图对应于观察者，控制器可充当两者之间的中介者
+* 当模型层的数据发生改变时，视图层将自动改变其显示内容。
+
+### 7.7 优缺点与适用环境
+
+#### 7.7.1 优点
+
+* 可以实现表示层和数据逻辑层的分离
+* 在观察目标和观察者之间建立一个抽象的耦合
+* 支持广播通信，简化了一对多系统设计的难度
+* 符合开闭原则，增加新的具体观察者无须修改原有系统代码，在具体观察者与观察目标之间不存在关联关系的情况下，增加新的观察目标也很方便
+
+#### 7.7.2 缺点
+
+* 将所有的观察者都通知到会花费很多时间
+* 如果存在**循环依赖**时可能导致系统崩溃
+* 没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而只是知道观察目标发生了变化
+
+#### 7.7.3 适用环境
+
+* 一个抽象模型有两个方面，其中一个方面依赖于另一个方面，将这两个方面封装在独立的对象中使它们可以各自独立地改变和复用
+* 一个对象的改变将导致一个或多个其他对象发生改变，且并不知道具体有多少对象将发生改变，也不知道这些对象是谁
+* 需要在系统中创建一个触发链
+
+
+
+
+
 ## Reference
 
 1. Java设计模式 -- 刘伟，清华大学出版社
