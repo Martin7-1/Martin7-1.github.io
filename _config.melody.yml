@@ -79,7 +79,7 @@ local_search:
 katex:
   enable: true
   cdn:
-    css: https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css
+    css: https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css
   hide_scrollbar: true
 
 # Toggle fireworks (IE >= 10)
@@ -118,11 +118,12 @@ cdn:
     # fontawesome: https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css
     fontawesomeV5: https://use.fontawesome.com/releases/v5.7.2/css/all.css
   js:
-    anime: https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js
-    jquery: https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js
-    fancybox: https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js
-    velocity: https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js
-    velocity-ui: https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js
+    anime: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js
+    jquery: https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js
+    fancybox: https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.js
+    # fancybox_css: https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.css
+    velocity: https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/2.0.6/velocity.min.js
+    velocity-ui: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/2.0.6/velocity.ui.min.js
 
 # Post info settings
 # ---------------

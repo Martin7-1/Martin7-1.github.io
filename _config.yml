@@ -103,7 +103,7 @@ theme: melody
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:Martin7-1/Martin7-1.github.io
+  repo: git@github.com:Martin7-1/Martin7-1.github.io.git
   branch: main
   
 
