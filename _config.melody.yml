@@ -54,6 +54,7 @@ code_word_wrap: true
 # ---------------
 social:
   github fab: https://github.com/Martin7-1
+  bilibili fab: https://space.bilibili.com/14777729
   qq fab: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/qq.jpg
   weixin fab: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/wechat.jpg
 
@@ -116,11 +117,11 @@ scripts:
 cdn:
   css:
     # fontawesome: https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css
-    fontawesomeV5: https://use.fontawesome.com/releases/v5.7.2/css/all.css
+    fontawesomeV5: https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css
   js:
     anime: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js
-    jquery: https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js
-    fancybox: https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.js
+    jquery: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js
+    fancybox: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js
     # fancybox_css: https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.1/jquery.fancybox.min.css
     velocity: https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/2.0.6/velocity.min.js
     velocity-ui: https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/2.0.6/velocity.ui.min.js
