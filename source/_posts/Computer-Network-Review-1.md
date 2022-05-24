@@ -11,8 +11,6 @@ categories:
     - Computer Network
 ---
 
-## 1 计算机网络及其参考模型
-
 ### 1.1 Content
 
 1. Overview of Computer Network
@@ -20,9 +18,6 @@ categories:
 3. TCP/IP Model
 4. Network Topology
 5. Network Devices
-
-
-<!--more-->
 
 
 
@@ -160,7 +155,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 ![](https://s2.loli.net/2022/02/16/KiEbWeLkVw5ncxT.png)
 
-##### 1.4.1.1 物理层
+##### 1.4.1.1 物理层（Physical Layer）
 
 物理层是OSI模型中最底层的模型，它主要负责设备间真实的物理连接。物理层以`bits`的方式保存和传输数据。它负责将`bits`从一个节点传输到下一个节点。当接收到数据时，物理层会将信号转换成“01”串并且将其传输给`Data Link Layer`。`Data Link Layer`会将这些数据帧重新组合在一起。
 
@@ -177,7 +172,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.2 数据链路层
+##### 1.4.1.2 数据链路层（Data Link Layer）
 
 数据链路层负责消息的节点到节点传递。该层的主要功能是确保通过物理层从一个节点到另一个节点的数据传输无差错。当数据包到达网络时，数据链路层 负责使用其 MAC（Media Address Control） 地址将其传输到主机。数据链路层可以划分成两个子层：
 
@@ -200,7 +195,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.3 网络层
+##### 1.4.1.3 网络层（Network Layer）
 
 网络层用于将数据从一台主机传输到位于不同网络中的另一台主机。它还负责数据包路由，即从可用路由的数量中选择传输数据包的最短路径。发送方和接收方的IP地址由网络层放置在标头中。
 
@@ -220,7 +215,9 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.4 传输层
+##### 1.4.1.4 传输层（Transport Layer）
+
+> Keyword: Reliability, Flow control, Error correction
 
 传输层向应用层提供服务，并从网络层获取服务。传输层中的数据称为分段（Segment）。它负责完整消息的端到端（End-to-End）交付。传输层还提供数据传输成功的确认，并在发现错误时重新传输数据。
 
@@ -245,7 +242,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.5 会话层
+##### 1.4.1.5 会话层（Session Layer）
 
 会话层负责连接的建立、会话的维护、身份验证，同时也保证了安全性。
 
@@ -257,7 +254,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.6 表示层
+##### 1.4.1.6 表示层（Presentation）
 
 表示层也称为**翻译层（Translation layer）**。来自应用层的数据在这里被提取出来，并按照所需的格式进行处理，以通过网络传输。
 
@@ -269,7 +266,7 @@ Bandwidth is the measure of how much information can flow from one place to anot
 
 
 
-##### 1.4.1.7 应用层
+##### 1.4.1.7 应用层（Application Layer）
 
 在 OSI  Model的最顶层，就是由网络应用程序实现的应用程序层。这些应用程序产生数据，这些数据必须通过网络传输。该层还用作应用服务访问网络和向用户显示接收到的信息的窗口。
 
@@ -303,3 +300,9 @@ Bandwidth is the measure of how much information can flow from one place to anot
 #### 1.4.3 总结
 
 OSI 模型作为参考模型，由于其发明较晚，并未在 Internet 上实现。当前使用的模型是 TCP/IP 模型。
+
+
+## Reference
+
+1. 南京大学软件学院2022春季学期《互联网计算》课程
+2. [Layers of OSI Model](https://www.geeksforgeeks.org/layers-of-osi-model/)
