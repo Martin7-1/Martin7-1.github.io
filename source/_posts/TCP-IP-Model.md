@@ -20,6 +20,8 @@ OSI 模型只是一个参考/逻辑模型。它旨在通过将通信过程划分
 3. Internet Layer（网络层）
 4. Network Access Layer（网络接入层）
 
+<!-- more -->
+
 ![img](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/tcpAndOSI.png)
 
 ## TCP/IP Model Introduction
