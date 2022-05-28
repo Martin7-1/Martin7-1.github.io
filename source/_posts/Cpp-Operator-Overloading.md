@@ -198,5 +198,5 @@ for (int i = 0; i < n ++i)
 
 ## 5 Reference
 
-1. [CppReference](
+1. [CppReference](https://en.cppreference.com/w/cpp/language/operators)
 
