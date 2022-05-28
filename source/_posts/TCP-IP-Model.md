@@ -2,7 +2,7 @@
 title: TCP/IP Model
 date: 2022-05-24 15:21:21
 description: 南京大学2022春季学期《互联网计算》课程笔记(2) -- TCP/IP Model
-top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku34.jpg
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku38.jpg
 tags:
     - SELearning
     - Computer Network
