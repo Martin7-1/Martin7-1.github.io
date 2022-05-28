@@ -195,8 +195,153 @@ for (int i = 0; i < n ++i)
 其实这就跟上面讲到的前缀++和后缀++有关，后缀++由于进行了一次拷贝，所以性能上会比前缀++稍微差一点。
 
 
+## 5 new and delete
 
-## 5 Reference
+与其他操作符一样，`new` 和 `delete` 也可以被重载，他们可以被全局重载或者被特定的类重载（作为类的成员方法）
+
+1. 如果被全局重载了，那么所有对象的 `new` 和 `delete` 都会调用全局重载后的 `new` 和 `delete`。
+2. 如果只是被特定的类作为成员方法重载了，那么只有该类在创建对象或释放对象时才会调用重载的 `new` 和 `delete`
+
+**Syntax for overloading the new operator**
+
+```cpp
+void* operator new(size_t size);
+```
+
+重载的 `new` 运算符接收 `size_t` 类型的大小，它指定要分配的内存字节数（会自动分配并传参，不需要手动传参）。重载的 `new` 的返回类型必须是 `void*`。重载的函数返回一个指针，指向分配的内存块的开头。
+
+**Syntax for overloading the delete operator**
+
+```cpp
+void opeartor delete(void*);
+```
+
+该函数接收一个 `void*` 类型的参数，该参数必须被删除(deallocate)。函数不应该返回任何东西。
+
+> 需要注意的是，`new` 和 `delete` 都是作为静态成员来重载的，但是它们不需要被显式声明为 `static`，同时它们的参数也没有隐藏的 `this` 指针。
+
+下面我们来看一个 `new` 和 `delete` 作为成员方法被重载的例子：
+
+```cpp
+// CPP program to demonstrate
+// Overloading new and delete operator
+// for a specific class
+#include <iostream>
+#include <cstdlib>
+
+class Student {
+private:
+    std::string m_Name;
+    int m_Age;
+public:
+    Student()
+    {
+        std::cout << "Constructor is called" << std::endl;
+    }
+    
+    Student(std::string name, int age)
+        : m_Name(name), m_Age(age)
+    {}
+    
+    void display();
+    void* operator new(size_t size);
+    void operator delete(void* p);
+};
+
+void Student::display()
+{
+    std::cout << "Name: " << m_Name << std::endl;
+    std::cout << "Age: " << m_Age << std::endl;
+}
+
+void* Student::operator new(size_t size)
+{
+    std::cout << "Overloading new opeartor with size: " << size << std::endl;
+    void* p = ::operator new(size);
+    // malloc will also work fine
+    // void* p = malloc(size);
+    return p;
+}
+
+void Student::operator delete(void* p)
+{
+    std::cout << "Overloading delete operator" << std::endl;
+    free(p);
+}
+
+int main()
+{
+    Student* p = new Student("ZY", 21);
+    p->display();
+    
+    delete p;
+    return 0;
+}
+```
+
+```bash
+Overloading new opeartor with size: 40
+Name: ZY
+Age: 21
+Overloading delete operator
+```
+
+> 需要注意的是上面的 `::operator new(size)` 这其实是调用了全局的 `new` 操作符，如果不调用全局的话则会陷入无限递归当中。
+
+
+
+下面来看一个 `new` 和 `delete` 作为全局函数被重载的例子：
+
+```cpp
+// CPP program to demonstrate
+// Global overloading of
+// new and delete operator
+#include <iostream>
+#include <cstdlib>
+
+void* operator new(size_t size)
+{
+    std::cout << "New operator overloading" << std::endl;
+    // only use malloc
+    void* p = malloc(size);
+    return p;
+}
+
+void operator delete(void* p)
+{
+    std::cout << "Delete operator overloading" << std::endl;
+    free(p);
+}
+
+int main()
+{
+    int n = 5;
+    int* arr = new int[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = i;
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    delete[] arr;
+}
+```
+
+Output:
+
+```bash
+New operator overloading
+0 1 2 3 4
+Delete operator overloading
+```
+
+> 需要注意的是，这里只能用 `malloc` 来申请内存，因为全局的 `new` 函数调用会陷入无线递归。
+
+
+
+## Reference
 
 1. [CppReference](https://en.cppreference.com/w/cpp/language/operators)
 
