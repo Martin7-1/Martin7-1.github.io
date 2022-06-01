@@ -10,15 +10,13 @@ categories:
     - Java
 ---
 
-# Fail-Fast Iterator in Java
-
 ## 1 前言
 
 快速失败（Fail-Fast）机制是一种在多线程写入或更新情况下的应对机制，能够在不处理后续操作的情况下先行抛出异常以便后续的处理。为什么会突然来学习快速失败机制呢，主要是在看 `ArrayList` 的源码的时候看到其有一个成员变量：`protected transient int modCount = 0`，好奇这个变量是做什么用的，查看了它的调用方法发现其是用于在检查多线程和迭代器写入，于是就去查阅文档和资料。
 
-![image-20220531232146974](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220531232146974.png)
-
 <!-- more -->
+
+![image-20220531232146974](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220531232146974.png)
 
 ## 2 概述
 
@@ -163,7 +161,209 @@ public void remove() {
 
 
 
-未完待续...
+## 5 Weakly-Consistent
+
+这一类主要指的是在 `java.util.concurrent` 包下的一些 `Collection` 的拓展类，一般是在类前面包括 `concurrent` 的前缀，比如：
+
+* `ConcurrentHashMap` 代表的是线程安全的 `HashMap`（文档中的准确表述为 a `ConcurrentHashMap` is normally preferable to a synchronized `HashMap`）
+* `ConcurrentSkipListMap` 代表的hi线程安全的 `TreeMap`
+
+`concurrent` 代表的是同时，在文档中解释了此类与 **Fail-Fast** 机制的差别以及 `concurrent` 的意思：
+
+> Most concurrent Collection implementations (including most Queues) also differ from the usual `java.util` conventions in that their [Iterators](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html) and [Spliterators](https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html) provide *weakly consistent* rather than fast-fail traversal:
+>
+> - they may proceed concurrently with other operations
+> - they will never throw [`ConcurrentModificationException`](https://docs.oracle.com/javase/8/docs/api/java/util/ConcurrentModificationException.html)
+> - they are guaranteed to traverse elements as they existed upon construction exactly once, and may (but are not guaranteed to) reflect any modifications subsequent to construction.
+
+这里需要探究的是最后一点，以 `ConcurrentHashMap` 举例，我们有如下代码：
+
+```java
+import java.util.concurrent.ConcurrentHashMap;   
+import java.util.Iterator;
+
+public class FailSafeDemo1 {
+    
+    public static void main(String[] args)   
+    {   
+        // Initializing a ConcurrentHashMap   
+        ConcurrentHashMap<String, Integer> m = new ConcurrentHashMap<>();   
+        m.put("ONE", 1); // Adding values  
+        m.put("SEVEN", 7);   
+        m.put("FIVE", 5);   
+        m.put("EIGHT", 8);   
+        // Getting an iterator using map  
+        Iterator it = m.keySet().iterator();   
+        while (it.hasNext()) {   
+            String key = (String)it.next();   
+            System.out.println(key + " : " + m.get(key));   
+            // This will reflect in iterator.   
+            // This means it has not created separate copy of objects  
+            m.put("NINE", 9);   
+        }   
+    }   
+}  
+```
+
+Output:
+
+```bash
+EIGHT : 8
+FIVE : 5
+NINE : 9
+ONE : 1
+SEVEN : 7
+```
+
+我们可以看到，在使用迭代器遍历时我们调用了 `ConcurrentHashMap` 的 `put()` 方法，但这并没有和 `ArrayList` 的 **Fail-Fast** 机制一样快速抛出 `ConcurrentModificationException` 异常且停止一切操作，相反，它正确的加入了该元素且并没有抛出任何异常。
+
+这里我们不像 `ArrayList` 一样去探究 `ConcurrentHashMap` 的源码（主要是因为太难了我看不懂），但在 `ConcurrentHashMap` 的 `put()` 方法中，我们可以看到以下的代码块：
+
+```java
+synchronized (f) {
+    if (tabAt(tab, i) == f) {
+        if (fh >= 0) {
+            binCount = 1;
+            for (Node<K,V> e = f;; ++binCount) {
+                K ek;
+                if (e.hash == hash && ((ek = e.key) == key || (ek != null && key.equals(ek)))) {
+                    oldVal = e.val;
+                    if (!onlyIfAbsent)
+                        e.val = value;
+                    break;
+                }
+                Node<K,V> pred = e;
+                if ((e = e.next) == null) {
+                    pred.next = new Node<K,V>(hash, key, value, null);
+                    break;
+                }
+            }
+        }
+        else if (f instanceof TreeBin) {
+            Node<K,V> p;
+            binCount = 2;
+            if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key, value)) != null) {
+                oldVal = p.val;
+                if (!onlyIfAbsent)
+                    p.val = value;
+            }
+        }
+    }
+}
+```
+
+可以看到这里对 `f` 加了锁，这个 `f` 是 `HashMap` 中的一个 `Node` ，这里实际上就是为支持并发的操作写入而加了锁。
+
+
+
+## 6 Snapshot
+
+快照，顾名思义，就是保存某一时刻瞬间的状态，反应在迭代器上就是我们在使用迭代器的时候其实获得的是当前 `Collection` 的副本，因此对原 `Collection` 进行操作实际上无法变成对副本进行操作，且不会抛出 `ConcurrentModificationExpection`，但是修改后的结果对**迭代器**来说是不可见的，这一类的代表是 `CopyOnWriteArrayList`，是一种线程安全的 `ArrayList`。在文档中是这样描述的：
+
+> This is ordinarily too costly, but may be *more* efficient than alternatives when traversal operations vastly outnumber mutations, and is useful when you cannot or don't want to synchronize traversals, yet need to preclude interference among concurrent threads. The "snapshot" style iterator method uses a reference to the state of the array at the point that the iterator was created. This array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed not to throw `ConcurrentModificationException`. The iterator will not reflect additions, removals, or changes to the list since the iterator was created. Element-changing operations on iterators themselves (`remove`, `set`, and `add`) are not supported. These methods throw `UnsupportedOperationException`.
+
+简单来说就是迭代器是通过创建一个底层数组的**副本**来进行遍历，所有对原数组的操作实际上不会影响到这个副本，即迭代器的元素本身迭代时是不会因为 `CopyOnWriteArrayList` 的方法而被改变的，我们可以通过以下的例子来看一下：
+
+```java
+import java.util.concurrent.CopyOnWriteArrayList;   
+import java.util.Iterator;   
+
+class FailSafeDemo {
+    
+    public static void main(String[] args)
+    {
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>(Arrays.asList(1, 7, 9, 11));
+        Iterator<Integer> itr = list.iterator();
+        while (itr.hasNext()) {
+            Integer i = itr.next();
+            System.out.println(i);
+            if (i == 7) {
+                list.add(15); // It will not be printed
+            }
+            //This means it has created a separate copy of the collection
+        }
+        
+        System.out.println();
+        
+        for (Integer value : list) {
+            System.out.println(value);
+        }
+    }
+}   
+```
+
+Output:
+
+```bash
+1
+7
+9
+11
+
+1
+7
+9
+11
+15
+```
+
+可以发现15并没有被添加到迭代器的元素中，而是被添加到了原来的数组中，我们可以看看 `CopyOnWriteArrayList` 迭代器的实现：
+
+```java
+public Iterator<E> iterator() {
+    return new COWIterator<E>(getArray(), 0);
+}
+
+static final class COWIterator<E> implements ListIterator<E> {
+    /** Snapshot of the array */
+    private final Object[] snapshot;
+    /** Index of element to be returned by subsequent call to next.  */
+    private int cursor;
+
+    private COWIterator(Object[] elements, int initialCursor) {
+        cursor = initialCursor;
+        snapshot = elements;
+    }
+    
+    ...
+}
+```
+
+可以发现构造迭代器时实际上是将当前 `CopyOnWriteArrayList` 的底层数组作为参数传递进行了一次拷贝，但有可能会问，这里拷贝的是**引用**，对原数组的更改应该要能够影响到所有的引用才对，为什么迭代器中的数组元素不会改变呢。我们可以来看一下 `CopyOnWriteArrayList` 的 `add()` 方法：
+
+```java
+public boolean add(E e) {
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+        Object[] elements = getArray();
+        int len = elements.length;
+        Object[] newElements = Arrays.copyOf(elements, len + 1);
+        newElements[len] = e;
+        setArray(newElements);
+        return true;
+    } finally {
+        lock.unlock();
+    }
+}
+```
+
+可以看到 `add()` 方法对原数组做了一次拷贝之后，添加了新的元素，然后赋值给了底层的数组，这样就导致 `add()` 方法之后，迭代器和原先 `CopyOnWriteArrayList` 的底层数组的**引用指向的堆上的对象不同**了，因此就导致了元素的差异。那么可能有人问，如果通过迭代器的 `add()` 、`remove()` 方法来修改呢？上面的文档其实已经提到了，迭代器对于这类操作一律会抛出 `UnsupportedOperationException` 来保证数据遍历时的不变性。
+
+这其实也是线程安全的数据一致性体现，当前时刻获取的数据就要一直保持是当前时刻的数据，而不能随着后续数据的增加而一直变动，这样会造成一些不可预知的问题，用户想要获得当前时刻的数据就只要通过迭代器获得拷贝的副本，就可以遍历当前时刻的数据了，同时，对于多个迭代器，为了防止相同引用之间不互相干扰和修改数据， `CopyOnWriteList` 杜绝了迭代器修改元素的可能性，做到了线程之间的隔离和安全。当然，所需的内存相比线程不安全的 `Collection` 也是有所提升的（毕竟进行了数组的拷贝）。
+
+
+
+## 7 Undefined
+
+这一类就是没有指定在使用迭代器的时候修改原先 `Collection` 的元素会发生什么，未定义行为可能会导致不一致的结果，此类的代表通常是 `Vector`、`HashTable` 等。（`Enumeration` 是 **undefined** 的，`iterator` 是 **Fail-Fast** 的）。
+
+
+
+## 8 总结
+
+迭代器模式是一种设计中常用的模式，通过迭代器模式可以实现元素的获得和更改之间的职责解耦，同时通过迭代器，用户可以专心于对其中元素进行操作，而不用关心是如何实现获得元素。**Fail-Fast** 和其他机制下实现的迭代器适用于不同的场景，需要根据不同的场景来进行选择。
+
 
 
 
