@@ -1,0 +1,840 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="南京大学2021秋季学期《计算机组织与结构》课程笔记(3)"><meta name="keywords" content="SELearning,Computer Organization and Architecture"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>COA Review (3) | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E6%80%BB%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text"> 13 总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BA%BF-%E5%9C%B0%E5%9D%80%E7%BA%BF%E5%92%8C%E6%8E%A7%E5%88%B6%E7%BA%BF"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据线、地址线和控制线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E4%B8%8A%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text"> 总线上数据传输的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%A6%81%E7%B4%A0"><span class="toc-number">1.4.</span> <span class="toc-text"> 设计要素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E9%80%94"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 用途</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%B2%E8%A3%81"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 仲裁</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%B2%E8%A3%81%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.2.1.</span> <span class="toc-text"> 仲裁方案</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E5%BA%8F"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 时序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%97%B6%E5%BA%8F"><span class="toc-number">1.4.3.1.</span> <span class="toc-text"> 同步时序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F"><span class="toc-number">1.4.3.2.</span> <span class="toc-text"> 异步时序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E6%97%B6%E5%BA%8F"><span class="toc-number">1.4.3.3.</span> <span class="toc-text"> 半同步时序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E7%A6%BB%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.4.3.4.</span> <span class="toc-text"> 分离事务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E5%B8%A6%E5%AE%BD%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E6%95%B0%E7%8E%87"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 总线带宽和数据传输数率</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%90%E9%AB%98%E6%80%BB%E7%BA%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E7%8E%87"><span class="toc-number">1.4.4.1.</span> <span class="toc-text"> 提高总线的数据传输率</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 总线层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%95%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.5.1.</span> <span class="toc-text"> 单总线结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84i"><span class="toc-number">1.4.5.2.</span> <span class="toc-text"> 双总线结构I</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8C%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84ii"><span class="toc-number">1.4.5.3.</span> <span class="toc-text"> 双总线结构II</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84i"><span class="toc-number">1.4.5.4.</span> <span class="toc-text"> 多总线结构I</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84ii"><span class="toc-number">1.4.5.5.</span> <span class="toc-text"> 多总线结构II</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84iii"><span class="toc-number">1.4.5.6.</span> <span class="toc-text"> 多总线结构III</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E6%8C%87%E4%BB%A4%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.</span> <span class="toc-text"> 14 指令系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E8%A6%81%E7%B4%A0"><span class="toc-number">2.1.</span> <span class="toc-text"> 指令的要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.2.</span> <span class="toc-text"> 指令表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text"> 操作码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81"><span class="toc-number">2.3.1.</span> <span class="toc-text"> 数据传送</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97"><span class="toc-number">2.3.2.</span> <span class="toc-text"> 算术运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="toc-number">2.3.3.</span> <span class="toc-text"> 逻辑运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">2.3.4.</span> <span class="toc-text"> 输入&#x2F;输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E8%BD%AC%E7%A7%BB"><span class="toc-number">2.3.5.</span> <span class="toc-text"> 控制转移</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E8%B7%B3%E8%BD%AC%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.5.1.</span> <span class="toc-text"> 分支&#x2F;跳转指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B7%B3%E6%AD%A5%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.5.2.</span> <span class="toc-text"> 跳步指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.5.3.</span> <span class="toc-text"> 过程调用指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text"> 操作数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC"><span class="toc-number">2.4.2.</span> <span class="toc-text"> 数值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6"><span class="toc-number">2.4.3.</span> <span class="toc-text"> 字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%95%B0%E6%8D%AE"><span class="toc-number">2.4.4.</span> <span class="toc-text"> 逻辑数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E7%AB%AF%E5%BA%8F%E5%92%8C%E5%B0%8F%E7%AB%AF%E5%BA%8F"><span class="toc-number">2.4.5.</span> <span class="toc-text"> 大端序和小端序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E5%BC%95%E7%94%A8"><span class="toc-number">2.4.6.</span> <span class="toc-text"> 操作数引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F"><span class="toc-number">2.5.</span> <span class="toc-text"> 寻址方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AB%8B%E5%8D%B3%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.1.</span> <span class="toc-text"> 立即寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.2.</span> <span class="toc-text"> 直接寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.3.</span> <span class="toc-text"> 间接寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.4.</span> <span class="toc-text"> 寄存器寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.5.</span> <span class="toc-text"> 寄存器间接寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%81%8F%E7%A7%BB%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.6.</span> <span class="toc-text"> 偏移寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.6.1.</span> <span class="toc-text"> 相对寻址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.6.2.</span> <span class="toc-text"> 基址寄存器寻址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%98%E5%9D%80%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.6.3.</span> <span class="toc-text"> 变址寻址</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%AF%BB%E5%9D%80"><span class="toc-number">2.5.7.</span> <span class="toc-text"> 栈寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">2.5.7.1.</span> <span class="toc-text"> 栈</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.6.</span> <span class="toc-text"> 指令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">2.7.</span> <span class="toc-text"> 指令格式的设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%95%BF%E5%BA%A6"><span class="toc-number">2.7.1.</span> <span class="toc-text"> 指令长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E7%9A%84%E5%88%86%E9%85%8D"><span class="toc-number">2.7.2.</span> <span class="toc-text"> 位的分配</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%98%E9%95%BF%E6%8C%87%E4%BB%A4"><span class="toc-number">2.7.2.1.</span> <span class="toc-text"> 变长指令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.7.3.</span> <span class="toc-text"> 指令集设计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="toc-number">2.7.3.1.</span> <span class="toc-text"> 设计的基本问题</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku24.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">COA Review (3)</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-02-15</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Computer-Organization-and-Architecture/">Computer Organization and Architecture</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">7.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 22 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="13-总线"><a class="markdownIt-Anchor" href="#13-总线"></a> 13 总线</h2>
+<blockquote>
+<p>总线是连接两个或多个设备的通信通路</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="类型"><a class="markdownIt-Anchor" href="#类型"></a> 类型</h3>
+<ul>
+<li><strong>芯片内部总线</strong>：连接芯片内部的各个部分
+<ul>
+<li>例：CPU中连接寄存器、ALU等部分</li>
+</ul>
+</li>
+<li><span style = 'color : red'><strong>系统总线</strong></span>：连接CPU、存储器、IO控制器和其他功能设备</li>
+<li><strong>通信总线</strong>：连接主机和I/O设备，或连接<strong>不同</strong>的计算机系统</li>
+</ul>
+<blockquote>
+<p>Intel架构中的“系统总线”</p>
+<p>intel架构中的系统总线指的是：IO连接桥和CPU之间连接的总线，与上面所说的系统总线有略微不同（特指的系统总线</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/02/15/Keli5wQXZtcVFOM.png" alt="" /></p>
+<h3 id="数据线-地址线和控制线"><a class="markdownIt-Anchor" href="#数据线-地址线和控制线"></a> 数据线、地址线和控制线</h3>
+<ol>
+<li>
+<p>数据线：在系统组件之间传输数据</p>
+<ul>
+<li>数据线的数量决定了一次<strong>可以传输的数据</strong>大小（数据的位数，一根一位）</li>
+</ul>
+</li>
+<li>
+<p>地址线：在数据线和I/O端口上指定数据的来源和去向</p>
+<ul>
+<li>地址线的数量决定了<strong>寻址空间</strong>的大小（地址的位数，一根一位）</li>
+</ul>
+<blockquote>
+<p>特例：可以将64位地址分成两次32位地址传输（先行地址后列地址</p>
+</blockquote>
+</li>
+<li>
+<p>控制线：控制对数据线和地址线的存取和使用</p>
+<ul>
+<li>时钟（clock）：用于总线同步操作</li>
+<li>总线请求（bus request）：表示模块需要获得对总线的控制</li>
+<li>总线允许（bus grant）：发出请求的设备已经被允许控制总线</li>
+<li>中断请求（interrupt request）：表示某个中断正在悬而未决</li>
+<li>中断响应（interrupt ACK）：未决的中断请求被响应</li>
+<li>存储器读（Memory Read）：使所寻址单元的数据放到总线上</li>
+<li>存储器写（Memory Write）：引起总线上的数据写入被寻址的单元</li>
+<li>I/O读（I/O Read）：使被寻址的I/O端口的数据放到总线上</li>
+<li>I/O写（I/O Write）：引起总线上的数据输出到被寻址的I/O端口</li>
+</ul>
+</li>
+</ol>
+<h3 id="总线上数据传输的特点"><a class="markdownIt-Anchor" href="#总线上数据传输的特点"></a> 总线上数据传输的特点</h3>
+<p>总线可以被多个设备监听，但同一时刻只能由<span style='color: red'><strong>一个设备</strong></span>发送数据</p>
+<ul>
+<li>如果同一时刻多个设备同时发送数据，会造成数据之间的混淆</li>
+<li>使用总线进行数据传输
+<ul>
+<li>如果连在总线上的某个设备希望向另一个设备<strong>发送数据</strong>，需要：
+<ol>
+<li><strong>获得总线的使用权</strong></li>
+<li>通过总线传输数据</li>
+</ol>
+</li>
+<li>如果连在总线上的某个设备希望向另一个组件<strong>请求数据</strong>，需要：
+<ol>
+<li><strong>获得总线的使用权</strong></li>
+<li>通过总线向另一个设备发送请求，等待另一个设备发送数据</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>某个设备<strong>已经</strong>在使用总线时，其他设备不能获得总线的使用权（无论优先级</li>
+</ul>
+<h3 id="设计要素"><a class="markdownIt-Anchor" href="#设计要素"></a> 设计要素</h3>
+<ul>
+<li>
+<p>用途：专用总线，复用总线</p>
+</li>
+<li>
+<p>仲裁（arbitration）：集中式，分布式</p>
+</li>
+<li>
+<p>时序：同步时序/异步时序/半同步时序/分离事务</p>
+</li>
+<li>
+<p>总线带宽（bandwidth）和数据传输率（data transfer rate）</p>
+</li>
+<li>
+<p>总线层次结构：单总线，双总线，多总线</p>
+</li>
+</ul>
+<h4 id="用途"><a class="markdownIt-Anchor" href="#用途"></a> 用途</h4>
+<ol>
+<li>专用（dedicated）总线：始终只负责一项功能，或始终分配给特定的计算机组件。
+<ul>
+<li>优点：高吞吐量，减少总线冲突</li>
+<li>缺点：增加了系统的规模和成本</li>
+</ul>
+</li>
+<li>复用（multiplexed）总线：将同一线路用于多种用途
+<ul>
+<li>优点：使用的布线数量少，节省空间和成本</li>
+<li>缺点：每个模块需要更复杂的控制电路，且共享可能会降低性能</li>
+</ul>
+</li>
+</ol>
+<h4 id="仲裁"><a class="markdownIt-Anchor" href="#仲裁"></a> 仲裁</h4>
+<p>总线仲裁：当多个设备需要与总线通信时，通过某种策略选择一个设备</p>
+<p>平衡因素：</p>
+<ol>
+<li>优先级：优先级高的设备优先被服务</li>
+<li>公平性：优先级最低的设备不能一直被延迟</li>
+</ol>
+<h5 id="仲裁方案"><a class="markdownIt-Anchor" href="#仲裁方案"></a> 仲裁方案</h5>
+<ol>
+<li>
+<p>集中式（centralized）：由**仲裁器（arbiter）<strong>或</strong>总线控制器（bus controller）**负责分配总线使用权</p>
+<ul>
+<li>
+<p>链式查询/菊花链（daisy chain）</p>
+<blockquote>
+<p>所有的设备都是串行连接的，并将允许信号从优先级最高的设备下发到优先级最低的设备（从高到低</p>
+<p>总线仲裁器收到请求后，在<strong>总线不忙</strong>的情况下，发起允许信号</p>
+<p>如果某个设备收到了允许信号并且发起了总线请求，该设备将总线设置为<strong>繁忙状态</strong>，允许信号将不再被进一步传递。（繁忙线是双向的，可以由设备发起也可以发送到设备，此时其他优先级更低的设备会知道总线繁忙</p>
+<p>优点：确定优先级很简单（优先级高在前面，优先级低在后面），可以很灵活地添加设备</p>
+<p>缺点：不能保证公平性，对电路故障敏感（串连），限制总线的速度</p>
+<p><img src="https://s2.loli.net/2022/02/15/CEH5UgiTQz94SFj.png" alt="" /></p>
+</blockquote>
+<p>流程：</p>
+<ol>
+<li>
+<p>首先设备检查繁忙线是否被设成忙，如果没有被设成忙则发起请求信号，</p>
+</li>
+<li>
+<p>总线仲裁器收到请求信号后，检测繁忙线是否被设为忙，如果不忙的话则发起允许信号。</p>
+</li>
+<li>
+<p>允许信号从优先级高的设备一直往优先级低的设备传递（通过允许线串连起来），遇到发出请求信号的设备就停止，该设备将繁忙线设成忙，同时开始使用总线</p>
+<p>计数器查询（query by a counter）</p>
+</li>
+</ol>
+<blockquote>
+<p>将总线允许线替换为<strong>设备ID线</strong>（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>n</mi></mrow><annotation encoding="application/x-tex">\log_2n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span></span></span></span>根 – <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个设备，并非图上所绘制出来的一根）</p>
+<p>如果总线空闲，总线仲裁器通过设备ID线发送计数</p>
+<p>如果当前发送请求的设备ID等于裁决器当前的计数，裁决器将停止计数，设备将总线设置为忙</p>
+<p>与链式的区别：报数顺序并不固定，可以更改，即同一个设备的<strong>设备ID</strong>在每次请求时可能不同，这样就可以灵活的确定设备的优先级</p>
+<p>优点：通过使用不同的初始计数，可以灵活地确定设备优先级</p>
+<ul>
+<li>强调优先级：从1开始</li>
+<li>强调公平性：从下一个设备的ID开始</li>
+</ul>
+<p>对电路故障不敏感。</p>
+<p>缺点：需要添加设备ID线，需要解码和比较设备ID信号，限制总线的速度</p>
+<p><img src="https://s2.loli.net/2022/02/15/ueBptKQnyXsbhTI.png" alt="" /></p>
+</blockquote>
+<ul>
+<li>独立请求（independently request）</li>
+</ul>
+<blockquote>
+<p>每个设备都有自己的总线请求线和总线允许线</p>
+<p>当一个设备请求总线时，它通过总线请求线将请求信号发送给总线仲裁器</p>
+<p>总线仲裁器决定哪个设备可以使用总线</p>
+<ul>
+<li>决定策略：固定优先级，公平链式，LRU，FIFO，…</li>
+</ul>
+<p>优点：快速响应，可编程的优先级</p>
+<p>缺点：复杂的控制逻辑，更多的控制电路</p>
+<p><img src="https://s2.loli.net/2022/02/15/M48epc2zCx6gZiJ.png" alt="" /></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>分布式（distributed）：每个设备都包含访问控制逻辑，<strong>各设备共同作用</strong>分享总线</p>
+<ul>
+<li>
+<p>自举式</p>
+<blockquote>
+<p><strong>固定优先级</strong></p>
+<p>每个设备在其总线请求线上发送请求，最低优先级的设备没有请求线</p>
+<p>每个设备自行判断自己是否在请求总线的设备中优先级最高</p>
+<p>过程：优先级高的设备会发送信号，比该设备优先级低的设备会监听该信号，如果优先级高的设备要使用总线，就会发送信号，优先级低的设备就不能使用总线（监听到了优先级高的设备要使用总线的信号</p>
+<p><img src="https://s2.loli.net/2022/02/15/KatJZYqOxLebuDw.png" alt="" /></p>
+</blockquote>
+</li>
+<li>
+<p>冲突检测</p>
+<blockquote>
+<p>当一个设备想要使用总线时，它会检查宗贤是否繁忙。如果总线空闲，设备使用总线</p>
+<p>冲突：如果两个设备发现总线空闲，它们可能同时使用总线</p>
+<ul>
+<li>在传输数据时，设备会监听总线，检查是否存在冲突</li>
+<li>如果发生冲突，所有使用总线的设备将停止数据传输，并分别在随机间隔时间后再次请求总线。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="时序"><a class="markdownIt-Anchor" href="#时序"></a> 时序</h4>
+<p>确定每个总线事务的开始和结束时间</p>
+<blockquote>
+<p>总线事务：地址 + 数据 + … + 数据</p>
+</blockquote>
+<p>类型：</p>
+<ol>
+<li>同步时序：事件的发生由时钟决定</li>
+<li>异步时序：一个事件的发生取决于前一个事件的发生</li>
+<li>半同步：同步时序和异步时序相结合</li>
+<li>分离事务：设备准备数据期间释放总线</li>
+</ol>
+<h5 id="同步时序"><a class="markdownIt-Anchor" href="#同步时序"></a> 同步时序</h5>
+<p>优点：更容易实现和测试</p>
+<p>缺点：所有设备共享同一个时钟，总线长度收到时钟偏差的限制</p>
+<p><img src="https://s2.loli.net/2022/01/06/CE52qJBViDUY43s.png" alt="" /></p>
+<h5 id="异步时序"><a class="markdownIt-Anchor" href="#异步时序"></a> 异步时序</h5>
+<ol>
+<li>握手策略：ready线和ACK线进行三次握手变成全互锁</li>
+</ol>
+<blockquote>
+<p>非互锁：No interlock</p>
+<p>半互锁：Semi-interlock</p>
+<p>全互锁：interlock</p>
+<p>以全互锁的三次握手为例来讲解一下，非互锁就是取了全互锁的第一次握手，半互锁是取了全互锁的第一次和第二次握手。</p>
+<p>Ready信号：提供东西给总线时需要告诉总线该东西准备就绪（上升沿表示），下降沿表示撤掉准备就绪的信号，目的是为了下一次的准备就绪</p>
+<p>ACK信号：总线告诉设备自己已经获得了数据（上升沿表示已经取到了数据）</p>
+<p>第一次握手：Ready信号在上升沿处，代表设备已经准备好了数据，总线可以获得数据，于是Ready线和ACK线握手，告诉ACK线该设备已经准备好数据，Ack线可以获得该数据了</p>
+<p>第二次握手：Ack线取得数据之后，代表总线已经获得了该数据，此时Ready线上的Ready信号可以撤去，因此发生第二次握手，Ack线告诉Ready线自己已经取好了数据，不需要知道设备准备就绪了</p>
+<p>第三次握手：Ready线撤下信号之后，代表进入到下一个取数据的周期中，因此发生第三次握手，告诉Ack信号应该撤下代表“已经取好数据”的信号，因为此时进入下一个周期，信号应该是还没有取好的。</p>
+</blockquote>
+<ol start="2">
+<li>
+<p>优点：可以灵活地协调速度不同的设备</p>
+</li>
+<li>
+<p>缺点：对噪声敏感</p>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/01/06/m7TsZF8uYHMGpnf.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/01/06/XoOrfPB45RF32js.png" alt="" /></p>
+<h5 id="半同步时序"><a class="markdownIt-Anchor" href="#半同步时序"></a> 半同步时序</h5>
+<p>为了减少噪声的影响，在异步计时中使用时钟。</p>
+<p>准备和响应信号在时钟上升沿有效</p>
+<p>结合同步和异步定时的优点。</p>
+<h5 id="分离事务"><a class="markdownIt-Anchor" href="#分离事务"></a> 分离事务</h5>
+<p>将一个总线事件分离为两个过程</p>
+<p>优点：增加总线利用率</p>
+<p>缺点：增加每个总线事件的持续时间和系统复杂度</p>
+<h4 id="总线带宽和数据传输数率"><a class="markdownIt-Anchor" href="#总线带宽和数据传输数率"></a> 总线带宽和数据传输数率</h4>
+<ol>
+<li>
+<p><strong>总线带宽</strong>（bus bandwidth）：总线<strong>最大</strong>数据传输速率</p>
+<blockquote>
+<p>不要考虑总线仲裁，地址传输等因素</p>
+</blockquote>
+</li>
+<li>
+<p>数据传输速率</p>
+<blockquote>
+<p>考虑地址传输，握手等因素</p>
+</blockquote>
+</li>
+<li>
+<p>总线宽度：组成总线的线数（<strong>与总线带宽不同</strong>）</p>
+<blockquote>
+<p>数据总线越宽，一次传输的数据位数就越多</p>
+<p>地址总线越多，一次传输的地址位数就越多</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>例1</strong></p>
+<blockquote>
+<p>假设同步总线的时钟周期为50ns，每次传输需要一个时钟周期，异步总线每次握手需要40ns。两个总线都是32位宽，内存的数据准备时间为200ns。当从存储器读出一个32位的字时，计算两个总线的数据传输率</p>
+</blockquote>
+<ul>
+<li>同步总线
+<ul>
+<li>发送指令和地址到内存：50ns</li>
+<li>内存准备数据：200ns</li>
+<li>将数据传输到CPU：50ns</li>
+<li>数据传输率 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>32</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><mrow><mo stretchy="false">(</mo><mn>50</mn><mo>+</mo><mn>200</mn><mo>+</mo><mn>50</mn><mo stretchy="false">)</mo><mtext> </mtext><mi>n</mi><mi>s</mi></mrow></mfrac><mo>=</mo><mn>106.7</mn><mtext> </mtext><mi>M</mi><mi>b</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\frac{32\ bit}{(50 + 200 + 50) \ ns} = 106.7\ Mbps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.400108em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">5</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">2</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mbin mtight">+</span><span class="mord mtight">5</span><span class="mord mtight">0</span><span class="mclose mtight">)</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span><span class="mspace mtight"><span class="mtight"> </span></span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">6</span><span class="mord">.</span><span class="mord">7</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">b</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+<li>异步总线
+<ul>
+<li>步骤1：40ns</li>
+<li>步骤2、3、4、数据准备：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>40</mn><mi>n</mi><mi>s</mi><mo>×</mo><mn>3</mn><mo separator="true">,</mo><mn>200</mn><mi>n</mi><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mn>200</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\max(40ns \times 3, 200ns) = 200ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">4</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>步骤5、6、7：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>40</mn><mi>n</mi><mi>s</mi><mo>×</mo><mn>3</mn><mo>=</mo><mn>120</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">40ns \times 3 = 120ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>数据传输率 $ = \frac{32\ bit}{(40 + 200 + 120)\ ns} = 88.9\ Mbps$</li>
+</ul>
+</li>
+</ul>
+<p><strong>例2</strong></p>
+<blockquote>
+<p>假设系统具有以下特征：</p>
+<ol>
+<li>它支持访问大小为4到16个字（每个字32bit）的块</li>
+<li>同步总线具有64位宽和200MHz时钟频率，需要1个时钟周期来传输地址或64位数据</li>
+<li>在两个总线事务之间有2个空闲时钟周期</li>
+<li>内存访问准备前4个字需要200ns，后面每4个字准备需要20ns</li>
+<li>当前面的数据在总线上传输时，内存可以同时读取后面的数据</li>
+</ol>
+<p>如果读取256个字，分别计算每次传输4个字和16个字时的数据传输速率，传输时间和每秒总线事务数</p>
+</blockquote>
+<ul>
+<li>每次传输4个字
+<ul>
+<li>总线事务：地址 + 4个字
+<ul>
+<li>地址传输：1个时间周期</li>
+<li>数据准备：200ns（40个时间周期）</li>
+<li>数据传输：2个时间周期</li>
+<li>空闲：2个时钟周期</li>
+</ul>
+</li>
+<li>总共：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>256</mn><mn>4</mn></mfrac><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>40</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>2880</mn></mrow><annotation encoding="application/x-tex">\frac{256}{4} \times (1 + 40 + 2 + 2) = 2880</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">8</span><span class="mord">8</span><span class="mord">0</span></span></span></span> 个时间周期</li>
+<li>传输时间（时钟周期 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">5ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span>）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2880</mn><mo>×</mo><mn>5</mn><mi>n</mi><mi>s</mi><mo>=</mo><mn>14400</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">2880 \times 5ns = 14400ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">8</span><span class="mord">8</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mord">4</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>每秒总线事务：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>1</mn><mi>s</mi></mrow><mrow><mn>14400</mn><mi>n</mi><mi>s</mi></mrow></mfrac><mo>×</mo><mn>64</mn><mo>=</mo><mn>4.44</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">\frac{1s}{14400 ns} \times 64 = 4.44M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">4</span><span class="mord mtight">4</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">4</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></li>
+<li>数据传输速率 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>=</mo><mfrac><mrow><mn>256</mn><mo>×</mo><mn>32</mn><mi>b</mi><mi>i</mi><mi>t</mi></mrow><mrow><mn>14400</mn><mi>n</mi><mi>s</mi></mrow></mfrac><mo>=</mo><mn>568.9</mn><mi>M</mi><mi>b</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">= \frac{256 \times 32bit}{14400ns} = 568.9Mbps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">4</span><span class="mord mtight">4</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span><span class="mbin mtight">×</span><span class="mord mtight">3</span><span class="mord mtight">2</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">5</span><span class="mord">6</span><span class="mord">8</span><span class="mord">.</span><span class="mord">9</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">b</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+<li>每次传输16个字
+<ul>
+<li>总线事务：地址 + 16个字
+<ul>
+<li>地址传输：1个时间周期</li>
+<li>数据准备（前四个字）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>200</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">200ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span>（40个时间周期）</li>
+<li>数据传输：同步总线一次传输两个字，在传输两个字的同时准备数据的下4个字，传输需要2个时钟周期，读取下4个字需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>20</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">20ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span>，即4个时钟周期</li>
+<li>空闲：2个时钟周期</li>
+</ul>
+</li>
+<li>总共：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>256</mn><mn>16</mn></mfrac><mo>×</mo><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>40</mn><mo>+</mo><mn>3</mn><mo>×</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo><mo>+</mo><mn>2</mn><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>=</mo><mn>912</mn></mrow><annotation encoding="application/x-tex">\frac{256}{16} \times (1 + 40 + 3 \times \max(2, 4) + 2 + 2) = 912</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">1</span><span class="mord">2</span></span></span></span> 个时钟周期（其中倒数第二个2是最后一次数据传输，此时没有数据需要准备了，所以直接传输）</li>
+<li>传输时间：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>912</mn><mo>×</mo><mn>5</mn><mi>n</mi><mi>s</mi><mo>=</mo><mn>4560</mn><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">912 \times 5ns = 4560ns</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">9</span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">5</span><span class="mord">6</span><span class="mord">0</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>每秒总线事务数 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>1</mn><mi>s</mi></mrow><mrow><mn>4560</mn><mi>n</mi><mi>s</mi></mrow></mfrac><mo>×</mo><mn>16</mn><mo>=</mo><mn>3.51</mn><mi>M</mi></mrow><annotation encoding="application/x-tex">\frac{1s}{4560ns} \times 16 = 3.51M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mtight">5</span><span class="mord mtight">6</span><span class="mord mtight">0</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">s</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mathdefault mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">.</span><span class="mord">5</span><span class="mord">1</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></li>
+<li>数据传输速率 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>256</mn><mo>×</mo><mn>32</mn><mi>b</mi><mi>i</mi><mi>t</mi></mrow><mn>4560</mn></mfrac><mo>=</mo><mn>1796.5</mn><mi>M</mi><mi>b</mi><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\frac{256 \times 32bit}{4560} = 1796.5 Mbps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mtight">5</span><span class="mord mtight">6</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">6</span><span class="mbin mtight">×</span><span class="mord mtight">3</span><span class="mord mtight">2</span><span class="mord mathdefault mtight">b</span><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">7</span><span class="mord">9</span><span class="mord">6</span><span class="mord">.</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault">b</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<h5 id="提高总线的数据传输率"><a class="markdownIt-Anchor" href="#提高总线的数据传输率"></a> 提高总线的数据传输率</h5>
+<ol>
+<li>提高时钟频率</li>
+<li>增加数据总线宽度
+<ul>
+<li>每次传输更多的数据（成本：更多的总线线路</li>
+</ul>
+</li>
+<li>块传输
+<ul>
+<li>传输一次地址就传输一块数据（成本，高复杂性</li>
+</ul>
+</li>
+<li>分离总线事务
+<ul>
+<li>减少总线空闲时间（成本：复杂性高，增加每个事务的持续时间</li>
+</ul>
+</li>
+<li>分离地址线和数据线
+<ul>
+<li>同时传输地址和数据（成本：更多的总线线路</li>
+</ul>
+</li>
+</ol>
+<h4 id="总线层次结构"><a class="markdownIt-Anchor" href="#总线层次结构"></a> 总线层次结构</h4>
+<h5 id="单总线结构"><a class="markdownIt-Anchor" href="#单总线结构"></a> 单总线结构</h5>
+<ul>
+<li>CPU、存储器和I/O模块都连接到一条<span style='color: red'><strong>系统总线</strong></span></li>
+<li>优点：简单、易于扩展</li>
+<li>缺点：
+<ul>
+<li>连接的设备越多，总线长度越大，传输延迟也就越大</li>
+<li>聚集的传输请求接近总线容量后，总线成为瓶颈</li>
+</ul>
+</li>
+</ul>
+<h5 id="双总线结构i"><a class="markdownIt-Anchor" href="#双总线结构i"></a> 双总线结构I</h5>
+<ul>
+<li>在CPU和存储中间增加一个<span style='color: red'><strong>存储器总线</strong></span></li>
+<li>优点：增加CPU和存储器之间的传输效率，同时降低系统总线的负担</li>
+</ul>
+<h5 id="双总线结构ii"><a class="markdownIt-Anchor" href="#双总线结构ii"></a> 双总线结构II</h5>
+<ul>
+<li>将系统总线分为存储器总线、<strong>I/O总线</strong> 和 <strong>IOP</strong>（input/output processor）</li>
+<li>优点：降低I/O对总线的负担</li>
+</ul>
+<h5 id="多总线结构i"><a class="markdownIt-Anchor" href="#多总线结构i"></a> 多总线结构I</h5>
+<ul>
+<li>在 双总线结构II 的基础上增加一个<span style='color: red'><strong>本地总线（local bus）</strong></span>来连接CPU和cache</li>
+<li>优点：分离了 CPU 和 I/O 的交互</li>
+</ul>
+<h5 id="多总线结构ii"><a class="markdownIt-Anchor" href="#多总线结构ii"></a> 多总线结构II</h5>
+<ul>
+<li>
+<p>将系统总线分为存储器总线、I/O总线和<span style='color:red'><strong>DMA总线</strong></span></p>
+</li>
+<li>
+<p>优点：增加I/O效率</p>
+</li>
+</ul>
+<h5 id="多总线结构iii"><a class="markdownIt-Anchor" href="#多总线结构iii"></a> 多总线结构III</h5>
+<ul>
+<li>增加一个高速I/O</li>
+</ul>
+<hr />
+<h2 id="14-指令系统"><a class="markdownIt-Anchor" href="#14-指令系统"></a> 14 指令系统</h2>
+<ul>
+<li><span style='color: orange'><strong>指令集</strong></span>：CPU能执行的各种不同指令的集合</li>
+<li>程序由存储在内存中的一组指令组成</li>
+<li>计算机的基本功能是执行程序</li>
+<li>CPU通过执行指定的指令来完成实际工作</li>
+</ul>
+<p>指令时计算机处理的<strong>最基本单位</strong></p>
+<ul>
+<li>操作码（指令执行的内容）+操作数（要操作的对象）</li>
+</ul>
+<p>多周期实现方案</p>
+<ul>
+<li>可以将一条指令的执行分解为一系列步骤
+<ul>
+<li>取指令，译码/取寄存器，执行/有效地址/完成分支，访问内存，存储结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="指令的要素"><a class="markdownIt-Anchor" href="#指令的要素"></a> 指令的要素</h3>
+<ul>
+<li>操作码：指定将要完成的操作</li>
+<li>源操作数引用：操作会涉及一个或多个源操作数，这是操作所需的输入</li>
+<li>结果操作数引用：操作可能会产生一个结果</li>
+<li>下一指令引用：告诉处理器这条指令处理完去哪里去取下一条指令</li>
+</ul>
+<h3 id="指令表示"><a class="markdownIt-Anchor" href="#指令表示"></a> 指令表示</h3>
+<p>在计算机内部，指令由一个<span style='color: orange'><strong>位串</strong></span>（01串）来表示</p>
+<p><strong>指令格式</strong>：对应于指令的各要素，这个位串划分成几个字段</p>
+<ul>
+<li>大多数指令集使用不止一种指令格式</li>
+</ul>
+<p>机器指令符号表示法</p>
+<ul>
+<li>
+<p>操作码被缩写成助记符来表示</p>
+<blockquote>
+<p>ADD：加，SUB：减，MUL：乘，DIV：除，LOAD：从存储器装入，STOR：保存到存储器</p>
+</blockquote>
+</li>
+<li>
+<p>操作数也可以用符号表示</p>
+<blockquote>
+<p>用寄存器编号或内存地址替换操作数</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="操作码"><a class="markdownIt-Anchor" href="#操作码"></a> 操作码</h3>
+<p>不同计算机上操作码的数目变动是很大的</p>
+<p>所有计算机上都会存在相同的常用操作类型</p>
+<ol>
+<li>数据传输</li>
+<li>算术运算</li>
+<li>逻辑运算</li>
+<li>转换</li>
+<li>输入/输出</li>
+<li>系统控制</li>
+<li>控制转移</li>
+</ol>
+<h4 id="数据传送"><a class="markdownIt-Anchor" href="#数据传送"></a> 数据传送</h4>
+<ul>
+<li>指明源和目标操作数的位置</li>
+<li>指明将要传送数据的长度</li>
+<li>指明每个操作数的寻址方式</li>
+</ul>
+<h4 id="算术运算"><a class="markdownIt-Anchor" href="#算术运算"></a> 算术运算</h4>
+<p>一条算术指令的执行会涉及数据传送操作，来为算术和逻辑单元准备输入，并传送逻辑单元的输出。</p>
+<p><img src="https://s2.loli.net/2022/02/15/YdPO4hbDcCxBrtR.png" alt="" /></p>
+<h4 id="逻辑运算"><a class="markdownIt-Anchor" href="#逻辑运算"></a> 逻辑运算</h4>
+<ul>
+<li>位操作：操作一个字或其他可寻址单元中的个别位</li>
+<li>移位和旋转</li>
+</ul>
+<blockquote>
+<p>算术右移补充符号位，逻辑右移补充0</p>
+<p>逻辑左移和算术左移都是补充0</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/01/06/3yz8IhpWSv9GjKE.png" alt="" /></p>
+<h4 id="输入输出"><a class="markdownIt-Anchor" href="#输入输出"></a> 输入/输出</h4>
+<ul>
+<li>各种输入/输出方法仅有少数输入/输出指令实现，具体操作由参数、代码或命令字指定</li>
+</ul>
+<h4 id="控制转移"><a class="markdownIt-Anchor" href="#控制转移"></a> 控制转移</h4>
+<ul>
+<li>分支指令（亦称为跳转指令）</li>
+<li>跳步指令</li>
+<li>过程调用指令</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/HGBlvTyNdDFRJ5p.png" alt="" /></p>
+<h5 id="分支跳转指令"><a class="markdownIt-Anchor" href="#分支跳转指令"></a> 分支/跳转指令</h5>
+<p>把将要执行的下一条指令的地址作为它的<strong>操作数</strong>之一</p>
+<p><img src="https://s2.loli.net/2022/01/06/fF9xDJkdvHOIKNm.png" alt="" /></p>
+<h5 id="跳步指令"><a class="markdownIt-Anchor" href="#跳步指令"></a> 跳步指令</h5>
+<p>包含一个隐藏地址，该隐含地址等于<strong>下一指令地址</strong>加上该指令的长度之和</p>
+<blockquote>
+<p>下一指令地址：取指周期过后PC已经加一，指向了下一条指令的地址</p>
+</blockquote>
+<h5 id="过程调用指令"><a class="markdownIt-Anchor" href="#过程调用指令"></a> 过程调用指令</h5>
+<blockquote>
+<p>问题：存取函数跳转之后的返回的地址</p>
+<p>涉及由目前位置转移到过程的调用指令和由过程返回到调用发生位置的返回指令</p>
+</blockquote>
+<ol>
+<li>
+<p>方法一：用寄存器：只能用于没有嵌套的函数调用</p>
+<blockquote>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mi>N</mi><mo stretchy="false">(</mo><mi>r</mi><mi>e</mi><mi>g</mi><mi>i</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mo stretchy="false">)</mo><mo>⟵</mo><mi>P</mi><mi>C</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mspace linebreak="newline"></mspace><mi>P</mi><mi>C</mi><mo>⟵</mo><mi>X</mi><mo stretchy="false">(</mo><mtext>函数调用的首地址</mtext><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">RN(register) \longleftarrow PC + \Delta \\
+PC \longleftarrow X(\text{函数调用的首地址})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟵</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Δ</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.69433em;vertical-align:-0.011em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟵</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">函数调用的首地址</span></span><span class="mclose">)</span></span></span></span></span></p>
+</blockquote>
+</li>
+<li>
+<p>方法二：返回地址存于过程开始处（可以解决嵌套调用的问题，但递归时会修改掉返回地址，出现错误</p>
+<blockquote>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi><mo>⟵</mo><mi>P</mi><mi>C</mi><mo>+</mo><mi mathvariant="normal">Δ</mi><mspace linebreak="newline"></mspace><mi>P</mi><mi>C</mi><mo>⟵</mo><mi>X</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X \longleftarrow PC + \Delta \\
+PC \longleftarrow X + 1
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69433em;vertical-align:-0.011em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟵</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Δ</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.69433em;vertical-align:-0.011em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟵</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span></p>
+</blockquote>
+</li>
+<li>
+<p>方法三：使用栈：每次调用函数就将返回地址压入栈中</p>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/02/15/hzYIfk3vCVTBtxA.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/01/06/xe8gsDhAcdLJUaE.png" alt="" /></p>
+<h3 id="操作数"><a class="markdownIt-Anchor" href="#操作数"></a> 操作数</h3>
+<p>常见类型：地址、数值、字符、逻辑数据</p>
+<h4 id="地址"><a class="markdownIt-Anchor" href="#地址"></a> 地址</h4>
+<p>一个指令需要有<strong>4个地址引用</strong>：2个源操作数，1个目的操作数，以及下一指令地址</p>
+<blockquote>
+<p>下一指令地址是隐含的</p>
+</blockquote>
+<p>地址数量</p>
+<ul>
+<li>
+<p>每条指令中的地址数目越少</p>
+<blockquote>
+<ol>
+<li>指令的长度越短，不需要复杂的CPU</li>
+<li>使程序总的指令条数更多，导致执行时间更长，程序也更长更复杂</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>对于多地址指令，普遍具有多个通用寄存器可用，允许某些运算只使用寄存器即可完成，从而使执行加快。</p>
+</li>
+</ul>
+<h4 id="数值"><a class="markdownIt-Anchor" href="#数值"></a> 数值</h4>
+<ul>
+<li>计算机存储的数值是受限的
+<ul>
+<li>集齐可表示数值的幅值是有限的</li>
+<li>浮点数情况下数值精度是有限的</li>
+</ul>
+</li>
+<li>数值数据的类型
+<ul>
+<li>二进制整数或定点数</li>
+<li>二进制浮点数</li>
+<li>十进制数</li>
+</ul>
+</li>
+</ul>
+<h4 id="字符"><a class="markdownIt-Anchor" href="#字符"></a> 字符</h4>
+<p>ASCII：每个字符被表示成唯一的7位二进制串</p>
+<p>UNICODE：16/32位</p>
+<h4 id="逻辑数据"><a class="markdownIt-Anchor" href="#逻辑数据"></a> 逻辑数据</h4>
+<p>将一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位单元看成是由 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 位项组成，每项有值0或1</p>
+<ul>
+<li>存储一个布尔或者二进制数据项序列，序列中的每个值只能取1（真）或0（假）</li>
+<li>有利于实现对数据项的具体位进行操纵</li>
+</ul>
+<h4 id="大端序和小端序"><a class="markdownIt-Anchor" href="#大端序和小端序"></a> 大端序和小端序</h4>
+<p>大端：高位数据存在低地址</p>
+<p>小端：高位数据存在高地址</p>
+<blockquote>
+<p>对一个字节（同一个地址里的数据），都是高位在前低位在后，即大端序</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/01/06/xgX4fk69EaGnDAI.png" alt="" /></p>
+<ul>
+<li>在两种策略中每个数据项有同样的地址</li>
+<li>在任何一个给定的多字节值中，小端的字节排序是大端的反序，反之亦然</li>
+<li>端序不影响结构中数据项的次序</li>
+</ul>
+<h4 id="操作数引用"><a class="markdownIt-Anchor" href="#操作数引用"></a> 操作数引用</h4>
+<ul>
+<li>操作数的实际值</li>
+<li>操作数的地址
+<ul>
+<li>寄存器</li>
+<li>主存 / 虚拟内存</li>
+</ul>
+</li>
+</ul>
+<h3 id="寻址方式"><a class="markdownIt-Anchor" href="#寻址方式"></a> 寻址方式</h3>
+<blockquote>
+<p>规定：</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span>：指令中地址字段的内容</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>：指向寄存器的指令地址字段内容</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">EA</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span></span></span></span>：被访问位置的实际（有效）地址</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>：存储器位置 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span> 或寄存器 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span> 的内容</p>
+</blockquote>
+<h4 id="立即寻址"><a class="markdownIt-Anchor" href="#立即寻址"></a> 立即寻址</h4>
+<ul>
+<li>方式：操作数<strong>实际出现</strong>在指令中</li>
+<li>用法：定义和使用常数或设置变量的初始值</li>
+<li>算法：操作数 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span></li>
+<li>优点：除了取指令之外，获得操作数不要求另外的存储器访问</li>
+<li>缺点：数的大小受限于地址字段的长度</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/CykhVsL8rjvTPAE.png" alt="" /></p>
+<h4 id="直接寻址"><a class="markdownIt-Anchor" href="#直接寻址"></a> 直接寻址</h4>
+<ul>
+<li>方式：地址字段含有操作数的有效地址</li>
+<li>用法：早期计算机常用，在当代计算机体系结构中不多见</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">EA = A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span></li>
+<li>优点：只要求1次存储器访问，且无需为生成地址而专门计算</li>
+<li>缺点：有限的地址空间</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/GeUYVocktbj3XmJ.png" alt="" /></p>
+<h4 id="间接寻址"><a class="markdownIt-Anchor" href="#间接寻址"></a> 间接寻址</h4>
+<ul>
+<li>方式：地址字段指示一个存储器字地址，而此地址保存有操作数的<strong>全长度</strong>地址</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">EA = (A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mclose">)</span></span></span></span></li>
+<li>优点：扩大了地址空间</li>
+<li>缺点：取操作数需要2次访问存储器</li>
+<li>解释：地址引用的数量限制可能是有益的</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/rnwgW7BRpQiuShN.png" alt="" /></p>
+<h4 id="寄存器寻址"><a class="markdownIt-Anchor" href="#寄存器寻址"></a> 寄存器寻址</h4>
+<ul>
+<li>方式：地址字段指示的是寄存器</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">EA = R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span></li>
+<li>优点：指令中仅需要一个较小的地址字段，且不需要存储器访问</li>
+<li>缺点：地址空间十分有限</li>
+<li>解释：寄存器寻址只有在被有效使用的时候才有意义</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/Rrx2F5HtBqC8b4D.png" alt="" /></p>
+<h4 id="寄存器间接寻址"><a class="markdownIt-Anchor" href="#寄存器间接寻址"></a> 寄存器间接寻址</h4>
+<ul>
+<li>方式：地址字段指示寄存器</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">EA = (R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span></li>
+<li>优点：扩大了地址空间，比间接寻址少1次存储器访问</li>
+<li>缺点：相对于寄存器寻址，需要多1次存储器访问</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/hizctMKryq4BO9p.png" alt="" /></p>
+<h4 id="偏移寻址"><a class="markdownIt-Anchor" href="#偏移寻址"></a> 偏移寻址</h4>
+<ul>
+<li>方式：结合直接寻址和寄存器间接寻址能力</li>
+<li>算法： <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo><mo>+</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">EA = (R)+A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span></li>
+<li>类型：
+<ul>
+<li>相对寻址</li>
+<li>基址寄存器寻址</li>
+<li>变址</li>
+</ul>
+</li>
+<li>解释：偏移寻址要求指令有两个地址字段，至少其中一个是显式的</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/dBGDTKfkaFvZ8zm.png" alt="" /></p>
+<h5 id="相对寻址"><a class="markdownIt-Anchor" href="#相对寻址"></a> 相对寻址</h5>
+<ul>
+<li>
+<p>方式：隐含引用的寄存器是程序计数器（Program Counter, PC）</p>
+<ul>
+<li>
+<p>此指令<strong>后续的下一条指令</strong>的地址加上地址字段的值产生有效地址</p>
+<blockquote>
+<p>取指周期之后PC就加一了，已经指向了下一条指令的地址</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>用法：大多数存储器访问都相对靠近正在执行的指令，相对寻址可节省指令中的地址位数</p>
+</li>
+<li>
+<p>算法： <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>P</mi><mi>C</mi><mo stretchy="false">)</mo><mo>+</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">EA = (PC) + A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span></p>
+</li>
+<li>
+<p>优点：利用<span style='color: red'><strong>程序局部性</strong></span>原理，节省指令中地址的位数</p>
+</li>
+</ul>
+<h5 id="基址寄存器寻址"><a class="markdownIt-Anchor" href="#基址寄存器寻址"></a> 基址寄存器寻址</h5>
+<ul>
+<li>方式：被引用的寄存器含有一个存储器地址，地址字段含有一个相对于那个地址的偏移量（通常是无符号整数表示）
+<ul>
+<li>寄存器引用可以是显式的，也可以是隐式的</li>
+</ul>
+</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo><mo>+</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">EA = (R) + A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span></span></span></span></li>
+<li>用法：虚拟内存空间中的程序重定位</li>
+</ul>
+<h5 id="变址寻址"><a class="markdownIt-Anchor" href="#变址寻址"></a> 变址寻址</h5>
+<ul>
+<li>方式：指令地址字段引用一个主存地址，被引用的寄存器含有对于该地址的一个正的偏移量</li>
+<li>算法：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mi>A</mi><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">EA = A + (R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span></li>
+<li>用法：为完成重复操作提供一种高效机制</li>
+<li>扩展：结合间接寻址和变址寻址
+<ul>
+<li>前变址：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">EA = (A + (R))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></li>
+<li>后变址：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>E</mi><mi>A</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">EA = (A) + (R)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<h4 id="栈寻址"><a class="markdownIt-Anchor" href="#栈寻址"></a> 栈寻址</h4>
+<ul>
+<li>方式：栈指针保存在寄存器中，对寄存器中栈位置的访问实际上是一种寄存器间接寻址方式</li>
+<li>解释：与栈相关的是一个指针，它的值是栈顶地址，或者当栈顶的两个元素已在CPU寄存器内，此时栈顶指针指向栈顶的第三个元素</li>
+</ul>
+<h5 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h5>
+<p>栈（stack）是有序元素组，一次仅能存取它的一个元素</p>
+<ul>
+<li>栈顶（top）：存取元素的点
+<ul>
+<li>LIFO</li>
+</ul>
+</li>
+<li>栈底（base）：栈中最后一个元素</li>
+</ul>
+<p>栈的操作：push，pop，一元操作（对栈顶元素操作完成后以结果替代栈顶元素），二元操作（取栈顶的两个元素进行操作，结果放到栈顶）</p>
+<p><strong>栈的实现</strong></p>
+<ul>
+<li>栈基（base）：保存为栈保留的内存块底部位置的地址</li>
+<li>栈限（limit）：保存为栈保留的内存块另一端的地址</li>
+<li>栈指针（pointer）：保存栈顶的地址</li>
+<li>向上/向下增长：向着地址增大/减小的方向增长</li>
+</ul>
+<p><strong>栈的应用：表达式求值</strong></p>
+<h3 id="指令格式"><a class="markdownIt-Anchor" href="#指令格式"></a> 指令格式</h3>
+<ul>
+<li>指令格式通过它的各个构成部分来定义指令的位安排</li>
+<li>一个指令格式必须包含一个操作码，以及隐式或显式的、零个或多个操作数</li>
+<li>指令格式必须显式或隐式地为每个操作数指定其寻址方式</li>
+<li>大多数指令集使用不止一种指令格式</li>
+</ul>
+<h3 id="指令格式的设计原则"><a class="markdownIt-Anchor" href="#指令格式的设计原则"></a> 指令格式的设计原则</h3>
+<ul>
+<li>指令尽量短
+<ul>
+<li>指令占用存储空间小</li>
+</ul>
+</li>
+<li>有足够的操作码位数
+<ul>
+<li>要为操作类型不断增加预留</li>
+</ul>
+</li>
+<li>操作码的编码必须有唯一的解释
+<ul>
+<li>操作码译码时要么是唯一的合法编码，要么是不合法的</li>
+</ul>
+</li>
+<li>指令长度是字节的整数倍
+<ul>
+<li>与内存按照字节寻址相对应，便于指令的读取和地址计算</li>
+</ul>
+</li>
+<li>合理选择地址字段的个数
+<ul>
+<li>涉及到指令长度和规整性，是空间和时间开销权衡的结果</li>
+</ul>
+</li>
+<li>指令尽量规整
+<ul>
+<li>简化硬件实现</li>
+</ul>
+</li>
+</ul>
+<h4 id="指令长度"><a class="markdownIt-Anchor" href="#指令长度"></a> 指令长度</h4>
+<blockquote>
+<p>最明显的权衡考虑是在强有力的指令清单和节省空间之间进行</p>
+<ul>
+<li>编程人员希望更多的操作码、更多的操作数、更多的寻址方式和更大的地址范围</li>
+<li>指令长度变短可以节省存储空间和减少数据传送时间</li>
+</ul>
+</blockquote>
+<p>指令长度应该是字符长度或定点数长度的<strong>整数倍</strong></p>
+<p>指令长度应该等于存储器的传送长度（即数据总线宽度），或者这两者的其中之一是另一个的整数倍</p>
+<h4 id="位的分配"><a class="markdownIt-Anchor" href="#位的分配"></a> 位的分配</h4>
+<blockquote>
+<p>操作码数目和寻址能力之间存在着权衡考虑</p>
+</blockquote>
+<p>变长的<strong>操作码</strong>（指令长度固定</p>
+<ul>
+<li>使用一个最小操作码长度，但是对于某些操作码，可通过使用指令附加位的方法来指定附加的操作</li>
+</ul>
+<p>使用寻址位的考虑因素</p>
+<ul>
+<li>寻址方式的种数</li>
+<li>操作数的数量</li>
+<li>寄存器与存储器比较：能用于操作数引用的寄存器越多，指令需要的位数越少</li>
+<li>寄存器组的数目：对于固定数目的寄存器，功能上的分开将使指令只需较少的位数</li>
+<li>地址范围</li>
+<li>寻址粒度：使用较大的字时，需要的地址位更少</li>
+</ul>
+<h5 id="变长指令"><a class="markdownIt-Anchor" href="#变长指令"></a> 变长指令</h5>
+<p>提供不同长度的各种指令格式</p>
+<p>优点：</p>
+<ol>
+<li>易于提供大的操作码清单，而操作码具有不同的长度</li>
+<li>寻址方式能更灵活，指令格式能将各种寄存器和存储器引用加上寻址方式予以组合</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>增加CPU复杂程度</li>
+</ol>
+<p>取至少等于最长指令长度的几个字节或几个字</p>
+<h4 id="指令集设计"><a class="markdownIt-Anchor" href="#指令集设计"></a> 指令集设计</h4>
+<h5 id="设计的基本问题"><a class="markdownIt-Anchor" href="#设计的基本问题"></a> 设计的基本问题</h5>
+<ol>
+<li>操作指令表：应该提供多少和什么样的操作，操作有多复杂</li>
+<li>数据类型：对哪几种数据类型完成操作</li>
+<li>指令格式：指令的位长度、地址数目、各个字段的大小等</li>
+<li>寄存器：能被指令访问的寄存器数目以及它们的用途</li>
+<li>寻址：寻址方式的种类以及有效地址的计算</li>
+<li>下一条指令地址的确定：通常通过PC寄存器来实现</li>
+</ol>
+<hr />
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/02/15/COA-Review-3/">https://zyinnju.com/2022/02/15/COA-Review-3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Computer-Organization-and-Architecture/">Computer Organization and Architecture</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/02/15/COA-Review-1/"><i class="fa fa-chevron-left">  </i><span>COA Review (1)</span></a></div><div class="next-post pull-right"><a href="/2022/02/15/COA-Review-4/"><span>COA Review (4)</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku24.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

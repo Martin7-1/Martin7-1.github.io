@@ -1,0 +1,1568 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="南京大学2021秋季学期《计算机组织与结构》课程笔记(2)"><meta name="keywords" content="SELearning,Computer Organization and Architecture"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>COA Review (2) | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%86%85%E9%83%A8%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text"> 8 内部存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text"> 半导体存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E5%85%83memory-cell"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 位元（memory cell）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%AD%98%E5%82%A8%E5%99%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 半导体存储器类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%8F%96%E5%AD%98%E5%82%A8%E5%99%A8ram"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 随机存取存储器（RAM）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dram"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> DRAM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#sram"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> SRAM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dram%E4%B8%8Esram%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> DRAM与SRAM的对比</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%9A%84dram%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 高级的DRAM架构</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#sdram"><span class="toc-number">1.2.1.4.1.</span> <span class="toc-text"> SDRAM</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ddr-sdram"><span class="toc-number">1.2.1.4.2.</span> <span class="toc-text"> DDR SDRAM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8rom"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 只读存储器（ROM）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E7%BC%96%E7%A8%8Bromprom"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 可编程ROM（PROM）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%BF%9B%E8%A1%8C%E8%AF%BB%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 主要进行读操作的存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%89%E5%8F%AF%E6%93%A6%E9%99%A4%E5%8F%AF%E7%BC%96%E7%A8%8B%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8eprom"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 光可擦除&#x2F;可编程只读存储器（EPROM）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%B5%E5%8F%AF%E6%93%A6%E9%99%A4%E5%8F%AF%E7%BC%96%E7%A8%8B%E5%8F%AA%E8%AF%BB%E5%AD%98%E5%82%A8%E5%99%A8eeprom"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 电可擦除&#x2F;可编程只读存储器（EEPROM）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%97%AA%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 快闪存储器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E4%BD%8D%E5%85%83%E5%88%B0%E4%B8%BB%E5%AD%98"><span class="toc-number">1.3.</span> <span class="toc-text"> 从位元到主存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BB%E5%9D%80%E5%8D%95%E5%85%83"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 寻址单元</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E9%98%B5%E5%88%97"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 存储阵列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AF%BB%E5%9D%80"><span class="toc-number">1.3.3.</span> <span class="toc-text"> 如何寻址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%B7%E6%96%B0"><span class="toc-number">1.3.4.</span> <span class="toc-text"> 如何刷新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%AF%E7%89%87"><span class="toc-number">1.3.5.</span> <span class="toc-text"> 芯片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87"><span class="toc-number">1.3.6.</span> <span class="toc-text"> 模块组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%AD%98"><span class="toc-number">1.3.7.</span> <span class="toc-text"> 主存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8cache"><span class="toc-number">2.</span> <span class="toc-text"> 9 高速缓冲存储器（Cache）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cache%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> Cache的工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text"> 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%98%AF%E5%91%BD%E4%B8%AD%E8%BF%98%E6%98%AF%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 如何判断是命中还是未命中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%9C%AA%E5%91%BD%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E6%8A%8A%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E5%AD%97%E4%BB%8E%E5%86%85%E5%AD%98%E4%BC%A0%E9%80%81%E5%88%B0cpu"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 如果未命中，为什么不直接把所需要的字从内存传送到CPU</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.2.1.</span> <span class="toc-text"> 程序的局部性原理</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%9C%AA%E5%91%BD%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BB%8E%E5%86%85%E5%AD%98%E4%B8%AD%E8%AF%BB%E5%85%A5%E4%B8%80%E4%B8%AA%E5%9D%97%E8%80%8C%E4%B8%8D%E5%8F%AA%E8%AF%BB%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 如果未命中，为什么从内存中读入一个块而不只读入一个字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cache%E5%90%8E%E9%9C%80%E8%A6%81%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%93%8D%E4%BD%9C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E5%8F%AF%E4%BB%A5%E8%8A%82%E7%9C%81%E6%97%B6%E9%97%B4"><span class="toc-number">2.2.4.</span> <span class="toc-text"> 使用Cache后需要更多的操作，为什么还可以节省时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cache%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A6%81%E7%B4%A0"><span class="toc-number">2.3.</span> <span class="toc-text"> Cache的设计要素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cache%E5%AE%B9%E9%87%8F"><span class="toc-number">2.3.1.</span> <span class="toc-text"> Cache容量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%A0%E5%B0%84%E5%8A%9F%E8%83%BDmapping-function"><span class="toc-number">2.3.2.</span> <span class="toc-text"> 映射功能（Mapping Function）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%98%A0%E5%B0%84"><span class="toc-number">2.3.2.1.</span> <span class="toc-text"> 直接映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-number">2.3.2.2.</span> <span class="toc-text"> 关联映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%84%E5%85%B3%E8%81%94%E6%98%A0%E5%B0%84"><span class="toc-number">2.3.2.3.</span> <span class="toc-text"> 组关联映射</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E6%9B%BF%E6%8D%A2%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83"><span class="toc-number">2.3.2.4.</span> <span class="toc-text"> 三种替换方式比较</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">2.3.3.</span> <span class="toc-text"> 替换算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95lru"><span class="toc-number">2.3.3.1.</span> <span class="toc-text"> 最近最少使用算法（LRU）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E7%AE%97%E6%B3%95fifo"><span class="toc-number">2.3.3.2.</span> <span class="toc-text"> 先进先出算法（FIFO）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%80%E4%B8%8D%E7%BB%8F%E5%B8%B8%E4%BD%BF%E7%94%A8%E7%AE%97%E6%B3%95lfu"><span class="toc-number">2.3.3.3.</span> <span class="toc-text"> 最不经常使用算法（LFU）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%9B%BF%E6%8D%A2%E7%AE%97%E6%B3%95random"><span class="toc-number">2.3.3.4.</span> <span class="toc-text"> 随机替换算法（Random）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E7%AD%96%E7%95%A5"><span class="toc-number">2.3.4.</span> <span class="toc-text"> 写策略</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E7%9B%B4%E8%BE%BEwrite-through"><span class="toc-number">2.3.4.1.</span> <span class="toc-text"> 写直达（write through）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%99%E5%9B%9E%E6%B3%95write-back"><span class="toc-number">2.3.4.2.</span> <span class="toc-text"> 写回法（write back）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E5%A4%A7%E5%B0%8F"><span class="toc-number">2.3.5.</span> <span class="toc-text"> 行大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cache%E6%95%B0%E7%9B%AE"><span class="toc-number">2.3.6.</span> <span class="toc-text"> Cache数目</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80%E7%BA%A7-vs-%E5%A4%9A%E7%BA%A7"><span class="toc-number">2.3.6.1.</span> <span class="toc-text"> 一级 vs 多级</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80-vs-%E5%88%86%E7%AB%8B"><span class="toc-number">2.3.6.2.</span> <span class="toc-text"> 统一 vs 分立</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text"> 10 外部存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 外部存储器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 磁盘存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E7%9B%98"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 软盘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 硬盘</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.2.1.</span> <span class="toc-text"> 结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%9C%BA%E5%88%B6"><span class="toc-number">3.2.2.2.</span> <span class="toc-text"> 读写机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87"><span class="toc-number">3.2.2.3.</span> <span class="toc-text"> 数据组织</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">3.2.2.4.</span> <span class="toc-text"> 格式化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#io-%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4"><span class="toc-number">3.2.2.5.</span> <span class="toc-text"> I&#x2F;O 访问时间</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#io%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.2.2.5.1.</span> <span class="toc-text"> I&#x2F;O访问时间示例</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">3.2.2.6.</span> <span class="toc-text"> 磁盘调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.2.2.6.1.</span> <span class="toc-text"> 先来先服务</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E5%AF%BB%E9%81%93%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88"><span class="toc-number">3.2.2.6.2.</span> <span class="toc-text"> 最短寻道时间优先</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E7%94%B5%E6%A2%AFscan"><span class="toc-number">3.2.2.6.3.</span> <span class="toc-text"> 扫描&#x2F;电梯（SCAN）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E6%89%AB%E6%8F%8Fc-scan"><span class="toc-number">3.2.2.6.4.</span> <span class="toc-text"> 循环扫描（C-SCAN）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#look"><span class="toc-number">3.2.2.6.5.</span> <span class="toc-text"> LOOK</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#c-look"><span class="toc-number">3.2.2.6.6.</span> <span class="toc-text"> C-LOOK</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%89%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text"> 光存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cd-and-cd-rom"><span class="toc-number">3.3.1.</span> <span class="toc-text"> CD and CD-ROM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cdr-and-cd-rw"><span class="toc-number">3.3.2.</span> <span class="toc-text"> CD—R and CD-RW</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E5%A4%9A%E5%8A%9F%E8%83%BD%E5%85%89%E7%9B%98dvd"><span class="toc-number">3.3.3.</span> <span class="toc-text"> 数字多功能光盘（DVD）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E6%B8%85%E6%99%B0%E5%85%89%E7%9B%98%E8%93%9D%E5%85%89"><span class="toc-number">3.3.4.</span> <span class="toc-text"> 高清晰光盘（蓝光</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E5%B8%A6"><span class="toc-number">3.4.</span> <span class="toc-text"> 磁带</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u%E7%9B%98%E5%92%8C%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98"><span class="toc-number">3.5.</span> <span class="toc-text"> U盘和固态硬盘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%86%97%E4%BD%99%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97raid"><span class="toc-number">4.</span> <span class="toc-text"> 11 冗余磁盘阵列（RAID）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#raid%E5%88%86%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text"> RAID分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-0"><span class="toc-number">4.2.</span> <span class="toc-text"> RAID 0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-1"><span class="toc-number">4.3.</span> <span class="toc-text"> RAID 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-01-vs-raid-10"><span class="toc-number">4.4.</span> <span class="toc-text"> RAID 01 vs RAID 10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-2"><span class="toc-number">4.5.</span> <span class="toc-text"> RAID 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-3"><span class="toc-number">4.6.</span> <span class="toc-text"> RAID 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-4"><span class="toc-number">4.7.</span> <span class="toc-text"> RAID 4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-5"><span class="toc-number">4.8.</span> <span class="toc-text"> RAID 5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-50"><span class="toc-number">4.9.</span> <span class="toc-text"> RAID 50</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#raid-6"><span class="toc-number">4.10.</span> <span class="toc-text"> RAID 6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text"> 12  虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">5.1.</span> <span class="toc-text"> 操作系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%AE%A1%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text"> 存储器管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E6%9B%B4%E5%A4%9A%E4%BB%BB%E5%8A%A1%E8%A3%85%E5%85%A5%E4%B8%BB%E5%AD%98"><span class="toc-number">5.3.</span> <span class="toc-text"> 如何将更多任务装入主存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E6%96%B9%E5%BC%8F"><span class="toc-number">5.3.1.</span> <span class="toc-text"> 分区方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA"><span class="toc-number">5.3.1.1.</span> <span class="toc-text"> 简单固定分区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E9%95%BF%E5%88%86%E5%8C%BA"><span class="toc-number">5.3.1.2.</span> <span class="toc-text"> 可变长分区</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%96%B9%E5%BC%8F"><span class="toc-number">5.3.2.</span> <span class="toc-text"> 分页方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.4.</span> <span class="toc-text"> 虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-number">5.4.1.</span> <span class="toc-text"> 基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.4.2.</span> <span class="toc-text"> 分页式虚拟存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8"><span class="toc-number">5.4.2.1.</span> <span class="toc-text"> 页表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E8%A1%A8"><span class="toc-number">5.4.2.2.</span> <span class="toc-text"> 快表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#cpu%E8%AE%BF%E5%AD%98%E8%BF%87%E7%A8%8B"><span class="toc-number">5.4.2.3.</span> <span class="toc-text"> CPU访存过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tlb-%E9%A1%B5%E8%A1%A8-cache%E7%9A%84%E7%BC%BA%E5%A4%B1%E7%BB%84%E5%90%88"><span class="toc-number">5.4.2.4.</span> <span class="toc-text"> TLB、页表、Cache的缺失组合</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%AE%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.4.3.</span> <span class="toc-text"> 分段式虚拟存储器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-number">5.4.4.</span> <span class="toc-text"> 段页式虚拟存储器</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku25.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">COA Review (2)</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-02-15</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Computer-Organization-and-Architecture/">Computer Organization and Architecture</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">12.9k</span><span class="post-meta__separator">|</span><span>阅读时长: 41 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="8-内部存储器"><a class="markdownIt-Anchor" href="#8-内部存储器"></a> 8 内部存储器</h2>
+<p>**存储器（Memory）**由一定数量的单元构成，每个单元可以被唯一标识，每个单元都有存储一个数值的能力</p>
+<ul>
+<li>地址：单元的唯一标识符（采用二进制）</li>
+<li>地址空间：可唯一标识的单元总数</li>
+<li>寻址能力：存储在每个单元中的信息的位数
+<ul>
+<li>大多数存储器是<strong>字节寻址</strong>的，而执行科学计算的计算机通常是64位寻址的</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h3 id="半导体存储器"><a class="markdownIt-Anchor" href="#半导体存储器"></a> 半导体存储器</h3>
+<p>用半导体存储器作主存储器是目前的流行做法</p>
+<h4 id="位元memory-cell"><a class="markdownIt-Anchor" href="#位元memory-cell"></a> 位元（memory cell）</h4>
+<ul>
+<li>
+<p>半导体存储器的基本元件，用于存储1位数据</p>
+</li>
+<li>
+<p>特性：</p>
+<ul>
+<li>呈现两种稳态（或半稳态）：分别表示二进制的0或1</li>
+<li>它们能够至少被写入（write）数据一次：用来设置状态</li>
+<li>它们能够被读取（read）来获得状态信息</li>
+</ul>
+</li>
+<li>
+<p>操作</p>
+<p><img src="https://s2.loli.net/2022/01/06/iLjOI6VoW3J2TNp.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/01/06/nj1mRWQPeXKzyxD.png" alt="" /></p>
+</li>
+</ul>
+<h3 id="半导体存储器类型"><a class="markdownIt-Anchor" href="#半导体存储器类型"></a> 半导体存储器类型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">存储器类型</th>
+<th style="text-align:center">种类</th>
+<th style="text-align:center">可擦除性</th>
+<th style="text-align:center">写机制</th>
+<th style="text-align:center">易失性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">随机存取存储器（RAM）</td>
+<td style="text-align:center">读-写存储器</td>
+<td style="text-align:center">电可擦除，字节级</td>
+<td style="text-align:center">电</td>
+<td style="text-align:center">易失</td>
+</tr>
+<tr>
+<td style="text-align:center">只读存储器（ROM）</td>
+<td style="text-align:center">只读存储器</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">掩膜</td>
+<td style="text-align:center">非易失</td>
+</tr>
+<tr>
+<td style="text-align:center">可编程ROM（PROM）</td>
+<td style="text-align:center">只读存储器</td>
+<td style="text-align:center">不可能</td>
+<td style="text-align:center">电</td>
+<td style="text-align:center">非易失</td>
+</tr>
+<tr>
+<td style="text-align:center">可擦除PROM（EPROM）</td>
+<td style="text-align:center">主要进行读操作的存储器</td>
+<td style="text-align:center">紫外线可擦除，芯片级</td>
+<td style="text-align:center">电</td>
+<td style="text-align:center">非易失</td>
+</tr>
+<tr>
+<td style="text-align:center">电可擦除PROM（EEPROM）</td>
+<td style="text-align:center">主要进行读操作的存储器</td>
+<td style="text-align:center">电可擦除，字节级</td>
+<td style="text-align:center">电</td>
+<td style="text-align:center">非易失</td>
+</tr>
+<tr>
+<td style="text-align:center">快闪存储器</td>
+<td style="text-align:center">主要进行读操作的存储器</td>
+<td style="text-align:center">电可擦除，块级</td>
+<td style="text-align:center">电</td>
+<td style="text-align:center">非易失</td>
+</tr>
+</tbody>
+</table>
+<h4 id="随机存取存储器ram"><a class="markdownIt-Anchor" href="#随机存取存储器ram"></a> 随机存取存储器（RAM）</h4>
+<blockquote>
+<p>Random-Access Memory（RAM）</p>
+</blockquote>
+<p><strong>特性：</strong></p>
+<ul>
+<li>可以简单快速地进行读/写操作</li>
+<li><span style='color: orange'><strong>易失的（Volatile）</strong></span></li>
+</ul>
+<p><strong>类型：</strong></p>
+<ul>
+<li>动态RAM（DRAM）：Dynamic RAM</li>
+<li>静态RAM（SRAM）：Static RAM</li>
+</ul>
+<h5 id="dram"><a class="markdownIt-Anchor" href="#dram"></a> DRAM</h5>
+<ol>
+<li>在电容器上用电容充电的方式存储数据
+<ul>
+<li>电容器中有无电荷在分别代表二进制的1与0</li>
+</ul>
+</li>
+<li>需要周期地<strong>充电刷新</strong>以维护数据存储
+<ul>
+<li>原因：电容器有漏电的自然趋势</li>
+<li>由一个阙值来确定电荷是被解释为1还是0</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/01/06/p98gZtuS2qEmljX.png" alt="" /></p>
+<h5 id="sram"><a class="markdownIt-Anchor" href="#sram"></a> SRAM</h5>
+<ol>
+<li>使用传统触发器、逻辑门配置来存储二进制
+<ul>
+<li>使用与处理器相同的逻辑元件</li>
+</ul>
+</li>
+<li>只要有电源，就可以一直维持数据</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/01/06/GunlCVOUtdcQs7v.png" alt="" /></p>
+<h5 id="dram与sram的对比"><a class="markdownIt-Anchor" href="#dram与sram的对比"></a> DRAM与SRAM的对比</h5>
+<ul>
+<li>相同点：易失的：两者都要求电源持续供电才能保存位值</li>
+<li>不同点：
+<ol>
+<li>DRAM比SRAM具有更简单、更小的位元，但要求能支持刷新的电路</li>
+<li>DRAM比相应的SRAM密度更高，价格更低</li>
+<li>SRAM通常比DRAM快</li>
+<li>DRAM更倾向于满足大容量存储器的需求，SRAM一般用于高速缓存（Cache），DRAM用于主存</li>
+</ol>
+</li>
+</ul>
+<h5 id="高级的dram架构"><a class="markdownIt-Anchor" href="#高级的dram架构"></a> 高级的DRAM架构</h5>
+<p>问题：传统的DRAM芯片收到其内部架构和与处理器内存总线接口的限制</p>
+<p>类型：</p>
+<ul>
+<li>同步DRAM（Synchronous DRAM, SDRAM）</li>
+<li>双速率SDRAM（Double-Data-Rate SDRAM, DDR SDRAM）</li>
+</ul>
+<h6 id="sdram"><a class="markdownIt-Anchor" href="#sdram"></a> SDRAM</h6>
+<p>传统的DRAM是异步的：</p>
+<ul>
+<li>处理器向内存提供地址和控制信号，表示内存中特定单元的一组数据应该被读出或写入DRAM</li>
+<li>DRAM执行各种内部功能，如激活行和列地址线的高电容，读取数据，以及通过输出缓冲将数据输出，处理器只能等待这段延迟，即存取时间</li>
+<li>延时后，DRAM才写入或读取数据</li>
+</ul>
+<blockquote>
+<p>即处理器在读取数据是不能够马上获取数据，需要一段时间的延迟之后才能够读取DRAM（主存）中的数据</p>
+</blockquote>
+<p><strong>采用SDRAM</strong>：</p>
+<ul>
+<li>SDRAM与处理器的数据交互同步与外部的时钟信号，并且以处理器/存储器总线的最高速度运行，而不需要插入等待状态</li>
+<li>由于SDRAM随系统时钟及时移动数据，CPU知道数据何时准备好，控制器可以完成其它工作</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/xHsIXTqu1wc76hy.png" alt="" /></p>
+<h6 id="ddr-sdram"><a class="markdownIt-Anchor" href="#ddr-sdram"></a> DDR SDRAM</h6>
+<ul>
+<li>
+<p>每个时钟周期发送两次数据，一次在时钟脉冲的上升沿，一次在下降沿（原本一个时钟周期只能提供一次数据的读写）</p>
+<blockquote>
+<p>不是CPU的时钟，而是外部的时钟信号</p>
+</blockquote>
+</li>
+<li>
+<p>DDR <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> DDR2 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> DDR3 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> DDR4</p>
+<ul>
+<li>增加操作频率</li>
+<li>增加预取缓冲区</li>
+</ul>
+</li>
+</ul>
+<h4 id="只读存储器rom"><a class="markdownIt-Anchor" href="#只读存储器rom"></a> 只读存储器（ROM）</h4>
+<blockquote>
+<p>Read-only Memory（ROM）</p>
+</blockquote>
+<p><strong>特性</strong></p>
+<ul>
+<li>非易失的：不要求供电来维持数据</li>
+<li>可读，但不能写入新数据</li>
+</ul>
+<p><strong>应用</strong></p>
+<ul>
+<li>微程序设计，库子程序，系统程序，寒暑表</li>
+</ul>
+<p><strong>问题</strong></p>
+<ul>
+<li>无出错处理机会：如果有一位出错，整批的ROM芯片只能报废</li>
+<li>用户无法写入数据：唯一的数据写入机会在出厂时完成</li>
+</ul>
+<h5 id="可编程romprom"><a class="markdownIt-Anchor" href="#可编程romprom"></a> 可编程ROM（PROM）</h5>
+<blockquote>
+<p>Programmable ROM（PROM）</p>
+</blockquote>
+<p><strong>特性</strong></p>
+<ul>
+<li>非易失的</li>
+<li>只能被写入一次
+<ul>
+<li>写过程使用电信号执行</li>
+<li>需要特殊设备来完成写或<strong>编程</strong>过程</li>
+</ul>
+</li>
+<li>与ROM的对比
+<ul>
+<li>PROM提融了灵活性和方便性</li>
+<li>ROM在大批量生产领域仍然具有吸引力</li>
+</ul>
+</li>
+</ul>
+<h4 id="主要进行读操作的存储器"><a class="markdownIt-Anchor" href="#主要进行读操作的存储器"></a> 主要进行读操作的存储器</h4>
+<blockquote>
+<p>Read-Mostly Memory</p>
+</blockquote>
+<p><strong>特性</strong></p>
+<ul>
+<li>非易失的</li>
+<li>写操作与读操作相比，较为困难</li>
+</ul>
+<p><strong>应用</strong></p>
+<ul>
+<li>读操作比写操作频繁得多的场景</li>
+</ul>
+<p><strong>类型</strong></p>
+<ul>
+<li>EPROM</li>
+<li>EEPROM</li>
+<li>Flash Memory</li>
+</ul>
+<h5 id="光可擦除可编程只读存储器eprom"><a class="markdownIt-Anchor" href="#光可擦除可编程只读存储器eprom"></a> 光可擦除/可编程只读存储器（EPROM）</h5>
+<blockquote>
+<p>Erasable Programmable read-only memory（EPROM）</p>
+</blockquote>
+<p><strong>特性：</strong></p>
+<ul>
+<li>光擦除
+<ul>
+<li>擦除：在写操作前将封装芯片暴露在紫外线下
+<ul>
+<li>所有的存储单元都变回相同的初始状态</li>
+<li>每次擦除需要约20分钟</li>
+</ul>
+</li>
+<li>电写入</li>
+</ul>
+</li>
+<li>与PROM对比
+<ul>
+<li>EPROM更贵，但具有可多次改写的优点</li>
+</ul>
+</li>
+</ul>
+<h5 id="电可擦除可编程只读存储器eeprom"><a class="markdownIt-Anchor" href="#电可擦除可编程只读存储器eeprom"></a> 电可擦除/可编程只读存储器（EEPROM）</h5>
+<blockquote>
+<p>Electrically erasable progammable read-only memory（EEPROM）</p>
+</blockquote>
+<p><strong>特性</strong></p>
+<ul>
+<li>可以随时写入而不删除之前的内容</li>
+<li>只更新寻址到的一个或多个字节</li>
+<li>写操作每字节需要几百微秒</li>
+</ul>
+<p><strong>与EPROM对比</strong></p>
+<ul>
+<li>EEPROM更贵，且密度低，支持小容量芯片</li>
+</ul>
+<h5 id="快闪存储器"><a class="markdownIt-Anchor" href="#快闪存储器"></a> 快闪存储器</h5>
+<blockquote>
+<p>Flash Memory</p>
+</blockquote>
+<p><strong>特性</strong></p>
+<ul>
+<li>电可擦除：与EEPROM相同，优于EPROM</li>
+<li>擦除时间为几秒：优于EPROM，不如EEPROM</li>
+<li>可以在块级擦除，不能在字节级擦除：优于EPROM，不如EEPROM</li>
+<li>达到与EPROM相同的密度，优于EEPROM</li>
+</ul>
+<p><strong>与EPROM、EEPROM对比</strong></p>
+<ul>
+<li>价格和功能介于EPROM和EEPROM之间</li>
+</ul>
+<h3 id="从位元到主存"><a class="markdownIt-Anchor" href="#从位元到主存"></a> 从位元到主存</h3>
+<h4 id="寻址单元"><a class="markdownIt-Anchor" href="#寻址单元"></a> 寻址单元</h4>
+<blockquote>
+<p>Addressable Unit</p>
+</blockquote>
+<ul>
+<li>由若干相同地址的位元组成</li>
+<li>寻址模式：Byte（常用）、word</li>
+</ul>
+<h4 id="存储阵列"><a class="markdownIt-Anchor" href="#存储阵列"></a> 存储阵列</h4>
+<blockquote>
+<p>Memory Array</p>
+</blockquote>
+<p>由大量寻址单元组成</p>
+<p><img src="https://s2.loli.net/2022/01/06/pvAkIn5OrQiHzJb.png" alt="" /></p>
+<h4 id="如何寻址"><a class="markdownIt-Anchor" href="#如何寻址"></a> 如何寻址</h4>
+<p><strong>地址译码器</strong></p>
+<ul>
+<li>一个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位译码器有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span></span></span></span></span></span></span> 种输出</li>
+<li>当所有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 个寻址位都满足条件时，该输出为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></li>
+<li>任何时候，只有一个输出是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，其余都是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span></li>
+</ul>
+<h4 id="如何刷新"><a class="markdownIt-Anchor" href="#如何刷新"></a> 如何刷新</h4>
+<ol>
+<li>集中式刷新（Centralized refresh）
+<ul>
+<li>停止读写操作，并刷新每一行</li>
+<li>刷新时无法操作内存</li>
+</ul>
+</li>
+<li>分散式刷新（Decentralized refresh）
+<ul>
+<li>在每个存储周期中，当读写操作完成时进行刷新</li>
+<li>会增加每个存储周期的时间</li>
+</ul>
+</li>
+<li>异步刷新（Asynchronous refresh）
+<ul>
+<li>每一行各自以64ms间隔刷新</li>
+<li>效率高（常用）</li>
+</ul>
+</li>
+</ol>
+<h4 id="芯片"><a class="markdownIt-Anchor" href="#芯片"></a> 芯片</h4>
+<p>芯片引脚</p>
+<h4 id="模块组织"><a class="markdownIt-Anchor" href="#模块组织"></a> 模块组织</h4>
+<ol>
+<li>位扩展：地址线不变，数据线增加
+<ul>
+<li>使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span> 块 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mi>K</mi><mo>×</mo><mn>1</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">4K \times 1\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的芯片组成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mi>K</mi><mo>×</mo><mn>8</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">4K \times 8\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的存储器</li>
+</ul>
+</li>
+<li>字扩展：地址线增加，数据线不变
+<ul>
+<li>使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>16</mn><mi>K</mi><mo>×</mo><mn>8</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">16K \times 8\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的芯片组成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>64</mn><mi>K</mi><mo>×</mo><mn>8</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">64K \times 8\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的存储器</li>
+</ul>
+</li>
+<li>字、位同时扩展：地址线增加，数据线增加
+<ul>
+<li>使用 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>8</mn></mrow><annotation encoding="application/x-tex">8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span> 个 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>16</mn><mi>K</mi><mo>×</mo><mn>4</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">16K \times 4\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的芯片组成 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>64</mn><mi>K</mi><mo>×</mo><mn>8</mn><mtext> </mtext><mi>b</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">64K \times 8\ bit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">6</span><span class="mord">4</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span></span></span></span> 的存储器</li>
+</ul>
+</li>
+</ol>
+<h4 id="主存"><a class="markdownIt-Anchor" href="#主存"></a> 主存</h4>
+<p>插槽：组合多个存储模块</p>
+<hr />
+<h2 id="9-高速缓冲存储器cache"><a class="markdownIt-Anchor" href="#9-高速缓冲存储器cache"></a> 9 高速缓冲存储器（Cache）</h2>
+<blockquote>
+<p>Cache的基本思路：解决内存墙带来的CPU和主存协作问题</p>
+<ul>
+<li>在使用主存（相对大而慢）之余，添加一块小而快的Cache</li>
+<li>Cache位于CPU和主存之间，可以集成在CPU内部或作为主板上的一个模块</li>
+<li>Cache中存放了主存中的部分信息的副本</li>
+</ul>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/01/06/LkvdqE1u3e4KTBA.png" alt="" /></p>
+<h3 id="cache的工作流程"><a class="markdownIt-Anchor" href="#cache的工作流程"></a> Cache的工作流程</h3>
+<ul>
+<li><span style='color: orange'><strong>检查（check）</strong></span>：当CPU试图访问主存中的某个字时，首先检查这个字是否在Cache中</li>
+<li>检查分两种情况处理：
+<ol>
+<li><span style='color: green'><strong>命中（Hit）</strong></span>：如果在Cache中，则把<strong>这个字</strong>传送给CPU</li>
+<li><span style='color: blue'><strong>未命中（Miss）</strong></span>：如果不在Cache中，则将主存中包含这个字<span style='color: red'><strong>固定大小的块（block）</strong></span>读入Cache中，然后再从Cache<strong>传送该字</strong>给CPU</li>
+</ol>
+</li>
+</ul>
+<h3 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h3>
+<blockquote>
+<ol>
+<li>如何判断是命中还是未命中</li>
+<li>如果未命中，为什么不直接把所需要的字从内存传送到CPU</li>
+<li>如果未命中，为什么从内存中读入一个块而不只读入一个字</li>
+<li>使用Cache后需要更多的操作，为什么还可以节省时间</li>
+</ol>
+</blockquote>
+<h4 id="如何判断是命中还是未命中"><a class="markdownIt-Anchor" href="#如何判断是命中还是未命中"></a> 如何判断是命中还是未命中</h4>
+<blockquote>
+<p>冯·诺依曼体系的设计</p>
+<ul>
+<li>CPU通过<span style='color: red'><strong>位置</strong></span>对主存中的内容进行寻址，不关心存储在其中的内容</li>
+</ul>
+</blockquote>
+<p><strong>Cache通过标记（tags）来标识其内容在主存中的对应位置</strong></p>
+<h4 id="如果未命中为什么不直接把所需要的字从内存传送到cpu"><a class="markdownIt-Anchor" href="#如果未命中为什么不直接把所需要的字从内存传送到cpu"></a> 如果未命中，为什么不直接把所需要的字从内存传送到CPU</h4>
+<h5 id="程序的局部性原理"><a class="markdownIt-Anchor" href="#程序的局部性原理"></a> 程序的局部性原理</h5>
+<p><strong>Definition</strong></p>
+<p>处理器频繁访问主存中相同位置或者相邻存储位置的现象</p>
+<p><strong>类型</strong></p>
+<ol>
+<li><span style='color: red'><strong>时间局部性</strong></span>：在相对较短的时间周期内，重复访问特定的信息（也就是访问相同位置的信息）</li>
+<li><span style='color: red'><strong>空间局部性</strong></span>：在相对较短的时间周期内，访问相邻存储位置的数据
+<ul>
+<li><span style='color: orange'><strong>顺序局部性</strong></span>：当数据被线性排列和访问时，出现的空间局部性的一种特殊情况</li>
+<li>例如：遍历一位数组中的元素</li>
+</ul>
+</li>
+</ol>
+<p>利用“时间局部性”：将未命中的数据在返回给CPU的同时存放在Cache中，以便再次访问时命中。即如果我们再访问到这个字，因为这个字已经在Cache中了，我们就可以不用访问主存，从而减少访问主存的次数</p>
+<h4 id="如果未命中为什么从内存中读入一个块而不只读入一个字"><a class="markdownIt-Anchor" href="#如果未命中为什么从内存中读入一个块而不只读入一个字"></a> 如果未命中，为什么从内存中读入一个块而不只读入一个字</h4>
+<p>利用“空间局部性”：将包含所访问的字的块存储到Cache中，以便在访问相邻数据时命中</p>
+<h4 id="使用cache后需要更多的操作为什么还可以节省时间"><a class="markdownIt-Anchor" href="#使用cache后需要更多的操作为什么还可以节省时间"></a> 使用Cache后需要更多的操作，为什么还可以节省时间</h4>
+<blockquote>
+<p>假设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 是命中率， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">T_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是Cache的访问时间，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>M</mi></msub></mrow><annotation encoding="application/x-tex">T_M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是主存的访问时间</p>
+</blockquote>
+<p>使用Cache时的平均访问时间为：</p>
+T_A = p \times T_c + (1-p) \times (T_c + T_M) \\
+= T_c + (1-p) \times T_M \ \ \ \ \ \ \ \ \ \ \ \ \
+
+<ul>
+<li>
+<p>命中率 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 越大， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">T_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 越小，效果越好</p>
+</li>
+<li>
+<p>如果想要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>&lt;</mo><msub><mi>T</mi><mi>M</mi></msub></mrow><annotation encoding="application/x-tex">T_A &lt; T_M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">A</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，必须满足</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+</li>
+</ul>
+<blockquote>
+<p>如何理解计算平均访问时间的公式？</p>
+<ol>
+<li>有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span> 的概率只需要访问Cache，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1-p)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mclose">)</span></span></span></span> 的概率需要访问Cache和主存</li>
+<li>每次必定会访问Cache（检查），如果不在Cache中则访问主存（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1-p)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mclose">)</span></span></span></span> 的概率）</li>
+</ol>
+</blockquote>
+<h3 id="cache的设计要素"><a class="markdownIt-Anchor" href="#cache的设计要素"></a> Cache的设计要素</h3>
+<h4 id="cache容量"><a class="markdownIt-Anchor" href="#cache容量"></a> Cache容量</h4>
+<p>扩大Cache容量带来的结果：</p>
+<ol>
+<li>增大了命中率 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span></li>
+<li>增加了Cache的开销和访问时间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">T_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+</ol>
+<h4 id="映射功能mapping-function"><a class="markdownIt-Anchor" href="#映射功能mapping-function"></a> 映射功能（Mapping Function）</h4>
+<blockquote>
+<p>实现主存块到Cache行的映射</p>
+<p>块号，块内地址</p>
+<p>映射方式的选择会影响Cache的组织结构</p>
+<ul>
+<li>直接映射（Direct mapping）</li>
+<li>关联映射（Associative mapping）</li>
+<li>组关联映射（Set associative mapping）</li>
+</ul>
+</blockquote>
+<h5 id="直接映射"><a class="markdownIt-Anchor" href="#直接映射"></a> 直接映射</h5>
+<p>将主存中的每个块映射到<span style='color: red'><strong>一个固定可用的</strong></span>Cache行中</p>
+<blockquote>
+<p>假设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span> 是Cache行号， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 是主存储器的块号， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span> 是Cache的行数</p>
+</blockquote>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>=</mo><mi>j</mi><mtext>  </mtext><mi>m</mi><mi>o</mi><mi>d</mi><mtext>  </mtext><mi>C</mi></mrow><annotation encoding="application/x-tex">i = j\ \ mod\ \  C
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace"> </span><span class="mspace"> </span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mspace"> </span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span></span></p>
+<p><strong>标记</strong></p>
+<ul>
+<li>地址中最高 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位，且满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>M</mi><mo>−</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>C</mi></mrow><annotation encoding="application/x-tex">n = \log_2M - log_2C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span> （<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span> 是主存中块的数量）</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/t6sf1LX5KzCRUmx.png" alt="" /></p>
+<p><strong>例</strong></p>
+<blockquote>
+<p>假设Cache有4行，每行包含8个字，主存中包含128个字。访问主存的地址长度为7位，则：</p>
+</blockquote>
+<ul>
+<li>最低的3位：块内地址（包含8个字，需要3位来的地址来表示</li>
+<li>中间的2位：映射时所对应的Cache行号（Cache有4行，所以需要2位来表示行号</li>
+<li>最高的2位：区分映射到同一行的不同块，记录为Cache标记（每一行有4块能够映射到（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><msup><mn>2</mn><mn>4</mn></msup><msup><mn>2</mn><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">\frac{2^4}{2^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.36292em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01792em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7463142857142857em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>），所以需要2位来进行标记）</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>简单</li>
+<li>快速映射</li>
+<li>快速检查</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>抖动现象（Thrashing）：如果一个程序重复访问两个需要映射到同一行中且来自不同块的字，则这两个块不断地被交换到Cache中，Cache的命中率将会降低</li>
+</ul>
+<blockquote>
+<p>适合大容量的Cache</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/01/06/R5YrBTwAasiobOq.png" alt="" /></p>
+<h5 id="关联映射"><a class="markdownIt-Anchor" href="#关联映射"></a> 关联映射</h5>
+<p>一个主存块可以装入Cache<span style='color: red'><strong>任意一行</strong></span></p>
+<p><strong>标记</strong></p>
+<ul>
+<li>地址中最高 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位，且满足：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>M</mi></mrow><annotation encoding="application/x-tex">n = \log_2M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span></li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/sGcC5FWhflLeaOA.png" alt="" /></p>
+<p><strong>例</strong></p>
+<blockquote>
+<p>假设Cache有4行，每行包含8个字，主存中包含128个字。访问主存的地址长度为7位，则：</p>
+</blockquote>
+<ul>
+<li>最低的3位：块内地址</li>
+<li>最高的4位：块号，记录为Cache的标记</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>避免抖动</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>实现起来比较复杂</li>
+<li>Cache搜索代价很大，即在检查时候需要取访问Cache的每一行</li>
+</ul>
+<blockquote>
+<p>适合容量较小的Cache</p>
+</blockquote>
+<h5 id="组关联映射"><a class="markdownIt-Anchor" href="#组关联映射"></a> 组关联映射</h5>
+<p>Cache分为若干组，每一组包含相同数量的行，每个主存块被映射到<span style='color: red'><strong>固定组的任意一行</strong></span></p>
+<blockquote>
+<p>假设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 是Cache的组号， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span> 是主存块号， <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span> 是组数</p>
+</blockquote>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mo>=</mo><mi>j</mi><mtext>  </mtext><mi>m</mi><mi>o</mi><mi>d</mi><mtext>  </mtext><mi>S</mi></mrow><annotation encoding="application/x-tex">s = j\ \ mod \ \ S
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace"> </span><span class="mspace"> </span><span class="mord mathdefault">m</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mspace"> </span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></span></p>
+<ul>
+<li><span style='color: red'><strong>K-路</strong></span>组关联映射（ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> 代表了一组里面有多少行）</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi><mo>=</mo><mfrac><mi>C</mi><mi>S</mi></mfrac></mrow><annotation encoding="application/x-tex">K = \frac{C}{S}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p><strong>标记</strong></p>
+<ul>
+<li>地址中最高 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span> 位，且满足 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>=</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>M</mi><mo>−</mo><msub><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msub><mi>S</mi></mrow><annotation encoding="application/x-tex">n = \log_2M - \log_2S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.20696799999999996em;"><span style="top:-2.4558600000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>（ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span> 是主存块的数量）</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/Z2FIgqW167m3YlS.png" alt="" /></p>
+<p><strong>例</strong></p>
+<blockquote>
+<p>假设Cache有4行，每行包含8个字，分成2个组，主存中包含128个字。访问主存的地址长度为7位，则：</p>
+</blockquote>
+<ul>
+<li>最低的3位：块内地址</li>
+<li>中间的1位：映射时所对应的Cache中的组（2个组只需要1为地址表示）</li>
+<li>最高的3位：区分映射到同一组的不同块，记录为Cache标记（每个组有8个块可以映射到，需要3位地址来表示）</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>结合了直接映射和关联映射的优点</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>结合了直接映射和关联映射的缺点</li>
+</ul>
+<blockquote>
+<p>面向不同容量的Cache做了折中</p>
+</blockquote>
+<h5 id="三种替换方式比较"><a class="markdownIt-Anchor" href="#三种替换方式比较"></a> 三种替换方式比较</h5>
+<ol>
+<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">K = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，组关联映射等同于直接映射</li>
+<li>如果 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>K</mi><mo>=</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">K = C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span></span></span></span>，组关联映射等同于关联映射</li>
+</ol>
+<p><strong>Definition（关联度）</strong></p>
+<p>一个主存块映射到Cache中可能存放的位置个数被称为关联度</p>
+<ul>
+<li>直接映射：1</li>
+<li>关联映射：C</li>
+<li>组关联映射：K</li>
+</ul>
+<ol>
+<li>关联度越低，命中率越低。
+<ul>
+<li>直接映射的命中率最低，关联映射的命中率最高</li>
+</ul>
+</li>
+<li>关联度越低，判断是否命中的时间越短
+<ul>
+<li>直接映射的命中时间最短，关联映射的命中时间最长</li>
+</ul>
+</li>
+<li>关联度越低，标记所占额外空间的开销越小
+<ul>
+<li>直接映射的标记最短，关联映射的标记最长</li>
+</ul>
+</li>
+</ol>
+<h4 id="替换算法"><a class="markdownIt-Anchor" href="#替换算法"></a> 替换算法</h4>
+<ul>
+<li>一旦Cache行被占用，当新的数据块装入Cache中时，原先存放的数据块将会被替换掉。</li>
+<li>对于直接映射，每个数据块都只有唯一对应的行可以放置，没有选择的机会</li>
+<li>对于关联映射和组关联映射，每个数据块被允许在多个行中选择一个进行放置，就需要替换算法来决定替换哪一行中的数据块</li>
+</ul>
+<blockquote>
+<p><strong>替换算法通过硬件来实现</strong></p>
+</blockquote>
+<h5 id="最近最少使用算法lru"><a class="markdownIt-Anchor" href="#最近最少使用算法lru"></a> 最近最少使用算法（LRU）</h5>
+<p><strong>假设</strong>：最近使用过的数据块更有可能被再次使用</p>
+<p><strong>策略</strong>：替换掉在Cache中<span style='color: orange'><strong>最长时间未被访问</strong></span>的数据块</p>
+<p><strong>实现</strong>：对于2路组关联来说：</p>
+<ul>
+<li>每行包含一个 <code>USE</code> 位</li>
+<li>当同一组中的某行被<strong>访问</strong>时，将其 <code>USE</code> 位设为1，同时将另一行的 <code>USE</code> 位设为0</li>
+<li>当将新的数据块读入该组时，替换掉 <code>USE</code> 位为0的行中的数据块</li>
+</ul>
+<blockquote>
+<p>编程实现中，我们使用“时间戳”来记录，对于一个访问过的数据，我们将时间戳更新到当前时间，然后替换的时候替换掉<code>TimeStamp</code>最小的那一行（代表很久没有访问过，所以没有更新时间戳（什么是时间戳？wiki</p>
+</blockquote>
+<h5 id="先进先出算法fifo"><a class="markdownIt-Anchor" href="#先进先出算法fifo"></a> 先进先出算法（FIFO）</h5>
+<p><strong>假设</strong>：最近由主存载入Cache的数据块更有可能被使用</p>
+<p><strong>策略</strong>：替换掉在Cache中<span style='color: orange'><strong>停留时间最长</strong></span>的块</p>
+<p><strong>实现</strong>：时间片轮转法 或 环形缓冲技术</p>
+<ul>
+<li>每行包含一个标志位</li>
+<li>当同一组的某行被替换时，将其标识位设为1，同时将其<span style='color: orange'><strong>下一行</strong></span>的标识位设为0
+<ul>
+<li>如果被<strong>替换</strong>的是该组的最后一行，则将该组中的第一行的标识位设为0</li>
+</ul>
+</li>
+<li>当将新的数据块读入该组时，替换掉标识位为0的行中的数据块</li>
+</ul>
+<blockquote>
+<p>Tip：注意FIFO与LRU的区别，LRU替换的是最长时间<strong>未被访问</strong>的行，FIFO替换的是<strong>停留时间最长</strong>的行，两者的结果可能是不一样的</p>
+</blockquote>
+<h5 id="最不经常使用算法lfu"><a class="markdownIt-Anchor" href="#最不经常使用算法lfu"></a> 最不经常使用算法（LFU）</h5>
+<p><strong>假设</strong>：访问越频繁的数据块越有可能被再次使用</p>
+<p><strong>策略</strong>：替换掉Cache中被访问次数最少的数据块</p>
+<p><strong>实现</strong>：为每一行设置计数器 <code>visited</code></p>
+<blockquote>
+<p>编程实现中，我们对Cache中的每一行加一个标志位<code>visited</code>来记录该行被访问的次数，在替换的时候，只需要遍历该组的所有行，找到该标志位最小的行，就是我们要替换的目标</p>
+</blockquote>
+<h5 id="随机替换算法random"><a class="markdownIt-Anchor" href="#随机替换算法random"></a> 随机替换算法（Random）</h5>
+<p><strong>假设</strong>：每个数据块被再次使用的可能性是相同的</p>
+<p><strong>策略</strong>：随机替换Cache中的数据块</p>
+<p><strong>实现</strong>：随机替换</p>
+<blockquote>
+<p>随机替换算法在性能上只稍逊于使用其他替换算法</p>
+</blockquote>
+<h4 id="写策略"><a class="markdownIt-Anchor" href="#写策略"></a> 写策略</h4>
+<blockquote>
+<p>为什么要有写策略？</p>
+</blockquote>
+<p>主存和Cache要有<strong>一致性</strong></p>
+<ul>
+<li>当Cache中的某个数据块被替换时，需要考虑该数据块是否被修改</li>
+</ul>
+<p>两种情况</p>
+<ul>
+<li>如果没被修改，则该数据块可以直接被替换掉</li>
+<li>如果被修改，则在替换该数据块之前，必须将修改后的数据块写回到主存中对应位置</li>
+</ul>
+<h5 id="写直达write-through"><a class="markdownIt-Anchor" href="#写直达write-through"></a> 写直达（write through）</h5>
+<p>所有写操作都同时对Cache和主存进行</p>
+<blockquote>
+<p>即对Cache进行写操作的时候，需要同步对主存进行写操作</p>
+</blockquote>
+<p><strong>优点</strong>：确保主存中的数据总是和Cache的数据一致的，总是最新的</p>
+<p><strong>缺点</strong>：产生大量的主存访问，减慢写操作</p>
+<h5 id="写回法write-back"><a class="markdownIt-Anchor" href="#写回法write-back"></a> 写回法（write back）</h5>
+<ul>
+<li>先更新Cache中的数据，当Cache中某个数据块被替换时，如果它被修改了，才被写回主存</li>
+<li>利用一个<span style='color: orange'><strong>脏位（dirty bit）</strong></span>或者使用位（use bit）来表示块是否被修改</li>
+</ul>
+<p><strong>优点</strong>：减少了主存的访问次数</p>
+<p><strong>缺点</strong>：部分主存数据可能不是最新的</p>
+<blockquote>
+<p>I/O模块存取时可能无法获得最新的数据，为解决该问题会使得电路设计更加复杂而且有可能带来性能瓶颈</p>
+</blockquote>
+<h4 id="行大小"><a class="markdownIt-Anchor" href="#行大小"></a> 行大小</h4>
+<ul>
+<li>假设从行的大小为一个字开始，随着行大小的逐步增大，则Cache的命中率会增加
+<ul>
+<li>数据块包含了更多周围的数据，每次会有更多的数据作为一个块装入Cache中</li>
+<li>利用了空间局部性</li>
+</ul>
+</li>
+<li>当行大小变得较大之后，继续增加行大小，则Cache命中率会下降
+<ul>
+<li>当Cache容量一定的前提下，较大的行会导致Cache中的行数变少，导致装入Cache中的数据块数量减少，进而造成数据块被频繁替换</li>
+<li>每个数据块中包含的数据在主存中位置变远，被使用的可能性减小</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>行大小与命中率之间的关系较为复杂</p>
+</blockquote>
+<h4 id="cache数目"><a class="markdownIt-Anchor" href="#cache数目"></a> Cache数目</h4>
+<h5 id="一级-vs-多级"><a class="markdownIt-Anchor" href="#一级-vs-多级"></a> 一级 vs 多级</h5>
+<p>一级</p>
+<ul>
+<li>将Cache与处理器置于同一芯片（片内Cache）</li>
+<li>减少处理器在外部总线上的活动，从而减少了执行时间</li>
+</ul>
+<p>多级</p>
+<ul>
+<li>当L1未命中时，减少处理器对总线上DRAM或ROM的访问</li>
+<li>使用单独的数据路径，替代系统总线在L2缓存和处理器之间传输数据，部分处理器将L2 Cache结合到处理器芯片上</li>
+</ul>
+<h5 id="统一-vs-分立"><a class="markdownIt-Anchor" href="#统一-vs-分立"></a> 统一 vs 分立</h5>
+<p>统一</p>
+<ul>
+<li>更高的命中率，在获取指令和数据的负载之间自动进行平衡</li>
+<li>只需要设计和实现一个Cache</li>
+</ul>
+<p>分立</p>
+<ul>
+<li>消除Cache在指令的取值/译码单元和执行单元之间的竞争，在任何基于指令流水线的设计中都是重要的</li>
+</ul>
+<hr />
+<h2 id="10-外部存储器"><a class="markdownIt-Anchor" href="#10-外部存储器"></a> 10 外部存储器</h2>
+<h3 id="外部存储器"><a class="markdownIt-Anchor" href="#外部存储器"></a> 外部存储器</h3>
+<blockquote>
+<p>并非冯诺依曼模型中的<code>Memory</code>，而是属于一个外部设备（I/O），但仍然属于存储器层次结构中的一员。</p>
+</blockquote>
+<p><strong>为什么要使用外部存储设备？</strong></p>
+<p>特性：</p>
+<ul>
+<li>用于存储不经常使用、数据量较大的信息</li>
+<li><strong>非易失</strong></li>
+</ul>
+<p>类型：</p>
+<ul>
+<li>磁盘存储器（magnetic disk） – 机械硬盘</li>
+<li>光存储器（optical memory）</li>
+<li>磁带（magnetic tape）</li>
+<li>U盘（USB flash disk），固态硬盘（solid state disk，SSD）</li>
+</ul>
+<h3 id="磁盘存储器"><a class="markdownIt-Anchor" href="#磁盘存储器"></a> 磁盘存储器</h3>
+<p>磁盘是由涂有<span style='color: orange'><strong>可磁化材料</strong></span>的<span style='color: orange'><strong>非磁性材料</strong></span>（基材）构成的圆形盘片</p>
+<ul>
+<li>基材：铝、铝合金、玻璃…</li>
+<li>玻璃基材的优势
+<ul>
+<li>改善磁膜表面的均匀性，提高磁盘的可靠性</li>
+<li>显著减少整体表面瑕疵，以帮助减少读写错误</li>
+<li>能够支持（磁头）较低的<strong>飞行高度</strong></li>
+<li>更高的硬度，使磁盘转动时更加稳定</li>
+<li>更强的抗冲击和抗损伤能力</li>
+</ul>
+</li>
+</ul>
+<h4 id="软盘"><a class="markdownIt-Anchor" href="#软盘"></a> 软盘</h4>
+<blockquote>
+<p>容量小，硬度低，已经基本被淘汰。</p>
+</blockquote>
+<h4 id="硬盘"><a class="markdownIt-Anchor" href="#硬盘"></a> 硬盘</h4>
+<h5 id="结构"><a class="markdownIt-Anchor" href="#结构"></a> 结构</h5>
+<ul>
+<li>盘片（盘片沿轴旋转，盘片与轴是固定的）</li>
+<li>读写头（所有读写头都连接在一根吊杆上，并径向移动寻找磁道）</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/D2oQmSnw7tFkEGR.png" alt="" /></p>
+<p>磁盘存储器每个盘片表面有一个读写磁头，所有磁头通过机械方式固定在一起，同时移动。</p>
+<p>在任何时候，所有磁头都位于距磁盘中心等距离的<strong>磁道</strong>上。</p>
+<p>对盘片进行读写操作的装置叫做<span style = 'color:red'><strong>磁头（head）</strong></span></p>
+<ol>
+<li>磁头必须产生或感应足够大的电磁场，以便正确地读写</li>
+<li>磁头越窄，离盘片的距离就越近</li>
+<li>更高的数据密度需要更窄的磁头和更窄的磁道，这将导致更高的出错风险</li>
+<li><strong>温彻斯特磁头</strong>（Winchester head）
+<ol>
+<li>磁头实际上是一个空气动力箔片，当磁盘静止时，它轻轻地停留在盘片的表面</li>
+<li>旋转圆盘时产生的空气压力足以使箔片上升到盘片表面上方</li>
+</ol>
+</li>
+</ol>
+<h5 id="读写机制"><a class="markdownIt-Anchor" href="#读写机制"></a> 读写机制</h5>
+<ul>
+<li>在读或写操作期间，磁头静止，而盘片在其下方旋转</li>
+<li>磁头的数量
+<ul>
+<li>单磁头：读写公用同一个磁头（软盘、早期硬盘）</li>
+<li>双磁头：使用一个单独的磁头进行读取（当代硬盘）</li>
+</ul>
+</li>
+</ul>
+<p><strong>写入机制</strong></p>
+<ul>
+<li>电流脉冲被发送到写入磁头</li>
+<li>变化的电流激发出磁场</li>
+<li>产生的磁性图案被记录在下面的盘片表面上</li>
+<li>反转电流方向，则记录介质上的磁化方向也会反转</li>
+</ul>
+<p><strong>读取机制</strong></p>
+<ul>
+<li>读取磁头是由一个部分屏蔽的<strong>磁阻（MR）敏感器</strong>组成，其电阻取决于在其下移动的介质的磁化方向</li>
+<li>电流通过MR敏感器时，通过电压信号检测其电阻变化</li>
+<li>MR敏感器允许更高频率的操作，实现更高的存储密度和更快的操作速度</li>
+</ul>
+<h5 id="数据组织"><a class="markdownIt-Anchor" href="#数据组织"></a> 数据组织</h5>
+<ul>
+<li>
+<p>盘片上的数据组织呈现为一组同心圆环，称为<strong>磁道（track）</strong></p>
+</li>
+<li>
+<p>数据以扇区（sector）的形式传输到磁盘或传出磁盘，看起来大小不同但<strong>存储的数据量相同</strong>。</p>
+<blockquote>
+<p>默认值为512B</p>
+</blockquote>
+</li>
+<li>
+<p>相邻磁道之间有<strong>间隙（gap）</strong>，相邻的扇区之间也留有间隙</p>
+</li>
+<li>
+<p>磁道编号方式：最外为0，最内为N</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/KoAYlaWt1XTPCqu.png" alt="" /></p>
+<p><strong>扇区划分</strong></p>
+<ol>
+<li>
+<p>恒定角速度（Constant angular velocity, CAV）</p>
+<ul>
+<li>增大记录在盘片区域上的信息位的间隔，使得磁盘能够以恒定的速度扫描信息</li>
+<li>优点：能以磁道号和扇区号直接寻址各个数据块</li>
+<li>缺点：磁盘存储容量受到了最内层磁道所能实现的最大记录密度的限制</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/T9qvsOZ13u6aQPX.png" alt="" /></p>
+</li>
+<li>
+<p>多带式记录 / 多重区域记录（Multiple zone recording）</p>
+<ul>
+<li>
+<p>将盘面划分为多个同心圆区域，每个区域中各磁道的扇区数量是相同的，距离中心较远的分区包含的扇区数多于距离中心较近的分区</p>
+<blockquote>
+<p>即相邻两个磁道的扇区数量是有可能相同，且相同扇区数量的两个磁道可以以相同的转速来访问。</p>
+</blockquote>
+</li>
+<li>
+<p>优点：提升存储容量</p>
+</li>
+<li>
+<p>缺点：需要更复杂的电路（内层圆心角大，转速需要快一点，外层相反，以维持稳定的数据传输率）</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/1m2gdKFAzZS4cQB.png" alt="" /></p>
+<blockquote>
+<p>每个深色区域并不是一个磁道，而是多个磁道所组成的区域，将磁道分成多个这样的区域，保证同一个区域的磁道转速相同。</p>
+</blockquote>
+</li>
+</ol>
+<p>所有盘片上处于相同的相对位置的一组磁道被称为<strong>柱面（cylinder）</strong></p>
+<p><img src="https://s2.loli.net/2022/02/15/4XYLHcG3zJVEgi6.png" alt="" /></p>
+<h5 id="格式化"><a class="markdownIt-Anchor" href="#格式化"></a> 格式化</h5>
+<ul>
+<li>
+<p>磁道必须有一些起始点和辨别每个扇区起点及终点的方法</p>
+</li>
+<li>
+<p>格式化时，会附有一些仅被磁盘驱动器使用而不被用户存取的额外数据。</p>
+<p><img src="https://s2.loli.net/2022/02/15/qCuT7Q5InroGS1g.png" alt="" /></p>
+</li>
+</ul>
+<p><strong>ID域</strong></p>
+<ol>
+<li>同步字节：特殊位模式，定义<strong>区域的起始点</strong></li>
+<li>道号（磁道号，标识一个磁道）</li>
+<li>头号（磁头号，标识一个磁头）</li>
+<li>扇号（扇区号，标识一个扇区）</li>
+<li>CRC（循环冗余校验码）</li>
+</ol>
+<p><strong>数据域</strong></p>
+<ol>
+<li>同步字节</li>
+<li>数据（512B）</li>
+<li>CRC</li>
+</ol>
+<p><strong>间隙</strong></p>
+<blockquote>
+<p>间隙的目的是为了让CRC有足够长的时间去检测与修复前面的错误，以判定后面的数据是不是所需要的数据</p>
+</blockquote>
+<p>低级格式化和高级格式化</p>
+<ol>
+<li>低级格式化：清楚所有区域信息，但不能够分区域进行，只能够清楚整个硬盘的信息，且对硬盘是有损伤的。</li>
+<li>高级格式化：</li>
+</ol>
+<h5 id="io-访问时间"><a class="markdownIt-Anchor" href="#io-访问时间"></a> I/O 访问时间</h5>
+<ol>
+<li><span style = 'color: red'><strong>寻道时间（seek time）</strong></span>：磁头定位到所需移动到的磁道所花费的时间
+<ul>
+<li>初始启动时间 + 跨越若干磁道所用的时间</li>
+</ul>
+</li>
+<li><span style = 'color: red'><strong>旋转延迟（rotational delay）</strong></span>：等待响应扇区的起始处到达磁头所需的时间
+<ul>
+<li>通常是磁道旋转<strong>半周</strong>所需的时间（rpm：转/分钟）</li>
+</ul>
+</li>
+<li><span style = 'color: red'><strong>传送时间（transfer time）</strong></span>：数据传输所需的时间</li>
+</ol>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mi>b</mi><mrow><mi>r</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">T = \frac{b}{rN}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<blockquote>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> = 传送时间</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> = 传送的字节数</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> = 每磁道的字节数</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> = 旋转速率，单位是转/秒</p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi><mo>&lt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">b &lt; N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 时成立，相反时需要考虑寻道时间和旋转延迟</p>
+</blockquote>
+<ol start="4">
+<li>平均访问时间<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<blockquote>
+<p>当连续访问多个相邻的磁道时，跨越磁道：</p>
+<ul>
+<li>对于每个磁道都需要考虑旋转延迟</li>
+<li>通常只需要考虑第一个磁道的寻道时间，但在明确知道跨越每个磁道需要的时间时需要考虑。</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h6 id="io访问时间示例"><a class="markdownIt-Anchor" href="#io访问时间示例"></a> I/O访问时间示例</h6>
+<blockquote>
+<p>假设某个硬盘的平均寻道时间为4ms，转速为15000rpm，每磁道500扇区，每扇区512B，现读取一个由2500个扇区组成的文件</p>
+</blockquote>
+<ul>
+<li>
+<p>情况1：顺序组织，该文件占据<strong>相邻</strong>5个磁道的全部扇区（ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span></span></span></span> 磁道 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>×</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">\times 500</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">×</span><span class="mord">5</span><span class="mord">0</span><span class="mord">0</span></span></span></span> 扇区/道 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2500</mn></mrow><annotation encoding="application/x-tex">2500</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span><span class="mord">0</span></span></span></span> 扇区）</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>a</mi></msub><mo>=</mo><msub><mi>T</mi><mi>s</mi></msub><mo>+</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>+</mo><mfrac><mi>b</mi><mrow><mi>r</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">T_a = T_s + \frac{1}{2r} + \frac{b}{rN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>平均寻道时间：4ms</li>
+<li>转速15000rpm = 250转/秒，所以r = 250转/秒</li>
+<li>平均旋转延迟 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>1</mn><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>=</mo><mn>0.002</mn><mi>s</mi><mo>=</mo><mn>2</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\frac{1}{2r} = 0.002s = 2ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">2</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>读取数据时间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mi>b</mi><mrow><mi>r</mi><mi>N</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>512</mn><mo>×</mo><mn>500</mn></mrow><mrow><mn>512</mn><mo>×</mo><mn>500</mn><mo>×</mo><mn>250</mn></mrow></mfrac><mo>=</mo><mn>0.004</mn><mi>s</mi><mo>=</mo><mn>4</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">T = \frac{b}{rN} = \frac{512 \times 500}{512 \times 500 \times 250} = 0.004s = 4ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mord mtight">1</span><span class="mord mtight">2</span><span class="mbin mtight">×</span><span class="mord mtight">5</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mbin mtight">×</span><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mord mtight">1</span><span class="mord mtight">2</span><span class="mbin mtight">×</span><span class="mord mtight">5</span><span class="mord mtight">0</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">4</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>访问后续磁道不计入寻道时间（<strong>相邻</strong>），因此第一个磁道的访问需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>4</mn><mo>=</mo><mn>10</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">4 + 2 + 4 = 10ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span>，后续磁道的访问需要 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>6</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">4 + 2 = 6ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>总时间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>=</mo><mn>10</mn><mo>+</mo><mn>4</mn><mo>×</mo><mn>6</mn><mo>=</mo><mn>34</mn><mi>m</mi><mi>s</mi><mo>=</mo><mn>0.034</mn><mi>s</mi></mrow><annotation encoding="application/x-tex">t = 10 + 4 \times 6 = 34ms= 0.034s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">4</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">3</span><span class="mord">4</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+<li>
+<p>情况2：随机存取，改文件随机分布在磁盘上的各个扇区</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>a</mi></msub><mo>=</mo><msub><mi>T</mi><mi>s</mi></msub><mo>+</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>+</mo><mfrac><mi>b</mi><mrow><mi>r</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">T_a = T_s + \frac{1}{2r} + \frac{b}{rN}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></li>
+<li>平均寻道时间：4ms</li>
+<li>转速15000rpm = 250转/秒，所以r = 250转/秒</li>
+<li>平均旋转延迟 = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>1</mn><mrow><mn>2</mn><mi>r</mi></mrow></mfrac><mo>=</mo><mn>0.002</mn><mi>s</mi><mo>=</mo><mn>2</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\frac{1}{2r} = 0.002s = 2ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">2</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>读取<strong>一个扇区</strong>的时间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>=</mo><mfrac><mi>b</mi><mrow><mi>r</mi><mi>N</mi></mrow></mfrac><mo>=</mo><mfrac><mn>512</mn><mrow><mn>512</mn><mo>×</mo><mn>500</mn><mo>×</mo><mn>250</mn></mrow></mfrac><mo>=</mo><mn>0.000008</mn><mi>s</mi><mo>=</mo><mn>0.008</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">T = \frac{b}{rN} = \frac{512}{512 \times 500 \times 250} = 0.000008s = 0.008ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.2484389999999999em;vertical-align:-0.403331em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mord mtight">1</span><span class="mord mtight">2</span><span class="mbin mtight">×</span><span class="mord mtight">5</span><span class="mord mtight">0</span><span class="mord mtight">0</span><span class="mbin mtight">×</span><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.403331em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">8</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">8</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>随机存取每一次都需要<strong>寻道</strong>，因此每个扇区的访问时间都是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4</mn><mo>+</mo><mn>2</mn><mo>+</mo><mn>0.008</mn><mo>=</mo><mn>6.008</mn><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">4 + 2 + 0.008 = 6.008ms</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">8</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span></span></span></span></li>
+<li>总时间 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi><mo>=</mo><mn>2500</mn><mo>×</mo><mn>6.008</mn><mo>=</mo><mn>15020</mn><mi>m</mi><mi>s</mi><mo>=</mo><mn>15.02</mn><mi>s</mi></mrow><annotation encoding="application/x-tex">t = 2500 \times 6.008 = 15020ms = 15.02s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">8</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">0</span><span class="mord">2</span><span class="mord">0</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">.</span><span class="mord">0</span><span class="mord">2</span><span class="mord mathdefault">s</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+<h5 id="磁盘调度算法"><a class="markdownIt-Anchor" href="#磁盘调度算法"></a> 磁盘调度算法</h5>
+<p>硬磁盘存储器：I/O存储时间</p>
+<p>硬磁盘存储器：磁头寻找道/磁盘调度<br />
+目标：当有多个访问磁盘任务时，使得平均寻道时间最小</p>
+<p>常见的磁头寻道/磁盘调度算法：</p>
+<ol>
+<li>先来先服务（First Come First Service, FCFS）</li>
+<li>最短寻道时间优先（Shortest Seek Time First, SSTF）</li>
+<li>扫描/电梯（SCAN）</li>
+<li>循环扫描（C-SCAN）</li>
+<li>LOOK</li>
+<li>C-LOOK</li>
+</ol>
+<h6 id="先来先服务"><a class="markdownIt-Anchor" href="#先来先服务"></a> 先来先服务</h6>
+<p>按照请求访问磁盘的先后次序进行处理<br />
+**优点：**公平简单<br />
+**缺点：**如果有大量访问磁盘的任务，且请求访问的磁道很分散，则性能上很差，寻道时间长。</p>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<p>按先后处理：</p>
+<ul>
+<li>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>45</mn><mo>+</mo><mn>3</mn><mo>+</mo><mn>19</mn><mo>+</mo><mn>21</mn><mo>+</mo><mn>72</mn><mo>+</mo><mn>70</mn><mo>+</mo><mn>10</mn><mo>+</mo><mn>112</mn><mo>+</mo><mn>146</mn><mo>=</mo><mn>498</mn></mrow><annotation encoding="application/x-tex">45 + 3 + 19 + 21 + 72 + 70 + 10 + 112 + 146 = 498</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">4</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">9</span><span class="mord">8</span></span></span></span></li>
+<li>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>498</mn><mn>9</mn></mfrac><mo>=</mo><mn>55.3</mn></mrow><annotation encoding="application/x-tex">\frac{498}{9} = 55.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mtight">9</span><span class="mord mtight">8</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">5</span><span class="mord">.</span><span class="mord">3</span></span></span></span> 个磁道</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/g5AvJCHkdDeYrmN.png" alt="" /></p>
+<h6 id="最短寻道时间优先"><a class="markdownIt-Anchor" href="#最短寻道时间优先"></a> 最短寻道时间优先</h6>
+<p>优先处理起始位置与当前磁头位置最接近的读写任务<br />
+**优点：**每次的寻道时间最短（局部最优），平均寻道时间缩短<br />
+**缺点：**可能产生<span style='color:red'><strong>饥饿</strong></span>现象，尤其是位于两端的磁道请求。</p>
+<blockquote>
+<p><strong>饥饿现象</strong>：即较远的磁道长时间无法被磁头寻道。因为磁头长时间在较近的几个磁道之间徘徊。</p>
+</blockquote>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<ul>
+<li>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>100</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>184</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>=</mo><mn>248</mn></mrow><annotation encoding="application/x-tex">(100 - 18) + (184 - 18) = 248</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">4</span><span class="mord">8</span></span></span></span> 个磁道</li>
+<li>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>248</mn><mn>9</mn></mfrac><mo>=</mo><mn>27.5</mn></mrow><annotation encoding="application/x-tex">\frac{248}{9} = 27.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">4</span><span class="mord mtight">8</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mord">.</span><span class="mord">5</span></span></span></span> 个磁道</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/02/15/1ULYIrzkengMCWw.png" alt="" /></p>
+<h6 id="扫描电梯scan"><a class="markdownIt-Anchor" href="#扫描电梯scan"></a> 扫描/电梯（SCAN）</h6>
+<p>总是按照<strong>一个方向</strong>进行磁盘调度，直到该方向上的边缘，然后改变方向。<br />
+优点：性能较好，平均寻道时间短，不会产生饥饿现象。<br />
+缺点：只有到最边上的磁道才能改变磁头的移动方向，对于各个位置磁道<strong>响应频率</strong>不平均。</p>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<ul>
+<li>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>200</mn><mo>−</mo><mn>100</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>200</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>=</mo><mn>282</mn></mrow><annotation encoding="application/x-tex">(200 - 100) + (200 - 18) = 282</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">8</span><span class="mord">2</span></span></span></span> 个磁道</li>
+<li>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>282</mn><mn>9</mn></mfrac><mo>=</mo><mn>31.3</mn></mrow><annotation encoding="application/x-tex">\frac{282}{9} = 31.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">8</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">1</span><span class="mord">.</span><span class="mord">3</span></span></span></span> 个磁道</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/gxuRPeLTVhUO31s.png" alt="" /></p>
+<h6 id="循环扫描c-scan"><a class="markdownIt-Anchor" href="#循环扫描c-scan"></a> 循环扫描（C-SCAN）</h6>
+<p>只有磁头朝某个方向移动时才会响应请求，移动到边缘后立即让磁头返回起点，<strong>返回途中不做任何处理</strong>。<br />
+**优点：**与SCAN算法相比，对于个位置磁道的响应频率平均。（因为到两端的磁道之后是直接回到起点，而不是再一次通过扫描回到起点）<br />
+**缺点：**与SCAN算法想法，平均寻道时间更长。（对于已经处理完的一端，可能会有新的任务，但由于磁头直接回到起点，无法扫描到新来的任务）</p>
+<blockquote>
+<p><strong>注意</strong>：直接回到起点的时间其实是比扫描的时间要短的，因为这个过程不需要进行扫描（空载的）。起点就是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 号磁道</p>
+</blockquote>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<ul>
+<li>
+<p>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>200</mn><mo>−</mo><mn>100</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>200</mn><mo>−</mo><mn>0</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>90</mn><mo>−</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mn>390</mn></mrow><annotation encoding="application/x-tex">(200 - 100) + (200 - 0) + (90 - 0) = 390</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">9</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">9</span><span class="mord">0</span></span></span></span> 个磁道</p>
+<blockquote>
+<p>200 - 0 是回到起点所需要移动的磁道数，但其实这部分的时间比扫描的时间要短</p>
+</blockquote>
+</li>
+<li>
+<p>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>390</mn><mn>9</mn></mfrac><mo>=</mo><mn>43.3</mn></mrow><annotation encoding="application/x-tex">\frac{390}{9} = 43.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">9</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span><span class="mord">3</span><span class="mord">.</span><span class="mord">3</span></span></span></span> 个磁道</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/4rdK5Nq8Gg2fXQH.png" alt="" /></p>
+<h6 id="look"><a class="markdownIt-Anchor" href="#look"></a> LOOK</h6>
+<p>SCAN算法的升级，只要磁头移动方向上不再有请求就立即改变磁头的方向（即不会到最远端的磁道）<br />
+<strong>代价</strong>：无法处理新任务，即到了最远端的某个任务之后，如果返回之后更远端又来了个新任务，LOOK算法无法及时处理到。<br />
+<strong>示例</strong>：从100 - 184，LOOK算法回头之后，又来了一个磁道190的任务，此时就无法及时处理到。</p>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<ul>
+<li>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>184</mn><mo>−</mo><mn>100</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>184</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>=</mo><mn>250</mn></mrow><annotation encoding="application/x-tex">(184 - 100) + (184 - 18) = 250</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">0</span></span></span></span> 个磁道</li>
+<li>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>250</mn><mn>9</mn></mfrac><mo>=</mo><mn>27.8</mn></mrow><annotation encoding="application/x-tex">\frac{250}{9} = 27.8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">5</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">7</span><span class="mord">.</span><span class="mord">8</span></span></span></span> 个磁道</li>
+</ul>
+<h6 id="c-look"><a class="markdownIt-Anchor" href="#c-look"></a> C-LOOK</h6>
+<p>C-SCAN算法的改进，只要在磁头移动方向上不再有请求，就立即让磁头返回起点。（这里的起点是<strong>有任务的</strong>最低磁道）</p>
+<p><strong>示例</strong>:</p>
+<blockquote>
+<p>假设磁头的初始位置是100号磁道，有多个任务先后陆续的请求访问55， 58， 39， 18， 90， 160， 150， 38， 184</p>
+</blockquote>
+<ul>
+<li>
+<p>磁头总共移动的磁道个数：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mn>184</mn><mo>−</mo><mn>100</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>184</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mn>90</mn><mo>−</mo><mn>18</mn><mo stretchy="false">)</mo><mo>=</mo><mn>322</mn></mrow><annotation encoding="application/x-tex">(184 - 100) + (184 - 18) + (90 - 18) = 322</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">9</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">2</span><span class="mord">2</span></span></span></span> 个磁道</p>
+<blockquote>
+<p>184 - 18 是回到起点所需要移动的磁道数，但其实这部分的时间比扫描的时间要短</p>
+</blockquote>
+</li>
+<li>
+<p>平均寻道长度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>322</mn><mn>9</mn></mfrac><mo>=</mo><mn>35.8</mn></mrow><annotation encoding="application/x-tex">\frac{322}{9} = 35.8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">5</span><span class="mord">.</span><span class="mord">8</span></span></span></span> 个磁道</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/P6JitWuywLZzXKD.png" alt="" /></p>
+<h3 id="光存储器"><a class="markdownIt-Anchor" href="#光存储器"></a> 光存储器</h3>
+<p>光盘（CD）/光盘只读存储器/高清晰视频光盘（蓝光Blu-Ray DVD）…</p>
+<p><img src="https://s2.loli.net/2022/02/15/r5wCtuUVZAGp2XT.png" alt="" /></p>
+<h4 id="cd-and-cd-rom"><a class="markdownIt-Anchor" href="#cd-and-cd-rom"></a> CD and CD-ROM</h4>
+<p>CD和CD—ROM采用类似的技术，但后者更加耐用且有纠错功能</p>
+<p><strong>制造方法</strong></p>
+<ul>
+<li>用精密聚焦的高强度激光束制造母盘</li>
+<li>以母盘为模板压印出<strong>聚碳酸酯</strong>（透明的）的复制品（类似信封上滴蜡然后压印章，印章 约等于 母盘</li>
+<li>在凹坑表面上镀上一层高反射材料</li>
+<li>使用丙烯酸树脂保护高反射材料（金属容易被磨损</li>
+<li>在聚丙烯酸树脂层上用丝网印刷术印制标签</li>
+</ul>
+<p><strong>读取过程</strong><br />
+通过安装在光盘播放器或驱动装置内的低强度激光束从CD或CD-ROM处读取信息</p>
+<ul>
+<li>如果激光束照在<span style = 'color:red'>凹坑（pit）</span>上，由于凹坑表面有些不平，因此光被散射，反射回<strong>低强度</strong>的激光</li>
+<li>如果激光束照在<span style = 'color:red'>台（land）</span>上，台的表面光滑平坦，反射回来的是<strong>高强度</strong>的激光</li>
+</ul>
+<p>盘片上包含<span style = 'color:red'>一条单螺旋的轨道</span>，轨道上的所有扇区长度相同</p>
+<ul>
+<li>盘片以变速旋转</li>
+<li>凹坑被激光以恒定线速度读出(内侧的角速度较大)</li>
+</ul>
+<p><strong>优点</strong></p>
+<ol>
+<li>存储有信息的光盘可以廉价地进行大规模的复制</li>
+<li>光盘是可更换的</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>它是只读的，不能更改</li>
+<li>其存取时间比磁盘存储器长的多</li>
+</ol>
+<h4 id="cdr-and-cd-rw"><a class="markdownIt-Anchor" href="#cdr-and-cd-rw"></a> CD—R and CD-RW</h4>
+<p>CD-R</p>
+<ul>
+<li>包含一个染色层，用于改变反射率，并且由高强度激光激活</li>
+<li>生成的盘即能在CD-R驱动器上也能在CD-ROM驱动器上读出</li>
+</ul>
+<p>CD-RW</p>
+<ul>
+<li>使用了一种在两种不同相位状态下有两种显著不同反射率的材料，激光束能改变这种材料的相位</li>
+<li>材料老化最终会永久失去相位可变的特性，当前的材料可用于50万次到100万次的擦除</li>
+</ul>
+<h4 id="数字多功能光盘dvd"><a class="markdownIt-Anchor" href="#数字多功能光盘dvd"></a> 数字多功能光盘（DVD）</h4>
+<ul>
+<li>
+<p>DVD上的位组装更紧密：光道间隙，凹坑间距（容量达到4.7GB）</p>
+<blockquote>
+<p>DVD的光驱要求激光束需要更加密集，所以DVD的光驱可以读取CD，但是反过来是不行的</p>
+</blockquote>
+</li>
+<li>
+<p>DVD采用双层结构：设有半反射层，可以通过调整焦距读取每一层（容量达到8.5GB）</p>
+</li>
+<li>
+<p>DVD-ROM可以用两面记录数据（容量达到17GB）</p>
+</li>
+</ul>
+<p>分类：DVD-R和DVD-ROM</p>
+<h4 id="高清晰光盘蓝光"><a class="markdownIt-Anchor" href="#高清晰光盘蓝光"></a> 高清晰光盘（蓝光</h4>
+<p>通过使用更短波长的激光（在蓝-紫光范围），可以实现更高的位密度（数据凹坑相对更小）。</p>
+<h3 id="磁带"><a class="markdownIt-Anchor" href="#磁带"></a> 磁带</h3>
+<p>使用与磁盘类似的记录和读取技术<br />
+记录：介质时柔韧的聚酯薄膜带，外涂磁性材料<br />
+读取：</p>
+<ul>
+<li>磁带：顺序读取（sequential-access）
+<ul>
+<li>磁盘：直接读取（direct-access）</li>
+</ul>
+</li>
+<li>并行记录 vs 串行记录（蛇形记录，S型）</li>
+</ul>
+<h3 id="u盘和固态硬盘"><a class="markdownIt-Anchor" href="#u盘和固态硬盘"></a> U盘和固态硬盘</h3>
+<p><strong>U盘</strong></p>
+<ul>
+<li>采用了快闪存储器，属于非易失性半导体存储器</li>
+<li>相比于软盘和光盘：体积小，容量大，携带方便，寿命长达数年</li>
+</ul>
+<p><strong>固态硬盘</strong></p>
+<ul>
+<li>
+<p>与U盘没有本质区别：容量更大，存储性能更好</p>
+</li>
+<li>
+<p>与硬磁盘存储器相比：抗振性好，无噪声，能耗低，发热量低</p>
+<blockquote>
+<p>无磁头结构，没有轴转动和磁头转动</p>
+</blockquote>
+</li>
+</ul>
+<hr />
+<h2 id="11-冗余磁盘阵列raid"><a class="markdownIt-Anchor" href="#11-冗余磁盘阵列raid"></a> 11 冗余磁盘阵列（RAID）</h2>
+<ul>
+<li>冗余磁盘阵列/独立磁盘冗余阵列：Redundant Arrays of Independent Disks(RAID)</li>
+<li>基本思想
+<ul>
+<li>将多个独立操作的磁盘按某种方式组织成磁盘阵列，以增加容量</li>
+<li>将数据存储在多个盘体上，通过这些盘并行工作来提高数据传输率</li>
+<li>采用<strong>数据冗余</strong>来进行错误恢复以提高系统可靠性</li>
+</ul>
+</li>
+<li>特性
+<ul>
+<li>由一组物理磁盘驱动器组成，被视为单个的<strong>逻辑</strong>驱动器</li>
+<li>数据是分布在多个物理磁盘上</li>
+<li>冗余磁盘容量用于<strong>存储校验信息</strong>，保证磁盘万一损坏时能恢复数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="raid分类"><a class="markdownIt-Anchor" href="#raid分类"></a> RAID分类</h3>
+<p><img src="https://s2.loli.net/2022/01/06/6m4ETtkHdqBQvJr.png" alt="" /></p>
+<h3 id="raid-0"><a class="markdownIt-Anchor" href="#raid-0"></a> RAID 0</h3>
+<ul>
+<li>数据以条带的形式在可用的磁盘上分布</li>
+<li>不采用冗余来改善性能（并非真正的RAID</li>
+<li>用途
+<ul>
+<li>高数据传输率</li>
+<li>高速响应I/O请求</li>
+</ul>
+</li>
+</ul>
+<p><strong>与单个大容量磁盘相比</strong>：</p>
+<ul>
+<li>高数据传输率：读取的时候可以多个物理磁盘并行读取，写的时候也可以对多个物理的磁盘进行同时读写。但对于单个磁盘，我们必须要进行顺序的存取。</li>
+<li>高速响应I/O请求：两个I/O请求所需要的数据块可能在不同的硬盘上。因此相比单个磁盘会有更高速的响应。</li>
+<li><strong>代价</strong>：磁盘损坏概率升高</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/1OZv6ubwUgcX3zy.png" alt="" /></p>
+<h3 id="raid-1"><a class="markdownIt-Anchor" href="#raid-1"></a> RAID 1</h3>
+<ul>
+<li>采用了数据条带</li>
+<li>采用简单地备份所有数据的方法来实现冗余（即将磁盘分成了两半，一半为冗余盘，对原本数据进行拷贝）</li>
+<li>好处：
+<ul>
+<li>硬盘损坏（只有一个）对整体没有影响，（若损坏多个硬盘呢？</li>
+<li>如果有两个位于同一个磁盘的I/O请求，RAID1也可以同时响应。</li>
+<li>数据传输率也会提高，因为可以对同一个磁盘上不同条带的数据进行同时存取（冗余盘和正常使用盘同时读取）</li>
+</ul>
+</li>
+<li>坏处：对磁盘进行写操作的时候，需要写两个磁盘（冗余盘和正常使用盘），效率较低。但其实可以并行完成，取决于拷贝盘和数据盘中较慢的一个写来决定（即包含较大的寻道时间和旋转延迟的那一个写）。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>高速响应I/O请求：即便是同一个磁盘上的数据块，也可以由两组硬盘分别响应</li>
+<li>读请求可以由包含请求数据的两个对应磁盘中的某一个提供服务，可以选择寻道时间较小的那个</li>
+<li>写请求需要更新两个对应的条带：可以并行完成，但受限于写入较慢的磁盘</li>
+<li>单个磁盘损坏时不会影响数据访问，恢复受损磁盘简单</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>价格昂贵</li>
+</ul>
+<p><strong>用途</strong></p>
+<ul>
+<li>只限于用在存储系统软件/数据和其他关键文件的驱动器中</li>
+</ul>
+<p><strong>与RAID0相比</strong></p>
+<ul>
+<li>如果有大批的<strong>读请求</strong>，则RAID1能实现高速的I/O速率，性能可以达到RAID0的两倍</li>
+<li>如果I/O请求有相当大的部分是<strong>写请求</strong>，则它不比RAID0的性能好多少。</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/keqvRHdjhmUg7FI.png" alt="" /></p>
+<h3 id="raid-01-vs-raid-10"><a class="markdownIt-Anchor" href="#raid-01-vs-raid-10"></a> RAID 01 vs RAID 10</h3>
+<ul>
+<li>RAID 01 = RAID 0 + 1:先做RAID 0，再做RAID 1</li>
+<li>RAID 10 = RAID 1 + 0:先做RAID 1，再做RAID 0</li>
+<li>两者在数据传输率和磁盘利用率上没有明显区别，主要区别是对磁盘损坏的容错能力。（RAID 01较弱，因为不能跨越RAID 0进行合作。）</li>
+<li>RAID 01 是先分好组的（即先组成RAID0，再组成RAID1），如果组里面有一个不能用了，那么该组的所有磁盘都会失效。这样就会导致容错率大大下降。</li>
+</ul>
+<h3 id="raid-2"><a class="markdownIt-Anchor" href="#raid-2"></a> RAID 2</h3>
+<ul>
+<li>采用并行存取技术</li>
+<li>目标
+<ul>
+<li><span style='color: red'><strong>所有</strong></span>磁盘都参与<span style='color: red'><strong>每个</strong></span>I/O请求的执行</li>
+</ul>
+</li>
+<li>特点
+<ul>
+<li>各个驱动器的轴是同步旋转的，因此每个磁盘上的每个磁头在任何时刻都位于同一位置</li>
+<li>采用数据条带：条带非常小，经常只有一个字节或一个字</li>
+</ul>
+</li>
+<li>纠错
+<ul>
+<li>对位于同一条带的各个数据盘上的数据位计算校验码（通常采用海明码），校验码存储在该条带中多个校验盘的对应位置</li>
+</ul>
+</li>
+<li>访问
+<ul>
+<li>读取：获取请求的数据和对应的校验码</li>
+<li>写入：所有数据盘和校验盘都被访问</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>冗余盘依然比较多，价格较贵</li>
+<li>适用于多磁盘易出错环境，对于单个磁盘和磁盘驱动器已经具备高可靠性的情况没有意义。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/3jUgZJSAI5w2Pbq.png" alt="" /></p>
+<h3 id="raid-3"><a class="markdownIt-Anchor" href="#raid-3"></a> RAID 3</h3>
+<ul>
+<li>
+<p>采用并行存取技术</p>
+<ul>
+<li>各个驱动器的轴同步旋转</li>
+<li>采用非常小的数据条带</li>
+</ul>
+</li>
+<li>
+<p>对所有数据盘上同一位置的数据计算<span style='color: red'><strong>奇偶校验码</strong></span></p>
+<ul>
+<li>
+<p>当某一次盘损坏（已经<strong>明确</strong>知道哪一位是有问题的）时，可以用于重构数据</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+</li>
+<li>
+<p>优点：能够获得非常高的数据传输率</p>
+<ul>
+<li>对于大量传送，性能改善特别明显</li>
+</ul>
+</li>
+<li>
+<p>缺点：一次只能执行一个I/O请求</p>
+<ul>
+<li>在面向多个IO请求时，性能将受损</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/qwYTCmzalBSiu2F.png" alt="" /></p>
+<h3 id="raid-4"><a class="markdownIt-Anchor" href="#raid-4"></a> RAID 4</h3>
+<ul>
+<li>
+<p>采用独立存取技术</p>
+<ul>
+<li>每个磁盘成员的操作是独立的，各个I/O请求能够并行处理</li>
+</ul>
+</li>
+<li>
+<p>采用相对较大的数据条带</p>
+</li>
+<li>
+<p>根据各个数据盘上的数据来逐位计算奇偶校验条带，奇偶校验位存储在奇偶校验盘的对应条带上。</p>
+</li>
+<li>
+<p>性能</p>
+<ul>
+<li>
+<p>当执行较小规模的I/O请求时，RAID4会遭遇写损失</p>
+<ul>
+<li>对于每一次写操作，阵列管理软件不仅要修改用户数据，而且要修改相应的校验位。<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+</li>
+</ul>
+</li>
+<li>
+<p>每一次写操作必须涉及到唯一的校验盘，校验盘会成为瓶颈。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/felr3UOCBGMqwcE.png" alt="" /></p>
+<h3 id="raid-5"><a class="markdownIt-Anchor" href="#raid-5"></a> RAID 5</h3>
+<ul>
+<li>
+<p>与RAID4组织方式相似</p>
+</li>
+<li>
+<p>在所有磁盘上都分布了奇偶校验条带</p>
+<ul>
+<li>避免潜在的I/O瓶颈问题</li>
+</ul>
+</li>
+<li>
+<p>访问时的“两读两写”</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex"></annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span></p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/hG5e7oPc3mYSft6.png" alt="" /></p>
+<h3 id="raid-50"><a class="markdownIt-Anchor" href="#raid-50"></a> RAID 50</h3>
+<p>RAID 5 与RAID 0 的组合，先作RAID 5，再作RAID 0，也就是对多组RAID 5 彼此构成条带访问</p>
+<p>RAID 50在底层的任一祖或多组 RAID 5中出现一颗硬盘损坏时，仍能维持运作；如果任一祖RAID 5中出现2颗或2颗以上硬盘损毁，整组RAID 50就会失效</p>
+<p>RAID 50由于在上层把多组RAID 5进行条带化，性能比起单纯的RIAD 5高，但容量利用率比RAID 5要低</p>
+<h3 id="raid-6"><a class="markdownIt-Anchor" href="#raid-6"></a> RAID 6</h3>
+<ul>
+<li>采用两种不同的校验码，并将校验码以分开的块存于不同的磁盘中</li>
+<li>优点
+<ul>
+<li>提升数据可用性：只有在平均修复时间间隔内3个磁盘都出了故障，才会造成数据丢失</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>写损失：每次写都要影响两个校验块</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/xtoiYDcrHOzT6f7.png" alt="" /></p>
+<hr />
+<h2 id="12-虚拟存储器"><a class="markdownIt-Anchor" href="#12-虚拟存储器"></a> 12  虚拟存储器</h2>
+<h3 id="操作系统"><a class="markdownIt-Anchor" href="#操作系统"></a> 操作系统</h3>
+<p>操作系统：一种控制应用程序运行和在计算机用户与计算机硬件之间提供接口的程序</p>
+<p>目标：</p>
+<ul>
+<li>使计算机使用起来更方便</li>
+<li>允许计算机系统的资源以有效的方式使用</li>
+</ul>
+<h3 id="存储器管理"><a class="markdownIt-Anchor" href="#存储器管理"></a> 存储器管理</h3>
+<p>早期计算机的主存中仅包含<strong>系统软件</strong>和一个用户程序。 – 单道程序设计</p>
+<p>现在计算机的主存中包含<strong>操作系统</strong>和若干个用户程序</p>
+<ul>
+<li>当所有任务都需要等待I/O时，为了避免处理器处于空闲状态，需要尽可能让更多的任务进入主存</li>
+<li>多道程序设计：让处理器一次处理多个任务，提高处理器的利用率</li>
+</ul>
+<p>存储器管理</p>
+<ul>
+<li>在多道程序系统中，主存需要进一步划分给多个任务，划分的任务由操作系统动态执行</li>
+<li>这里不考虑“<strong>进程</strong>”这一概念。</li>
+</ul>
+<h3 id="如何将更多任务装入主存"><a class="markdownIt-Anchor" href="#如何将更多任务装入主存"></a> 如何将更多任务装入主存</h3>
+<ol>
+<li>增大主存容量</li>
+<li>使用交换（exchange）技术
+<ul>
+<li>当主存中没有处于就绪的任务时，操作系统调入其他任务来执行</li>
+<li>分区（partitioning）与分页（paging）</li>
+</ul>
+</li>
+<li>虚拟存储器
+<ul>
+<li>请求分页：每次访问仅将当前需要的页面调入主存，而其他不活跃的页面放在外存磁盘上</li>
+<li>虚拟地址</li>
+</ul>
+</li>
+</ol>
+<h4 id="分区方式"><a class="markdownIt-Anchor" href="#分区方式"></a> 分区方式</h4>
+<ul>
+<li>分区方式：将主存分为两大地址
+<ul>
+<li>系统区：固定的地址范围内，存放操作系统</li>
+<li>用户区：存放所有用户程序</li>
+</ul>
+</li>
+</ul>
+<h5 id="简单固定分区"><a class="markdownIt-Anchor" href="#简单固定分区"></a> 简单固定分区</h5>
+<ul>
+<li>用户区划分成<strong>长度不等</strong>的<strong>固定长</strong>分区</li>
+<li>当一个任务调入主存时，分配一个可用的，能容纳它的、最小的分区（一个区<strong>只能</strong>放一个任务，不能够将两个小任务放在同一个分区中）</li>
+<li>优点：简单</li>
+<li>缺点：浪费主存空间</li>
+</ul>
+<h5 id="可变长分区"><a class="markdownIt-Anchor" href="#可变长分区"></a> 可变长分区</h5>
+<ul>
+<li>
+<p>用户区按每个任务所需要的内存大小进行分配</p>
+</li>
+<li>
+<p>优点：提高了主存的利用率</p>
+</li>
+<li>
+<p>缺点：时间越长，存储器中的<strong>碎片</strong>就会越多</p>
+<blockquote>
+<p>做完大任务后的内存区域存入了一个小任务，就会留下一个较小的碎片的内存空间。（分散的，没有办法被联合起来使用的）</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/01/06/zjkACeMPnmiTWdX.png" alt="" /></p>
+<h4 id="分页方式"><a class="markdownIt-Anchor" href="#分页方式"></a> 分页方式</h4>
+<p>基本思想：</p>
+<ul>
+<li>
+<p>把主存分成<strong>固定长</strong>并且比较小的存储块，称为<span style = 'color: red'><strong>页框（page frame）</strong></span>，每个任务也被划分成固定长的程序块，称为<span style = 'color: red'><strong>页（page）</strong></span></p>
+</li>
+<li>
+<p>将页装入页框中，且<strong>无需采用连续的页框</strong>来存放一个任务中所有的页</p>
+</li>
+</ul>
+<blockquote>
+<p>逻辑地址：指令中的地址</p>
+<p>物理地址：实际主存地址</p>
+<p>页表：能够通过页表知道任务在主存中的<strong>物理地址</strong></p>
+<p>流程：指令中的逻辑地址通过页表查询到对应的物理地址，然后到主存中找到对应地址中的数据</p>
+</blockquote>
+<h3 id="虚拟存储器"><a class="markdownIt-Anchor" href="#虚拟存储器"></a> 虚拟存储器</h3>
+<p>问题：内存的大小是有限的，但对内存的需求不断增加</p>
+<h4 id="基本思想"><a class="markdownIt-Anchor" href="#基本思想"></a> 基本思想</h4>
+<ul>
+<li><span style = 'color: red'><strong>请求分页</strong></span>：仅将当前需要的页面调入主存
+<ul>
+<li>通过硬件将<strong>逻辑地址</strong>转换为<strong>物理地址</strong></li>
+<li>未命中时在主存和硬盘之间交换信息</li>
+</ul>
+</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>在不扩大物理内存的前提下，可以载入更多的任务</li>
+<li>编写程序时不需要考虑可用物理内存的状态
+<ul>
+<li>程序员认为可以独享一个连续的、很大的内存</li>
+</ul>
+</li>
+<li>可以在大于物理内存的逻辑地址空间中编程</li>
+</ul>
+<p><strong>设计的一些问题</strong>：</p>
+<ol>
+<li>页大小</li>
+<li>映射算法：全相连映射</li>
+<li>写策略：写回</li>
+<li>类型
+<ol>
+<li>分页式虚拟存储器</li>
+<li>分段式虚拟存储器</li>
+<li>段页式虚拟存储器</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>Cache和主存的速度差距比主存和硬盘的速度差距小很多，所以我们应该尽可能减少对硬盘的访问，提高对主存的利用率。</p>
+<p>Cache比主存快10倍，主存比硬盘快100000多倍</p>
+</blockquote>
+<h4 id="分页式虚拟存储器"><a class="markdownIt-Anchor" href="#分页式虚拟存储器"></a> 分页式虚拟存储器</h4>
+<p>主存储器和虚拟地址空间都被划分为大小相等的页面</p>
+<ul>
+<li>虚拟页（virtual page, VP）/逻辑页（logical page）：虚拟地址空间中的页面</li>
+<li>物理页（physical page, PP）/页框（page frame）：主存空间中的页面</li>
+</ul>
+<h5 id="页表"><a class="markdownIt-Anchor" href="#页表"></a> 页表</h5>
+<ul>
+<li>页表中包含了所有<span style = 'color: red'><strong>所有虚拟页</strong></span>的信息，包括虚拟页的存放位置、装入位（valid）、修改位（dirty）、存取权限位等</li>
+<li>保存在主存中</li>
+<li>编写程序时认为有一块很大、连续的存储空间，写的是虚拟地址</li>
+<li>虚拟地址：虚拟页号 + 页内偏移量</li>
+</ul>
+<p><strong>页表的存放位置</strong></p>
+<ol>
+<li>null：还未存放任何东西，没有指针指向实际的主存物理地址</li>
+<li>PPx（x为数字）：指向主存中的一块</li>
+<li>空：指向磁盘的一块</li>
+</ol>
+<blockquote>
+<p>存放地址中存储的是一样长的数据，以指向内存中的页的物理地址的长度为准，不需要存放虚拟页号（因为页表中存储的是所有的虚拟页，不会再有多的虚拟页了）</p>
+</blockquote>
+<p><span style='color :red'>虚拟页号</span> + <span style = 'color: blue'>页内偏移量</span> -&gt; <span style='color: green'>物理页号</span> + <span style = 'color: blue'>页内偏移量</span></p>
+<blockquote>
+<p>页内偏移量相同，因为虚拟页和物理页的大小是一样的</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2022/01/06/pg2CJkdQSysHK8u.png" alt="" /></p>
+<h5 id="快表"><a class="markdownIt-Anchor" href="#快表"></a> 快表</h5>
+<blockquote>
+<p>Translation Lookaside Buffer, TLB</p>
+</blockquote>
+<p>页表的使用增加了主存的访问次数</p>
+<p>为了减少访问主存的次数，把页表中<strong>最活跃</strong>的几个页表项复制到Cache中</p>
+<p>后备转换缓冲器（简称“快表”）：将页表项放入Cache中</p>
+<ul>
+<li>映射：关联映射，组关联映射</li>
+<li>替换：随机替换</li>
+</ul>
+<p>主存中的页表相应地称之为“慢表”</p>
+<h5 id="cpu访存过程"><a class="markdownIt-Anchor" href="#cpu访存过程"></a> CPU访存过程</h5>
+<p><img src="https://s2.loli.net/2022/01/06/UMwnlvkasejS4Fi.png" alt="" /></p>
+<p><img src="https://s2.loli.net/2022/01/06/3LYAtojXCS1mrDV.png" alt="" /></p>
+<blockquote>
+<p>注意如果页表项不在TLB中，我们需要在读取数据的同时更新TLB</p>
+</blockquote>
+<h5 id="tlb-页表-cache的缺失组合"><a class="markdownIt-Anchor" href="#tlb-页表-cache的缺失组合"></a> TLB、页表、Cache的缺失组合</h5>
+<p><img src="https://s2.loli.net/2022/01/06/SiZ73NgQtuMzd58.png" alt="" /></p>
+<h4 id="分段式虚拟存储器"><a class="markdownIt-Anchor" href="#分段式虚拟存储器"></a> 分段式虚拟存储器</h4>
+<p>将程序和数据分成不同长度的段，将所需的段加载到主存中。</p>
+<p>虚拟地址：段号 + 段内偏移量</p>
+<p>与分页式虚拟存储器相比：</p>
+<ul>
+<li>分页式虚拟存储器：
+<ul>
+<li>优点：实现简单、开销少</li>
+<li>缺点：一个数据或一条指令可能会横跨两个页面</li>
+</ul>
+</li>
+<li>分段式虚拟存储器
+<ul>
+<li>段的分界与程序的自然分界相对应，易于编译</li>
+<li>会产生碎片，长度不固定</li>
+</ul>
+</li>
+</ul>
+<h4 id="段页式虚拟存储器"><a class="markdownIt-Anchor" href="#段页式虚拟存储器"></a> 段页式虚拟存储器</h4>
+<p>将程序和数据分段，段内再进行分页</p>
+<ul>
+<li>每个分段都有一个页表</li>
+</ul>
+<p>虚拟地址：段号 + 页号 + 页内偏移量</p>
+<p>优点：程序按段实现共享与保护</p>
+<p>缺点：需要多次查表</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/02/15/COA-Review-2/">https://zyinnju.com/2022/02/15/COA-Review-2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Computer-Organization-and-Architecture/">Computer Organization and Architecture</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/02/15/COA-Review-4/"><i class="fa fa-chevron-left">  </i><span>COA Review (4)</span></a></div><div class="next-post pull-right"><a href="/2022/02/14/Object-oriented-Encapsulation/"><span>Object-oriented Encapsulation</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku25.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

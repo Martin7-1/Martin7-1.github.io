@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Java Virtual Machine Learning notebook"><meta name="keywords" content="SELearning,Java,JVM"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>JVM-Learning | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E5%89%8D%E6%8F%90%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text"> 0 前提知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-jvm%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> 1 JVM内存结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> 1.1 程序计数器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-number">2.2.</span> <span class="toc-text"> 1.2 Java虚拟机栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#121-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 1.2.1 局部变量表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#122-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 1.2.2 操作数栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#123-%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 1.2.3 方法调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-java%E5%A0%86"><span class="toc-number">2.3.</span> <span class="toc-text"> 1.3 Java堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-number">2.4.</span> <span class="toc-text"> 1.4 方法区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#141-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 1.4.1 运行时常量池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-number">2.5.</span> <span class="toc-text"> 1.5 本地方法栈</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-classfile"><span class="toc-number">3.</span> <span class="toc-text"> 2 ClassFile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-classfile%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text"> 2.1 ClassFile文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#211-magic"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 2.1.1 Magic</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#212-minor_versionmajor_version"><span class="toc-number">3.1.2.</span> <span class="toc-text"> 2.1.2 minor_version&#x2F;major_version</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#213-constant_pool"><span class="toc-number">3.1.3.</span> <span class="toc-text"> 2.1.3 constant_pool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#214-access_flags"><span class="toc-number">3.1.4.</span> <span class="toc-text"> 2.1.4 access_flags</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#215-this_class"><span class="toc-number">3.1.5.</span> <span class="toc-text"> 2.1.5 this_class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#216-super_class"><span class="toc-number">3.1.6.</span> <span class="toc-text"> 2.1.6 super_class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#217-interfaces"><span class="toc-number">3.1.7.</span> <span class="toc-text"> 2.1.7 interfaces</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#218-fields"><span class="toc-number">3.1.8.</span> <span class="toc-text"> 2.1.8 fields</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#219-methods"><span class="toc-number">3.1.9.</span> <span class="toc-text"> 2.1.9 methods</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2110-attributes"><span class="toc-number">3.1.10.</span> <span class="toc-text"> 2.1.10 attributes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-classloader"><span class="toc-number">4.</span> <span class="toc-text"> 3 ClassLoader</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-type-of-classloader"><span class="toc-number">4.1.</span> <span class="toc-text"> 3.1 Type of ClassLoader</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#311-bootstrap-class-loader"><span class="toc-number">4.1.1.</span> <span class="toc-text"> 3.1.1 Bootstrap Class Loader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#312-extension-class-loader"><span class="toc-number">4.1.2.</span> <span class="toc-text"> 3.1.2 Extension Class Loader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#313-application-class-loader"><span class="toc-number">4.1.3.</span> <span class="toc-text"> 3.1.3 Application Class Loader</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-load-class"><span class="toc-number">4.2.</span> <span class="toc-text"> 3.2 Load Class</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#321-parent-delegation-model"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 3.2.1 Parent Delegation Model</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#322-visibility"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 3.2.2 Visibility</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-%E8%87%AA%E5%AE%9A%E4%B9%89classloader"><span class="toc-number">4.3.</span> <span class="toc-text"> 3.3 自定义Classloader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">5.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku21.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">JVM-Learning</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-02-14</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Java/">Java</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">7.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 22 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="0-前提知识"><a class="markdownIt-Anchor" href="#0-前提知识"></a> 0 前提知识</h2>
+<p>要学习Java虚拟机（Java Virtual Machine），您必须会<strong>Java的基本语法</strong>和<strong>Java特性</strong></p>
+<span id="more"></span>
+<h2 id="1-jvm内存结构"><a class="markdownIt-Anchor" href="#1-jvm内存结构"></a> 1 JVM内存结构</h2>
+<p>Java虚拟机的内存空间由以下的五个部分组成：</p>
+<ol>
+<li>程序计数器（PC）</li>
+<li>Java虚拟机栈（Java Virtual Machine Stack）</li>
+<li>本地方法栈</li>
+<li>堆（Heap）</li>
+<li>方法区（Method Area）</li>
+</ol>
+<p>其中，程序计数器、本地方法栈和Java虚拟机栈是线程隔离的，即每个线程都拥有这三个东西，其他两个部分则是线程共享的，即所有线程所拥有的都是同一个堆和同一个方法区。线程隔离的数据区域会随着县城开始和结束而创建和销毁</p>
+<p><img src="https://s2.loli.net/2022/02/13/fN8xqBgYTGsUiFj.png" alt="" /></p>
+<blockquote>
+<p>图源：<a target="_blank" rel="noopener" href="https://doocs.github.io/jvm/01-jvm-memory-structure.html#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8-pc-%E5%AF%84%E5%AD%98%E5%99%A8">JVM内存结构</a></p>
+</blockquote>
+<h3 id="11-程序计数器"><a class="markdownIt-Anchor" href="#11-程序计数器"></a> 1.1 程序计数器</h3>
+<p>每一个Java虚拟机线程都有属于自己的PC（Program Counter）寄存器。在任意时刻，一个Java虚拟机线程只会执行一个方法的代码，而PC所指向的就是当前Java虚拟机正在执行的字节码指令的地址。如果当前线程所执行的方法是本地方法（native），那么此时程序计数器为<code>Undefined</code>。</p>
+<p>需要注意的是，在Java虚拟机中很多分支控制的指令都是跳转<strong>包括本身在内的指令条数</strong>，这是因为在取指之后，PC已经指向了下一条指令（即内容已经变成下一条指令的地址），而一般的跳转指令（如<code>goto</code>，<code>if&lt;cond&gt;</code>等）要求的都是从上一条指令的地址开始计算跳转的字节数。即我们需要根据如下公式来计算指令跳转的位置：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi><mi>c</mi><mo>=</mo><mi>p</mi><mi>c</mi><mo>−</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>s</mi><mi>r</mi><mi>L</mi><mi>e</mi><mi>n</mi><mi>g</mi><mi>t</mi><mi>h</mi><mo>+</mo><mi>o</mi><mi>f</mi><mi>f</mi><mi>s</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">pc = pc - intsrLength + offset
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">s</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">L</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">t</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span></span></p>
+<p>这部分留到字节码指令部分再具体介绍</p>
+<p><strong>程序计数器的作用</strong></p>
+<ul>
+<li>字节码解释器通过改变程序计数器来以此读取指令，从而实现代码的流程控制</li>
+<li>在多线程情况下，程序计数器记录的是当前线程执行的位置，方便线程切换中的指令地址保存。</li>
+</ul>
+<blockquote>
+<p>在所有Java虚拟机内存区域中，PC是唯一一个不会出现<code>OutOfMemoryError</code>的内存区域</p>
+</blockquote>
+<h3 id="12-java虚拟机栈"><a class="markdownIt-Anchor" href="#12-java虚拟机栈"></a> 1.2 Java虚拟机栈</h3>
+<p>Java虚拟机栈也是线程私有的一块内存空间，其目的是用于存储栈帧（Stack Frame）。栈帧中会存放一些方法运行过程中的信息，比如：</p>
+<ol>
+<li>局部变量表</li>
+<li>操作数栈</li>
+<li>动态链接</li>
+<li>方法出口信息</li>
+<li>…</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/02/13/iybIG8Dwm2NQeWC.png" alt="" /></p>
+<blockquote>
+<p>图源：<a target="_blank" rel="noopener" href="https://doocs.github.io/jvm/01-jvm-memory-structure.html#java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89">JVM内存结构</a></p>
+</blockquote>
+<p>方法运行时需要创建局部变量的时候，局部变量的值会存入栈帧的局部变量表中。Java 虚拟机栈的栈顶的栈帧是当前正在执行的活动栈，也就是当前正在执行的方法，PC 寄存器也会指向这个地址。只有这个活动的栈帧的本地变量可以被操作数栈使用，当在这个栈帧中调用另一个方法，与之对应的栈帧又会被创建，新创建的栈帧压入栈顶，变为当前的活动栈帧。</p>
+<p>方法结束后，当前栈帧被移出，栈帧的返回值变成新的活动栈帧中操作数栈的一个操作数。如果没有返回值，那么新的活动栈帧中操作数栈的操作数没有变化。</p>
+<p>Java虚拟机规范既允许Java虚拟机被实现成固定大小，也允许根据计算来动态扩展和收缩。Java虚拟机栈可能发生如下的异常情况：</p>
+<ol>
+<li>如果线程请求分配的栈容量超过Java虚拟机栈允许的最大容量，Java虚拟机将会抛出一个<code>StackOverflowError</code>异常</li>
+<li>如果Java虚拟机栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那Java虚拟机将会抛出一个<code>OutOfMemoryError</code>异常</li>
+</ol>
+<p>下面介绍一些栈帧中的一些内存空间，每一个栈帧都有自己的局部变量表（Local Variable）、操作数栈（Operand Stack）和指向当前方法所属类的运行时常量池（Run-time Constant Pool）的引用。</p>
+<h4 id="121-局部变量表"><a class="markdownIt-Anchor" href="#121-局部变量表"></a> 1.2.1 局部变量表</h4>
+<p>每个栈帧内部都包含一个<strong>局部变量表（Local Variable）</strong>，其长度是在<strong>编译期</strong>决定的。一个局部变量可以保存一个类型为<code>boolean</code>、<code>byte</code>、<code>char</code>、<code>short</code>、<code>int</code>、<code>float</code>、<code>reference</code>（对象引用）或者<code>returnAddress</code>（调用返回地址）的数据，两个局部变量可以保存一个类型为<code>long</code>或<code>double</code>的数据。这是因为后两种变量类型是64位，前面几种不满32位（比如<code>byte</code>、<code>char</code>、<code>short</code>）会按照一定规则（可能是符号右移也可能是逻辑右移）来补满32位。</p>
+<p>局部变量表使用的是索引来进行定位访问，每个位置可以看成一个<strong>Slot</strong>，对<strong>Slot</strong>可以这么理解：</p>
+<ul>
+<li>Java虚拟机会为局部变量表中的每个<strong>Slot</strong>都分配一个访问索引，通过索引可以成功访问到局部变量表中指定的局部变量值</li>
+<li>如果当前栈帧是由构造方法或者实例方法创建的，那么该对象引用“this”关键字，会存放在索引为0的<strong>Slot</strong>处，其余的局部变量顺序继续排列</li>
+<li>栈帧的局部变量表的槽位是可以重复的，如果一个局部变量超过了其作用域，那么其作用域之后声明的新的局部变量就有可能会复用过期局部变量的槽位，从而达到节省资源的目的。</li>
+</ul>
+<p>Java虚拟机使用局部变量表来完成<strong>方法调用时的参数传递</strong>。当调用类方法时，它的参数将会依次传递到局部变量表从0开始的连续位置上，实例方法则与上面<strong>Slot</strong>理解的第二点相同。</p>
+<blockquote>
+<p>类方法：<code>static</code>修饰的方法，是属于类而不是属于对象的</p>
+<p>实例方法：创建出的对象所拥有的的方法。</p>
+</blockquote>
+<h4 id="122-操作数栈"><a class="markdownIt-Anchor" href="#122-操作数栈"></a> 1.2.2 操作数栈</h4>
+<p>每个栈帧内部都包含一个称为<strong>操作数栈（Operand Stack）<strong>的后进先出栈。操作数栈的最大深度由</strong>编译期</strong>决定。</p>
+<p>栈帧刚刚创建的时候，操作数栈是空的。Java虚拟机提供一些<strong>字节码指令</strong>来从局部变量表或者对象实例的字段中赋值常量或者变量值到操作数栈中。也提供了一些指令用于从操作数栈取走数据、操作数据以及把操作结果重新入栈。在调用方法时，操作数栈也用来准备调用方法的参数以及接收方法返回结果。</p>
+<blockquote>
+<p>这些指令的名称一般与<code>load</code>、<code>store</code>有关，<code>load</code>是从局部变量表加载到操作数栈中，<code>store</code>则是从操作数栈保存到局部变量表，Java虚拟机的运算操作实际上是在操作数栈上运行的。</p>
+<p>举例：<code>iadd</code>字节码指令是将两个<code>int</code>型的数值相加，它要求执行该指令之前操作数栈顶已经存在两个由前面的其他指令所放入的<code>int</code>类型数值，在执行该指令时，操作数栈栈顶的两个<code>int</code>型元素出栈（pop），相加求和之后将结果重新入栈（push），要注意的是，Java是一种基于栈运行的语言，而<strong>栈</strong>是一种后进先出的结构，所以对二元运算符来说，先出栈的应该是第二个运算数<code>val2</code>，后出栈的是第一个运算数<code>val1</code>。这在<code>iadd</code>指令可能差别不大，但在减法和除法运算中就有一定的差别。</p>
+</blockquote>
+<p>与局部变量表相同，32位数据或不满32位的数据占用的都是一个栈深度，而64位数据占用的是两个栈深度，在执行字节码指令的时候，大部分指令对操作数栈的栈顶元素都有着类型要求，如果数据类型不同则会抛出异常。那么虚拟机是如何确定这些数据的类型和操作的正确性呢？这其实涉及到对<code>class</code>文件的校验过程。</p>
+<h4 id="123-方法调用"><a class="markdownIt-Anchor" href="#123-方法调用"></a> 1.2.3 方法调用</h4>
+<ul>
+<li>静态链接：当一个字节码文件被装载进 JVM 内部时，如果被调用的目标方法在编译期可知，且运行时期间保持不变，这种情况下降调用方的符号引用转为直接引用的过程称为静态链接。</li>
+<li>动态链接：如果被调用的方法无法再编译期被确定下来，只能在运行期将调用的方法的符号引用转为直接引用，这种引用转换过程具备动态性，因此被称为动态链接。</li>
+<li>方法绑定
+<ul>
+<li>早期绑定：被调用的目标方法如果再编译期可知，且运行期保持不变。</li>
+<li>晚期绑定：被调用的方法在编译期无法被确定，只能够在程序运行期根据实际的类型绑定相关的方法。</li>
+</ul>
+</li>
+<li>非虚方法：如果方法在编译期就确定了具体的调用版本，则这个版本在运行时是不可变的。这样的方法称为非虚方法静态方法，私有方法，final 方法，实例构造器，父类方法都是非虚方法,除了这些以外都是虚方法。</li>
+<li>虚方法表：面向对象的编程中，会很频繁的使用动态分配，如果每次动态分配的过程都要重新在类的方法元数据中搜索合适的目标的话，就可能影响到执行效率，因此为了提高性能，JVM 采用在类的方法区建立一个虚方法表，使用索引表来代替查找。
+<ul>
+<li>每个类都有一个虚方法表，表中存放着各个方法的实际入口。</li>
+<li>虚方法表会在类加载的链接阶段被创建，并开始初始化，类的变量初始值准备完成之后，JVM 会把该类的方法也初始化完毕。</li>
+</ul>
+</li>
+<li>方法重写的本质
+<ul>
+<li>找到操作数栈顶的第一个元素所执行的对象的实际类型，记做 C。如果在类型 C 中找到与常量池中描述符和简单名称都相符的方法，则进行访问权限校验。</li>
+<li>如果通过则返回这个方法的直接引用，查找过程结束；如果不通过，则返回 java.lang.IllegalAccessError 异常。</li>
+<li>否则，按照继承关系从下往上依次对 C 的各个父类进行上一步的搜索和验证过程。</li>
+<li>如果始终没有找到合适的方法，则抛出 java.lang.AbstractMethodError 异常。</li>
+</ul>
+</li>
+</ul>
+<p>Java 中任何一个普通方法都具备虚函数的特征（运行期确认，具备晚期绑定的特点），C++ 中则使用关键字 virtual 来显式定义。如果在 Java 程序中，不希望某个方法拥有虚函数的特征，则可以使用关键字 final 来标记这个方法。</p>
+<h3 id="13-java堆"><a class="markdownIt-Anchor" href="#13-java堆"></a> 1.3 Java堆</h3>
+<p>Java虚拟机中，**堆（Heap）**是可供各个线程共享的运行时内存区域，也是供所有类实例和数组对象分配内存的区域。<strong>几乎</strong>所有的对象都存储在堆中。</p>
+<p>Java堆是线程共享的，所有线程共享一个堆，在Java虚拟机启动的时候堆就会被创建，同时，它存储了被自动内存管理系统所管理的各种对象（垃圾收集器来进行管理）。在Java中，这些对象是无需也无法显式的销毁的。</p>
+<p>Java堆中最重要也是最难的就是垃圾回收机制的究竟需要何时触发以及是如何判断一个对象需要回收的，这涉及到一些算法的演化与迭代。</p>
+<h3 id="14-方法区"><a class="markdownIt-Anchor" href="#14-方法区"></a> 1.4 方法区</h3>
+<p>Java虚拟机中，<strong>方法区（Method Area）<strong>是可供各个线程共享的运行时内存区域。方法区的作用在于存储</strong>每一个类的结构信息</strong>。例如：<strong>运行时常量池（Runtime Constant Pool）</strong>、字段和方法数据、构造函数和普通方法的字节码内容，以及一些其他内容。在Java虚拟机规范中，方法区是对的逻辑组成部分，但可以选择不在这个区域实现垃圾收集与压缩。方法区中的信息可以如下总结：</p>
+<ul>
+<li>已经被虚拟机加载的类信息</li>
+<li>常量</li>
+<li>静态变量</li>
+<li>即时编译器编译后的代码</li>
+</ul>
+<p>与Java堆相同，方法区也在虚拟机启动的时候就被创建。Java虚拟机规范中规定，方法区的容量可以是固定的，也可以是随着程序执行的需求动态扩展的。</p>
+<h4 id="141-运行时常量池"><a class="markdownIt-Anchor" href="#141-运行时常量池"></a> 1.4.1 运行时常量池</h4>
+<p>运行时常量池是<code>class</code>文件中每一个类或接口的<strong>常量池表</strong>的运行时表示形式。其中包含了若干种不同的常量。当类被 Java 虚拟机加载后， .class 文件中的常量就存放在方法区的运行时常量池中。而且在运行期间，可以向常量池中添加新的常量。如 String 类的 <code>intern()</code> 方法就能在运行期间向常量池中添加字符串常量。</p>
+<blockquote>
+<p>例子：<code>(&quot;a&quot; + &quot;b&quot; + &quot;c&quot;).intern() == &quot;abc&quot;</code></p>
+</blockquote>
+<h3 id="15-本地方法栈"><a class="markdownIt-Anchor" href="#15-本地方法栈"></a> 1.5 本地方法栈</h3>
+<p>本地方法栈是为 JVM 运行 Native 方法准备的空间，由于很多 Native 方法都是用 C 语言实现的，所以它通常又叫 C 栈。它与 Java 虚拟机栈实现的功能类似，只不过本地方法栈是描述本地方法运行过程的内存模型。</p>
+<p>本地方法被执行时，在本地方法栈也会创建一块栈帧，用于存放该方法的局部变量表、操作数栈、动态链接、方法出口信息等。</p>
+<p>方法执行结束后，相应的栈帧也会出栈，并释放内存空间。也会抛出 StackOverFlowError 和 OutOfMemoryError 异常。</p>
+<blockquote>
+<p>如果 Java 虚拟机本身不支持 Native 方法，或是本身不依赖于传统栈，那么可以不提供本地方法栈。如果支持本地方法栈，那么这个栈一般会在线程创建的时候按线程分配。</p>
+</blockquote>
+<hr />
+<h2 id="2-classfile"><a class="markdownIt-Anchor" href="#2-classfile"></a> 2 ClassFile</h2>
+<h3 id="21-classfile文件格式"><a class="markdownIt-Anchor" href="#21-classfile文件格式"></a> 2.1 ClassFile文件格式</h3>
+<p>每个<code>class</code>文件对应的<code>ClassFile</code>结构如下所示：</p>
+<ul>
+<li><code>Magic Number</code> – 魔数</li>
+<li><code>minor_version</code> – 次版本号</li>
+<li><code>major_version</code> – 主版本号</li>
+<li><code>constant_pool_count</code> – 常量池计数器</li>
+<li><code>constant_pool[]</code> – 常量池</li>
+<li><code>access_flags</code> – 访问标志</li>
+<li><code>this_class</code> – 类索引</li>
+<li><code>super_class</code> – 父类索引</li>
+<li><code>interfaces_count</code> – 接口计数器</li>
+<li><code>interfaces[]</code> – 接口表</li>
+<li><code>fields_count</code> – 字段计数器</li>
+<li><code>fields[]</code> – 字段表</li>
+<li><code>methods_count</code> – 方法计数器</li>
+<li><code>methods[]</code> – 方法表</li>
+<li><code>attributes_count</code> – 属性计数器</li>
+<li><code>attributes[]</code> – 属性表</li>
+</ul>
+<p>Class 文件是二进制文件，它的内容具有严格的规范，文件中没有任何空格，全都是连续的 0/1。Class 文件 中的所有内容被分为两种类型：无符号数、表。</p>
+<ul>
+<li>无符号数 无符号数表示 Class 文件中的值，这些值没有任何类型，但有不同的长度。u1、u2、u4、u8 分别代表 1/2/4/8 字节的无符号数。</li>
+<li>表 由多个无符号数或者其他表作为数据项构成的复合数据类型。</li>
+</ul>
+<h4 id="211-magic"><a class="markdownIt-Anchor" href="#211-magic"></a> 2.1.1 Magic</h4>
+<p><strong>魔数</strong>的唯一作用就是确定这个文件是不是一个能够被虚拟机接受的<code>.class</code>文件。魔数的固定值是16进制表示下的<code>0xCAFEBABE</code>。即在类加载的时候，如果<code>.class</code>文件的开始四个byte不是魔数，那么就代表该<code>.class</code>文件不是一个规范的class文件，不能够被虚拟机所接受</p>
+<h4 id="212-minor_versionmajor_version"><a class="markdownIt-Anchor" href="#212-minor_versionmajor_version"></a> 2.1.2 minor_version/major_version</h4>
+<p>这两个无符号数代表class文件的<strong>副、主版本号</strong>。我们假设<code>major_version = M</code>，<code>minor_version = m</code>，则这个class文件的格式版本号就确定为<code>M.m</code>。对某个JDK来说，它所能支持的版本号处于一个范围之间，如果class文件的格式版本号不在JDK所支持的版本号之间的话，虚拟机无法运行该class文件</p>
+<h4 id="213-constant_pool"><a class="markdownIt-Anchor" href="#213-constant_pool"></a> 2.1.3 constant_pool</h4>
+<p>常量池是一种表结构，它包含了class文件结构及其子结构中引用的<strong>所有字符串常量、类或接口名、字段名和其他常量</strong>。其大小由之前的一个2个byte的<code>constant_pool_count</code>约束，即常量池的索引是从0 - <code>constant_pool_count - 1</code>为范围的。在这之中，一般第一个字节是类型标记，用来确定该项的格式（这在后面的所有表结构中都是一样的），我们将这个字节叫做<code>tag byte</code>，简称<code>tag</code></p>
+<h4 id="214-access_flags"><a class="markdownIt-Anchor" href="#214-access_flags"></a> 2.1.4 access_flags</h4>
+<p>access_flags是用来表示某个类或者接口的访问权限以及属性，其具有以下几种标志和含义：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标志名</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ACC_PUBLIC</td>
+<td style="text-align:center">0x0001</td>
+<td style="text-align:center">声明为public，可以从包外访问</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_FINAL</td>
+<td style="text-align:center">0X0010</td>
+<td style="text-align:center">声明为final，不允许有子类</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_SUPER</td>
+<td style="text-align:center">0X0020</td>
+<td style="text-align:center">当用到invokespecial指令时，需要对父类方法做特殊处理</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_INTERFACE</td>
+<td style="text-align:center">0X0200</td>
+<td style="text-align:center">该class文件定义的是接口而不是类</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_ABSTRACT</td>
+<td style="text-align:center">0X0400</td>
+<td style="text-align:center">声明为抽象类，不能被实例化</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_SYNTHETIC</td>
+<td style="text-align:center">0X1000</td>
+<td style="text-align:center">表示该class文件并非由Java源代码所生成</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_ANNOTATION</td>
+<td style="text-align:center">0X2000</td>
+<td style="text-align:center">标识注解类型</td>
+</tr>
+<tr>
+<td style="text-align:center">ACC_ENUM</td>
+<td style="text-align:center">0x4000</td>
+<td style="text-align:center">标识枚举类型</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Java虚拟机规范中说明：“特殊处理”是相对JDK 1.0.2之前的class文件而言的，invokespecial的语义、处理方式在JDK 1.0.2时发生了改变，为避免二义性，在 JDK 1.0.2 之后编译出的class文件都带有ACC_SUPER 标志用以区分</p>
+</blockquote>
+<p>对于这些访问标志，有一些注意事项：</p>
+<ul>
+<li>设置了<code>ACC_INTERFACE</code>标志的class文件也要同时设置<code>ACC_ABSTRACT</code>标志。同时不能设置<code>ACC_FIANL</code>，<code>ACC_SUPER</code>，<code>ACC_ENUM</code>标志</li>
+<li>如果没有设置<code>ACC_INTERFACE</code>标志，那么这个class文件可以具有除了注解类型之外的其他所有标志，<code>ACC_FIANL</code>和<code>ACC_ABSTRACT</code>这种互斥的不能同时存在。</li>
+<li>Java SE 8及后续版本，无论class文件的标志实际值是什么，Java虚拟机都认为每个class文件设置了<code>ACC_SUPER</code>标志。</li>
+<li>如果设置了<code>ACC_ANNOTATION</code>标志，那么也必须设置<code>ACC_INTERFACE</code>标志</li>
+</ul>
+<p>其他没有涉及到的值是为了未来扩充而预留的，这些预留标志在编译器中设置为0，Java虚拟机实现也应该忽略其它的值</p>
+<h4 id="215-this_class"><a class="markdownIt-Anchor" href="#215-this_class"></a> 2.1.5 this_class</h4>
+<p><code>this_class</code>的值必须是对常量池表中某项的一个有效索引值。常量池在这个索引处的成员必须为<code>Constant_Class_info</code>类型结构体，该结构体表示这个class文件所定义的类或接口</p>
+<h4 id="216-super_class"><a class="markdownIt-Anchor" href="#216-super_class"></a> 2.1.6 super_class</h4>
+<p><strong>对于类来说</strong>，<code>super_class</code>的值要么是0，要么是对常量池表某项的一个有效索引值。如果它的值不为0，那么常量池在这个索引处的成员必须为<code>Constant_Class_info</code>类型常量。它表示这个class文件所定义的类的<span style='color: red'><strong>直接超类</strong></span>。注意，该类的所有超类都不能够带有<code>ACC_FINAL</code>标志。</p>
+<blockquote>
+<p>这是因为标记为<code>ACC_FINAL</code>的类是不能够被继承的。</p>
+</blockquote>
+<p>如果class文件的<code>super_class</code>的值为0，那么这个class文件只可能用来表示<code>Object</code>类，因为在Java中，所有类都是间接继承<code>Object</code>类的，只有<code>Object</code>类是没有父类的。</p>
+<p><strong>而对于接口来说</strong>，它的class文件的<code>super_class</code>项必须是对常量池表中某项的一个有效索引值。常量池在这个索引处的成员<strong>必须</strong>为代表<code>Object</code>类的<code>Constant_Class_info</code>结构</p>
+<h4 id="217-interfaces"><a class="markdownIt-Anchor" href="#217-interfaces"></a> 2.1.7 interfaces</h4>
+<p><strong>接口表</strong>的大小是由之前的一个2个byte的<code>interfaces_pool_count</code>约束，即常量池的索引是从0 - <code>interfaces_pool_count - 1</code>为范围的。接口表中每个成员的值都必须是对常量池表中某项的有效索引值。接口顺序和源代码中给定的接口顺序是一样的</p>
+<blockquote>
+<p>即：<code>class A implements B, C, D</code>。顺序就是<code>B, C, D</code></p>
+</blockquote>
+<h4 id="218-fields"><a class="markdownIt-Anchor" href="#218-fields"></a> 2.1.8 fields</h4>
+<p>首先介绍一下什么是<strong>字段</strong>：</p>
+<blockquote>
+<p>Java中字段指的是一个类中的成员变量。比如如下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">person</span> &#123;</span><br><span class="line"> <span class="keyword">public</span> String name;</span><br><span class="line"> <span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line"> <span class="keyword">public</span> <span class="type">boolean</span> isMale;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的<code>name</code>，<code>age</code>，<code>isMale</code>就是字段。</p>
+</blockquote>
+<p><strong>字段表</strong>中的每个成员都必须是一个<code>fields_info</code>结构的数据项，用于表示当前类或接口中某个字段的完整描述。字段表描述当前类或者接口声明的所有字段，<strong>但是不包括从父类或者父接口继承的字段</strong>。</p>
+<blockquote>
+<p>这里的最后一句话为<strong>初始化的步骤</strong>留下了一个伏笔。</p>
+</blockquote>
+<p><strong>字段表</strong>的大小是由之前的一个2个byte的<code>fields_pool_count</code>约束，即常量池的索引是从0 - <code>fields_pool_count - 1</code>为范围的。</p>
+<h4 id="219-methods"><a class="markdownIt-Anchor" href="#219-methods"></a> 2.1.9 methods</h4>
+<p><strong>方法表</strong>中的每一个成员都必须是一个<code>method_info</code>结构，用于表示当前类或接口中某个方法的完整描述。如果某个<code>method_info</code>结构的<code>access_flags</code>项既没有设置<code>ACC_NATIVE</code>标志也没有设置<code>ACC_ABSTRACT</code>标志，那么该结构中也应包含实现这个方法所用的Java虚拟机指令</p>
+<blockquote>
+<p><code>ACC_NATIVE</code>代表该方法是本地方法，本地方法不是用Java语言写的。<code>ACC_ABSTRACT</code>标志代表该方法是抽象方法，抽象方法没有具体内容。</p>
+</blockquote>
+<p><code>method_info</code>结构可以表示类和结构中定义的所有方法，包括实例方法、类方法、实例初始化方法和类或接口初始化方法。接口表只描述当前类或接口中声明的方法，<strong>不包括从父类或父接口继承的方法</strong></p>
+<p><strong>方法表</strong>的大小是由之前的一个2个byte的<code>methods_pool_count</code>约束，即常量池的索引是从0 - <code>methods_pool_count - 1</code>为范围的。</p>
+<h4 id="2110-attributes"><a class="markdownIt-Anchor" href="#2110-attributes"></a> 2.1.10 attributes</h4>
+<p>首先介绍一下什么是<strong>属性</strong></p>
+<blockquote>
+<p>属性是<strong>字段</strong>的另一种术语，不同的是属性一般都是<code>public</code>的。</p>
+</blockquote>
+<p>属性表的每个项的值必须是<code>attribute_info</code>结构。</p>
+<h2 id="3-classloader"><a class="markdownIt-Anchor" href="#3-classloader"></a> 3 ClassLoader</h2>
+<p>ClassLoader（类加载器）的职责是在运行时将<code>Java Class</code>动态的加载到<code>JVM</code>中。ClassLoader同时也是<code>JRE</code>的一部分，因为有ClassLoader的存在，JVM无需了解底层文件或者文件系统即可运行Java程序。</p>
+<p>同时我们知道，Java是一种动态语言，即<code>Java Class</code>并不会一次性的全部加载到内存之中，而是在程序需要的时候动态的加载到内存中，这对Java的多态有着极大的好处，即可以在程序中实现<strong>动态绑定</strong>。同时，这种实现就需要ClassLoader来发挥作用。</p>
+<h3 id="31-type-of-classloader"><a class="markdownIt-Anchor" href="#31-type-of-classloader"></a> 3.1 Type of ClassLoader</h3>
+<p>我们可以用下面的一个例子来说明Java中ClassLoader的类型</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printClassLoaders</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;ClassLoader of this class: &quot;</span> </span><br><span class="line">                      + PrintClassLoader.class.getClassLoader());</span><br><span class="line">    System.out.println(<span class="string">&quot;ClassLoader of Logging:&quot;</span></span><br><span class="line">                      + Logging.class.getClassLoader());</span><br><span class="line">    System.out.println(<span class="string">&quot;ClassLoader of ArrayList:&quot;</span> </span><br><span class="line">                      + ArrayList.class.getClassLoader());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中，<code>PrintClassLoader</code>是我们自己写的类，<code>Logging</code>是第三方类库（&lt;JAVA_HOME&gt;/lib/ext目录下），<code>ArrayList</code>是Java自带的库。</p>
+</blockquote>
+<p>运行后我们会得到如下的输出：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Class loader of <span class="built_in">this</span> class:sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line">Class loader of Logging:sun.misc.Launcher$ExtClassLoader@3caeaf62</span><br><span class="line">Class loader of ArrayList:<span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<p>我们可以知道，这里有三种ClassLoader，分别是：</p>
+<ol>
+<li>Application Classloader or System Classloader</li>
+<li>Extension Classloader or Platform Classloader</li>
+<li>Bootstrap Classloader</li>
+</ol>
+<p>这三张ClassLoader各有自己负责的领域，其中：</p>
+<ol>
+<li>Application Classloader负责加载classpath下我们自己的class文件。这个classpath是我们自定义的classpath，即（User Classpath）</li>
+<li>Extension Classloader负责加载标准Java库以外的扩展库，即&lt;JAVA_HOME&gt;/lib/ext下的第三方库，又或者说是扩展类路径（Extension Classpath）</li>
+<li>Bootstrap Classloader是另外两类的“父类”（注意这里的父类和Java语言中的某个类 extends 父类不同）。负责加载启动类路径（Bootstrap Classpath）</li>
+</ol>
+<blockquote>
+<p>为什么ArrayList的ClassLoader这里会输出<code>null</code>呢，这是因为Bootstrap Classloader是用其他语言写的（根据虚拟机的不同可能由不同语言来实现，HotSpot用<code>Cpp</code>实现），所以它不会表示为Java Class，而其他的两种ClassLoader则使用Java语言来写的。</p>
+</blockquote>
+<h4 id="311-bootstrap-class-loader"><a class="markdownIt-Anchor" href="#311-bootstrap-class-loader"></a> 3.1.1 Bootstrap Class Loader</h4>
+<p>我们知道，Java Class都是由<code>java.lang.ClassLoader</code>这个类来负责加载的，那么问题是：<code>java.lang.ClassLoader</code>这个类是由谁来加载的呢？</p>
+<p>这时候就是Bootstap Class Loader来发挥作用的时候，该类加载器主要负责的是JDK内部的类，一般是<code>rt.jar</code>和在 &lt;JAVA_HOME&gt;/jre/lib 目录下的类，同时，该类加载器也是其他类加载器的“<strong>父类</strong>”</p>
+<h4 id="312-extension-class-loader"><a class="markdownIt-Anchor" href="#312-extension-class-loader"></a> 3.1.2 Extension Class Loader</h4>
+<p>Extension Class Loader是Bootstrap Class Loader的子类（非<code>Java</code>中的继承），主要负责的是对标准Java库之外的扩展类进行类加载，一般加载的是 &lt;JAVA_HOME&gt;/lib/ext目录下的类</p>
+<h4 id="313-application-class-loader"><a class="markdownIt-Anchor" href="#313-application-class-loader"></a> 3.1.3 Application Class Loader</h4>
+<p>Application Class Loader主要负责加载的是应用级别的类，即在我们自定义的classpath下来进行类加载，在用<code>javac</code>进行编译的时候，我们可以通过<code>-cp/-classpath</code>来自行指定classpath。该类加载器是Extension Class Loader的子类</p>
+<p><img src="https://s2.loli.net/2022/02/12/5hlTNzDrbeun2Lm.png" alt="" /></p>
+<blockquote>
+<p>图源：南京大学软件工程2019级软件工程与计算I大作业手册</p>
+</blockquote>
+<h3 id="32-load-class"><a class="markdownIt-Anchor" href="#32-load-class"></a> 3.2 Load Class</h3>
+<p>类加载器在对类进行Java的流程可以大致简述如下：</p>
+<ol>
+<li>JVM需要加载某个类的时候，通过<code>java.lang.ClassLoader.loadClass()</code>方法来通过<strong>某个类的全限定名</strong>在运行时加载该类。</li>
+<li>首先检查这个类是否被加载，如果这个类还没有被加载的话，会将任务委派给父类加载器，并不断递归进行</li>
+<li>当最顶层的类加载器（此时没有父类，无法继续递归）并没有在自己的classpath中找到该类的话，会向下委派。</li>
+<li>收到上层委派的类加载器会通过<code>java.net.URLClassLoader.findClass()</code>来在文件系统中查找对应要加载的类</li>
+<li>如果到了最下层的类加载器都没有找到所需的类，那么就会抛出<code>java.lang.ClassNotFoundException</code>或者<code>java.lang.NoClassDefFoundError</code></li>
+</ol>
+<p>如果我们查看某个<code>ClassNotFoundException</code>的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.ClassNotFoundException: com.baeldung.classloader.SampleClassLoader    </span><br><span class="line">    at java.net.URLClassLoader.findClass(URLClassLoader.java:<span class="number">381</span>)    </span><br><span class="line">    at java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="number">424</span>)    </span><br><span class="line">    at java.lang.ClassLoader.loadClass(ClassLoader.java:<span class="number">357</span>)    </span><br><span class="line">    at java.lang.Class.forName0(Native Method)    </span><br><span class="line">    at java.lang.Class.forName(Class.java:<span class="number">348</span>)</span><br></pre></td></tr></table></figure>
+<p>我们会发现其过程就是按照我们上述所说的步骤来进行的。接下来我们会详细介绍这个过程中很重要的一个机制：双亲委派机制（Parent Delegation Model），也就是上文步骤中两次出现的“<strong>委派</strong>”二字</p>
+<h4 id="321-parent-delegation-model"><a class="markdownIt-Anchor" href="#321-parent-delegation-model"></a> 3.2.1 Parent Delegation Model</h4>
+<blockquote>
+<p>双亲委派模型</p>
+</blockquote>
+<p>简单来说，双亲委派模型的流程可以用一句话解释：当JVM需要加载某个class时，底层的类加载器会将任务委派给它的父类加载器，只有在父类加载器无法加载该类的时候，底层的类加载器才会来尝试加载该类。</p>
+<p>举个例子：当我们有一个加载application class到JVM的请求，首先Application Class Loader会将请求委派给其父类Extension Class Loader，然后Extension Class Loader会向上委派给Bootstrap Class Loader。</p>
+<p>此时Bootstrap Class Loader已经没有父加载器了，所以会开始尝试加载需要的类，当它加载失败时会告知Extension Class Loader，然后由Extension Class Loader来尝试加载该类，加载失败后会告知Application Class Loader，最后由Application Class Loader来加载该类。</p>
+<h4 id="322-visibility"><a class="markdownIt-Anchor" href="#322-visibility"></a> 3.2.2 Visibility</h4>
+<p>不同类加载器之间的类具有可见性。子类加载器对其父类加载器加载的类是可见的（<strong>children class loaders are visible to classes loaded by their parent class loaders</strong>）。</p>
+<p>举个例子，现在我们有一个由Application Class Loader加载的类A，和一个由Extension Class Loader加载的类B，则无论A或者B都是Application Class Loader可见的，但对于Extension Class Loader来说只有类B可见</p>
+<h3 id="33-自定义classloader"><a class="markdownIt-Anchor" href="#33-自定义classloader"></a> 3.3 自定义Classloader</h3>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>Java虚拟机规范 第8版</li>
+<li>深入理解Java虚拟机：JVM高级特性与最佳实践</li>
+<li><a target="_blank" rel="noopener" href="https://doocs.github.io/jvm/">JVM底层原理最全知识总结</a></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/02/14/JVM-Learning/">https://zyinnju.com/2022/02/14/JVM-Learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JVM/">JVM</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/02/14/Object-oriented-Encapsulation/"><i class="fa fa-chevron-left">  </i><span>Object-oriented Encapsulation</span></a></div><div class="next-post pull-right"><a href="/2022/02/13/Object-oriented-Overview/"><span>Object-oriented Overview</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku21.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

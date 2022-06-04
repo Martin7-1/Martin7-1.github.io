@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="南京大学2022春季学期《互联网计算》课程笔记(2) -- TCP/IP Model"><meta name="keywords" content="SELearning,Computer Network"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>TCP/IP Model | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpip-model-introduction"><span class="toc-number">2.</span> <span class="toc-text"> TCP&#x2F;IP Model Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcpip-model-%E4%B8%8E-osi-model-%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">2.1.</span> <span class="toc-text"> TCP&#x2F;IP Model 与 OSI Model 的差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#network-access-layer%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%85%A5%E5%B1%82"><span class="toc-number">2.2.</span> <span class="toc-text"> Network Access Layer（网络接入层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#internet-layer%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="toc-number">2.3.</span> <span class="toc-text"> Internet Layer（网络层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transport-layer%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-number">2.4.</span> <span class="toc-text"> Transport Layer（传输层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#application-layer%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number">2.5.</span> <span class="toc-text"> Application Layer（应用层）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">4.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku38.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">TCP/IP Model</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-05-24</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Computer-Network/">Computer Network</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.4k</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>OSI 模型只是一个参考/逻辑模型。它旨在通过将通信过程划分为更小和更简单的组件来描述通信系统的功能。但是当我们谈到 TCP/IP 模型时，它是由美国国防部 (DoD) 在 1960 年代设计和开发的，并且基于标准协议。它代表传输控制协议/互联网协议。TCP/IP模型仅仅包括四层：</p>
+<ol>
+<li>Application Layer（应用层）</li>
+<li>Transport Layer（传输层）</li>
+<li>Internet Layer（网络层）</li>
+<li>Network Access Layer（网络接入层）</li>
+</ol>
+<span id="more"></span>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/tcpAndOSI.png" alt="img" /></p>
+<h2 id="tcpip-model-introduction"><a class="markdownIt-Anchor" href="#tcpip-model-introduction"></a> TCP/IP Model Introduction</h2>
+<h3 id="tcpip-model-与-osi-model-的差异"><a class="markdownIt-Anchor" href="#tcpip-model-与-osi-model-的差异"></a> TCP/IP Model 与 OSI Model 的差异</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">TCP/IP</th>
+<th style="text-align:center">OSI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">TCP: Transmission Control Protocol</td>
+<td style="text-align:center">OSI: Open Systems Interconnection</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model有四层</td>
+<td style="text-align:center">OSI Model有七层</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model更加可靠</td>
+<td style="text-align:center">OSI Model更不可靠</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model没有非常严格的界限</td>
+<td style="text-align:center">OSI Model有比较严格的界限</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model将Session Layer和Presentation Layer合并进了Application Layer</td>
+<td style="text-align:center">OSI Model 将Session Layer 和 Presentation Layer与Application Layer单独分离开</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model是开发协议然后根据协议来建立模型</td>
+<td style="text-align:center">OSI Model是根据模型来建立协议</td>
+</tr>
+<tr>
+<td style="text-align:center">Transport Layer并没有提供数据包（packets）的可靠交付</td>
+<td style="text-align:center">Transport Layer提供了数据包的可靠交付</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP Model Internet Layer只提供无连接服务。</td>
+<td style="text-align:center">OSI Model 中的 Network Layer 提供了无连接和面向连接的两种服务</td>
+</tr>
+<tr>
+<td style="text-align:center">TCP/IP中的协议并不能够被随意替代</td>
+<td style="text-align:center">OSI Model中，协议被更好地覆盖，并且很容易随着技术的变化而被替换。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-access-layer网络接入层"><a class="markdownIt-Anchor" href="#network-access-layer网络接入层"></a> Network Access Layer（网络接入层）</h3>
+<p>TCP/IP Model中的 Network Access Layer对应的是 OSI Model 中的 Physical Layer（物理层）和 Data Link Layer（数据链路层）。它寻找硬件地址，并且该层中存在的协议允许数据的物理传输。 我们刚才讲了ARP是Internet层的协议，但是将其声明为Internet Layer的协议还是Network Access Layer的协议是有冲突的。它被描述为位于第 3 层，由第 2 层协议封装。</p>
+<h3 id="internet-layer网络层"><a class="markdownIt-Anchor" href="#internet-layer网络层"></a> Internet Layer（网络层）</h3>
+<p>TCP/IP Model中的 Internet Layer与 OSI Model中的 Network Layer是对应的，它定义了负责在整个网络上进行数据逻辑传输的协议。驻留在这一层的主要协议是：</p>
+<ol>
+<li><strong>Internet Protocol（IP）</strong>：该协议负责通过查看数据包标头中的 IP 地址将数据包从源主机传递到目标主机。 IP有2个版本： IPv4 和 IPv6。 IPv4 是目前大多数网站都在使用的一种。但是 IPv6 正在增长，因为与用户数量相比，IPv4 地址的数量是有限的。</li>
+<li><strong>Internet Control Message Protocol（ICMP）</strong>：它封装在 IP 数据报中，负责向主机提供有关网络问题的信息。</li>
+<li><strong>Address Resolution Protocol（ARP）</strong>：它的工作是从已知的 IP 地址中找到主机的硬件地址。 ARP 有几种类型：反向 ARP（Reverse ARP, RARP）、代理 ARP（Proxy ARP）、免费 ARP（Gratuitous ARP） 和反向 ARP（Inverse ARP）。</li>
+</ol>
+<h3 id="transport-layer传输层"><a class="markdownIt-Anchor" href="#transport-layer传输层"></a> Transport Layer（传输层）</h3>
+<p>TCP/IP Model中的 Transport Layer与 OSI Model中的Transport Layer是对应的，主要负责端到端（end-to-end）的传输和流控制（Flow Control）以及错误纠正（Error Correction）。它使上层应用程序免受数据复杂性的影响。该层中存在的两个主要协议是：</p>
+<ol>
+<li><strong>Transmission Control Protocol（TCP）</strong>：该协议能够在两个终端之间提供无差错和可靠的传输，同时能够做到对数据的分段和分序（sequencing and segmentation）。同时TCP协议能够做到对数据的流控制（Flow Control），但其缺点是其功能过多导致其传输成本较大。</li>
+<li><strong>User Datagram Protocol（UDP）</strong>：该协议是比较新的传输层协议，其目的就是为了能够在传输成本比较小的情况下来进行传输。如果您的应用程序不需要可靠的传输，它是首选协议，因为它非常具有成本效益。与面向连接的协议 TCP 不同，UDP 是无连接的。</li>
+</ol>
+<h3 id="application-layer应用层"><a class="markdownIt-Anchor" href="#application-layer应用层"></a> Application Layer（应用层）</h3>
+<p>TCP/IP Model中的 Application Layer与 OSI Model中的上三层：Application Layer、Presentation Layer与Session Layer相对应。该层负责的是节点到节点（node-to-node）的传输以及控制用户界面规范。该层的协议主要有：HTTP, HTTPS, FTP, TFTP, Telnet, SSH, SMTP, SNMP, NTP, DNS, DHCP, NFS, X Window, LPD等。下面简要介绍几种：</p>
+<ol>
+<li><strong>Hypertext Transfer Protocol（HTTP）</strong>：超文本传输协议，万维网使用它来管理 Web 浏览器和服务器之间的通信。 HTTPS 代表 HTTP 安全。它是 HTTP 与 SSL（安全套接层）的组合。在浏览器需要填写表格、登录、验证和进行银行交易的情况下，它非常有效。</li>
+<li><strong>Secure Shell（SSH）</strong>：它是一个类似于 Telnet 的终端仿真软件。 SSH 更受欢迎的原因是它能够维护加密连接。它通过 TCP/IP 连接建立安全会话。</li>
+<li><strong>Network Time Protocol（NTP）</strong>：它用于将我们计算机上的时钟同步到一个标准时间源。它在银行交易等情况下非常有用。假设以下情况不存在 NTP。假设您执行一项事务，您的计算机在下午 2:30 读取时间，而服务器在下午 2:28 记录时间。如果服务器不同步，服务器可能会严重崩溃。</li>
+</ol>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>TCP/IP Model是目前主流使用的互联网模型，其能够替代OSI Model的原因一个是因为其的层数减少了，OSI过多的界限导致其无法很好的应用到实际中，另一个是因为 TCP 协议与 IP 协议的产生使得互联网得到了很好的发展。</p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《互联网计算》课程</li>
+<li><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/tcp-ip-model/">TCP/IP Model</a></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/05/24/TCP-IP-Model/">https://zyinnju.com/2022/05/24/TCP-IP-Model/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Computer-Network/">Computer Network</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/05/28/Cpp-Operator-Overloading/"><i class="fa fa-chevron-left">  </i><span>Cpp Operator Overloading</span></a></div><div class="next-post pull-right"><a href="/2022/05/17/Design-Pattern-4/"><span>Design Pattern (4)</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku38.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

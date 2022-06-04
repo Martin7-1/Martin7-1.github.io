@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="南京大学2022春季学期《互联网计算》课程笔记(2) -- TCP Segment"><meta name="keywords" content="SELearning,Computer Network"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>TCP Segment | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-overview"><span class="toc-number">1.</span> <span class="toc-text"> 0 Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-tcp-segment-structure"><span class="toc-number">2.</span> <span class="toc-text"> 1 TCP Segment Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-three-way-shakehands"><span class="toc-number">3.</span> <span class="toc-text"> 2 Three-way Shakehands</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku46.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">TCP Segment</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-04</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Computer-Network/">Computer Network</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 7 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="0-overview"><a class="markdownIt-Anchor" href="#0-overview"></a> 0 Overview</h2>
+<p>TCP数据段主要有以下的几个特点：</p>
+<ol>
+<li>TCP是进程间通信的协议：为了能够实现多个应用程序复用相同IP地址且在同一时刻进行网络上数据的传输，TCP协议为主机制定了“端口（port）”的概念，端口是一个<strong>16bit</strong>长的标识符，用来标识某个进程在主机占用的一个“位置”和标识进程在主机上发送和接收的信息的位置</li>
+<li>TCP为数据的每一个字节制定了编号，对于编号没有要求，不一定要从0开始，只是作为一个标识符用于接收方对数据进行乱序重组和数据的确认，会在后面TCP数据段的结构处继续讨论。</li>
+<li>TCP全双工：TCP是一种全双工的协议，这意味着它可以同时发送和接收数据</li>
+<li>面向连接服务：TCP是一种面向连接的服务，对于每一次传送数据，它都会有以下的三个步骤：
+<ol>
+<li>建立连接：通过三次握手来建立两个主机端口之间的连接</li>
+<li>发送数据</li>
+<li>释放连接：通过四次挥手来确认数据的传输完毕，释放两个端口之间的连接</li>
+</ol>
+</li>
+</ol>
+<h2 id="1-tcp-segment-structure"><a class="markdownIt-Anchor" href="#1-tcp-segment-structure"></a> 1 TCP Segment Structure</h2>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220604184419.png" alt="TCP Segment Structure" /></p>
+<p>TCP段主要包括以下几个结构：</p>
+<ol>
+<li>源端口（Source Port Address）：标识该数据段的发送方使用的端口，<strong>16bit</strong>大小</li>
+<li>目的端口（Destination Port Address）：标识该数据段的接收方接收的端口，**16bit*8大小</li>
+<li>序号（Sequence Number）：序号是一个<strong>32bit</strong>的字段，一般是该数据报的数据部分的第一个字节的编号，因为分组分时发送的缘故，某个报文切分后的TCP数据报可能在不同时间乱序到达接收方，因此需要序号来让接收方对TCP数据段进行重组。</li>
+<li>确认号（Acknowledgement Number）：确认号是一个<strong>32bit</strong>的字段，相当于是接收方再向发送方请求下一个想要获得的数据，比如对于两个主机A和B来说，A往B发送了一个TCP数据报，数据字段包括了该次报文的0-499编号的数据，那么，B在向A发送数据的时候，在确认号会标上500，以表示自己接受到了0-499的数据，想要请求500开始的数据。这是一种保证数据传输成功的确认手段，也能够让一些传输失败的数据进行重传</li>
+<li>数据偏移（也叫首部长度）：是一个<strong>4bit</strong>的数据，指出TCP报文段的数据起始处距离TCP报文段的起始处的长度，单位是32bit（4Byte）。首部有20Byte是固定的，即数据偏移字段最小都为5。</li>
+<li>保留：接下来的<strong>6bit</strong>是保留位，为今后使用做保留，目前置0（到目前都还未使用）。</li>
+<li>标志位：接下来有6个标识位，每个都是<strong>1bit</strong>
+<ol>
+<li>URG：urgent位，当该位为1时，标识该报文段中有紧急数据，紧急指针字段（后面会介绍）有效，该位告诉系统此报文段中有紧急数据，应该尽快传送。</li>
+<li>ACK: ACK = 1时，确认号字段有效，反之无效。大部分情况下都为1，只有在初始建立连接关系的时候ACK可能会为0</li>
+<li>PSH：push位，接收方收到PSH = 1的报文段，就会尽快地将数据交付到接收数据的应用进程，而不再等到整个缓存都填满了后再向上交付。</li>
+</ol>
+<blockquote>
+<p>TCP是面向字节的，会有个缓存区来保证可靠传输，并不是收到某个数据就直接向应用程序传输，而是要进行一定的判断 &amp;&amp; 缓存区已满才会向应用进程传输。</p>
+</blockquote>
+<ol start="4">
+<li>RST：reset位，RST=1时标识TCP连接中出现了严重的差错（比如主机崩溃或者其他的原因），必须要释放连接，然后再重新建立连接。</li>
+<li>SYN：Synchorized，表示这是一个连接请求或者连接接收的报文（连接建立时期）</li>
+<li>FIN：finish，用来释放一个连接，FIN=1标识此报文段的发送端的数据已经发送完毕，并要求释放运输连接（可能会应答对方发送的数据，但是不会再向接收方发送数据）。</li>
+</ol>
+</li>
+<li>窗口：占据<strong>8bit</strong>，是接收方用来告知发送方下一次报文段的传输应该传输多少字节，窗口告知的是TCP报文段的数据部分的字节大小，比如说确认号是501，窗口是1000，那么表示下次传输接收方期待收到发送方的是501-1500（左开右闭）的数据。
+<blockquote>
+<p>上面说到TCP会有个缓存区来保存数据，用窗口就是为了限制发送数据的数量以导致缓存区的溢出</p>
+</blockquote>
+</li>
+<li>检验和：检验和占<strong>2bit</strong>，检验和字段检验的范围包括首部和数据这两部分（与packet不同，packet只包含首部的检验）。两个Byte为一个单位进行排列，然后进行逻辑加，然后将和取反码作为检验和。检验的时候只要以相同的流程计算出结果然后取反看是否是全0即可。</li>
+<li>紧急指针：占<strong>16bit</strong>，指出在本报文段中的紧急数据共有多少个字节（紧急数据放在本报文段数据的最前面）。</li>
+<li>选项：该部分是长度可变的字段，不包括在固定首部的20个Byte之内，一开始TCP只有一种选项，是<span style='color: red'><strong>最大报文长度 MSS（Maximum Segment Size）</strong></span>，该字段用于告诉接收方自己的缓存所能够接受的报文段的数据字段的最大长度是MSS个字节（注意这里只是数据字段）。</li>
+<li>填充：填充的作用是让TCP的报文段的首部长度刚好是4（字节）的倍数</li>
+</ol>
+<p><strong>总结</strong></p>
+<p>TCP数据报的首部是一个大于等于20个字节的首部（但必须是4字节的整数倍），数据段并不是必须的（建立连接时可能就没有数据）。TCP的数据段的大小和下层的IP Packet的大小是需要匹配的（IP Packet是在TCP Segment的基础上添加首部进行封装），但对于上层传输的数据可以是不一一对应的（传输时可能会进行分片）。同时对于TCP的每个Byte都有一个<strong>32bit</strong>的序号</p>
+<h2 id="2-three-way-shakehands"><a class="markdownIt-Anchor" href="#2-three-way-shakehands"></a> 2 Three-way Shakehands</h2>
+<p>下面介绍一下TCP建立连接的三次握手机制。这里以 <strong>Server-Client</strong> 的模式来进行一个例子的说明，Server服务器启动后等待Client的请求，Client和Server需要通过三次握手的机制来建立连接关系，具体的步骤如下所示：</p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220604202742.png" alt="Three-way Shakehands" /></p>
+<p>下面简单介绍一下三次握手的流程：</p>
+<ol>
+<li>Server持续监听能够被请求到的端口（比如HTTP服务时80端口），Client在需要请求的时候向Server发送一条TCP报文段，该报文段的 <strong>SYN=1</strong> ，表示这是一个请求建立连接的报文，<strong>ACK=0</strong> 表示确认号是无效的首部信息（因为这是第一条建立连接的报文，并没有需要确认的数据），同时首部的序号（sequence number）为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>。（第一次握手）</li>
+<li>Server收到Client的请求建立连接的报文，如果请求的端口没有运行进程，那么就会将 <strong>RST=1</strong> 标识需要重新建立连接。如果想要建立连接的端口有进程正在运行，那么会判断是要接受还是拒绝这个请求，如果接受这个请求那么会发送给Client一个报文段，该报文段的 <strong>SYN=1, ACK=1, seq=y, ack=x+1</strong>，表示这是建立连接的报文，同时确认号是有效的为 <strong>x+1</strong>，同时发送的数据部分的第一个字节编号为 <strong>y</strong>。（第二次握手）</li>
+<li>Client收到Server的第二次握手的应答之后，会返回Server一个报文段表示自己收到了确认建立连接的请求，此时的报文段会将 <strong>SYN=0, ACK=1, seq=x+1, ack=y+1</strong> 以表示连接建立的确认（第三次握手）</li>
+</ol>
+<p>三次握手之后连接建立，就开始传输数据，注意对于 <strong>Server-Client</strong> 模式来说，请求都是从 Client 端发起的，所以在三次握手之后，虽然最后一次握手的发送方是 Client，但是接下来的数据传输的最开始也是需要由 Client 端来传输的，Client端会传输和最后一次握手的报文段一样的seq和ack（序号和确认号），同时带上data部分</p>
+<blockquote>
+<p>对于 <strong>SYN=1</strong> 或者 <strong>FIN=1</strong> 的报文，默认数据部分的长度为1，所以三次握手的确认号总是在上一个序号的基础上加一即可，但是对于正常传输的数据来说，还需要计算数据部分的长度。</p>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/04/TCP-Segment/">https://zyinnju.com/2022/06/04/TCP-Segment/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Computer-Network/">Computer Network</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/06/01/Fail-Fast-Iterator/"><span>Fail-Fast Iterator in Java</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku46.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

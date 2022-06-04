@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Cpp STL学习简单记录"><meta name="keywords" content="SELearning,Cpp"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>Cpp STL Learning | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-stl%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> 1 STL简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%AE%B9%E5%99%A8%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.1 容器的共同点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text"> 2 迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text"> 3 序列式容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-vector"><span class="toc-number">3.1.</span> <span class="toc-text"> 3.1 vector</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#311-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 3.1.1 构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#312-%E5%85%83%E7%B4%A0%E8%AE%BF%E9%97%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text"> 3.1.2 元素访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#313-%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">3.1.3.</span> <span class="toc-text"> 3.1.3 迭代器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#314-%E9%95%BF%E5%BA%A6%E5%92%8C%E5%AE%B9%E9%87%8F"><span class="toc-number">3.1.4.</span> <span class="toc-text"> 3.1.4 长度和容量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#315-%E5%85%83%E7%B4%A0%E5%A2%9E%E5%88%A0%E5%8F%8A%E4%BF%AE%E6%94%B9"><span class="toc-number">3.1.5.</span> <span class="toc-text"> 3.1.5 元素增删及修改</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">4.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">12</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku2.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">Cpp STL Learning</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-05-05</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cpp/">Cpp</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">3.6k</span><span class="post-meta__separator">|</span><span>阅读时长: 13 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="1-stl简介"><a class="markdownIt-Anchor" href="#1-stl简介"></a> 1 STL简介</h2>
+<p><img src="https://oi-wiki.org/lang/csl/images/container1.png" alt="img" /></p>
+<span id="more"></span>
+<p><strong>序列式容器</strong></p>
+<ol>
+<li><strong>vector</strong>：后端可高效增加元素的序列表（有点类似Java的<strong>ArrayList</strong>）</li>
+<li><strong>array</strong>：C++11出现的一种容器，订场的顺序表，C风格数组的简单包装。</li>
+<li><strong>deque</strong>：双端都可高效增加元素的顺序表</li>
+<li><strong>list</strong>：可以沿双向遍历的链表</li>
+<li><strong>forward_list</strong>：只能沿一个方向遍历的链表</li>
+</ol>
+<p><strong>关联式容器</strong></p>
+<ol>
+<li><strong>集合</strong>(<code>set</code>) 用以有序地存储 <strong>互异</strong> 元素的容器。其实现是由节点组成的红黑树，每个节点都包含着一个元素，节点之间以某种比较元素大小的谓词进行排列。</li>
+<li><strong>多重集合</strong>(<code>multiset</code>) 用以有序地存储元素的容器。允许存在相等的元素。</li>
+<li><strong>映射</strong>(<code>map</code>) 由 {键，值} 对组成的集合，以某种比较键大小关系的谓词进行排列。</li>
+<li><strong>多重映射</strong>(<code>multimap</code>) 由 {键，值} 对组成的多重集合，亦即允许键有相等情况的映射。</li>
+</ol>
+<blockquote>
+<p>What is Predicate?</p>
+<p>谓词就是返回值为真或假的函数。STL容器中经常会用到谓词，用于参数模板。</p>
+</blockquote>
+<p><strong>无序（关联式）容器</strong></p>
+<ul>
+<li><strong>无序（多重）集合</strong>(<code>unordered_set</code>/<code>unordered_multiset</code>)<strong>C++11</strong>，与 <code>set</code>/<code>multiset</code> 的区别在与元素无序，只关心”元素是否存在“，使用哈希实现。</li>
+<li><strong>无序（多重）映射</strong>(<code>unordered_map</code>/<code>unordered_multimap</code>)<strong>C++11</strong>，与 <code>map</code>/<code>multimap</code> 的区别在与键 (key) 无序，只关心 “键与值的对应关系”，使用哈希实现。</li>
+</ul>
+<p><strong>容器适配器</strong></p>
+<p>容器适配器其实并不是容器。它们不具有容器的某些特点（如：有迭代器、有 <code>clear()</code> 函数……）。</p>
+<blockquote>
+<p>”适配器是使一种事物的行为类似于另外一种事物行为的一种机制”，适配器对容器进行包装，使其表现出另外一种行为。</p>
+</blockquote>
+<ul>
+<li><strong>栈</strong> <code>(stack</code>) 后进先出 (LIFO) 的容器。</li>
+<li><strong>队列</strong>(<code>queue</code>) 先进先出 (FIFO) 的容器。</li>
+<li><strong>优先队列</strong>(<code>priority_queue</code>) 元素的次序是由作用于所存储的值对上的某种谓词决定的的一种队列</li>
+</ul>
+<h3 id="11-容器的共同点"><a class="markdownIt-Anchor" href="#11-容器的共同点"></a> 1.1 容器的共同点</h3>
+<p><strong>容器声明</strong></p>
+<p>都是 <code>containerName&lt;typeName,...&gt; name</code> 的形式，但模板参数（<code>&lt;&gt;</code> 内的参数）的个数、形式会根据具体容器而变。</p>
+<p>本质原因：STL 就是“标准模板库”，所以容器都是模板类。</p>
+<p><strong>迭代器</strong></p>
+<p>请参考 [迭代器](#2 迭代器)。</p>
+<p>共有函数</p>
+<p><code>=</code>：有赋值运算符以及复制构造函数。</p>
+<p><code>begin()</code>：返回指向开头元素的迭代器。</p>
+<p><code>end()</code>：返回指向末尾的下一个元素的迭代器。<code>end()</code> 不指向某个元素，但它是末尾元素的后继。</p>
+<p><code>size()</code>：返回容器内的元素个数。</p>
+<p><code>max_size()</code>：返回容器 <strong>理论上</strong> 能存储的最大元素个数。依容器类型和所存储变量的类型而变。</p>
+<p><code>empty()</code>：返回容器是否为空。</p>
+<p><code>swap()</code>：交换两个容器。</p>
+<p><code>clear()</code>：清空容器。</p>
+<p><code>==</code>/<code>!=</code>/<code>&lt;</code>/<code>&gt;</code>/<code>&lt;=</code>/<code>&gt;=</code>：按 <strong>字典序</strong> 比较两个容器的大小。（比较元素大小时 <code>map</code> 的每个元素相当于 <code>set&lt;pair&lt;key, value&gt; &gt;</code>，无序容器不支持 <code>&lt;</code>/<code>&gt;</code>/<code>&lt;=</code>/<code>&gt;=</code>。）</p>
+<h2 id="2-迭代器"><a class="markdownIt-Anchor" href="#2-迭代器"></a> 2 迭代器</h2>
+<p>在 STL 中，迭代器（Iterator）用来访问和检查 STL 容器中元素的对象，它的行为模式和指针类似，但是它封装了一些有效性检查，并且提供了统一的访问格式。类似的概念在其他很多高级语言中都存在，如 Python 的 <code>__iter__</code> 函数，C# 的 <code>IEnumerator</code>。</p>
+<p><strong>How to use iterator</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Enter number amount:&quot;</span>;</span><br><span class="line">    <span class="type">int</span> amount;</span><br><span class="line">    std::cin &gt;&gt; amount;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// vector(amount, value)用于在初始化的时候构造amount个value值的元素</span></span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; amount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        std::cin &gt;&gt; x;</span><br><span class="line">        list.<span class="built_in">push_back</span>(x);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 普通的遍历</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Normal traverse: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; list.<span class="built_in">at</span>(i) &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用迭代器遍历</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;User iterator to traverse: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (std::vector&lt;<span class="type">int</span>&gt;::iterator iter = list.<span class="built_in">begin</span>(); iter != list.<span class="built_in">end</span>(); iter++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 对迭代器解引用来获得元素</span></span><br><span class="line">        std::cout &lt;&lt; *iter &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// or use auto to reduce input</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;User auto to reduce the input: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> iter = list.<span class="built_in">begin</span>(); iter != list.<span class="built_in">end</span>(); iter++)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; *iter &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>迭代器的分类</strong></p>
+<ul>
+<li>InputIterator（输入迭代器）：只要求支持拷贝、自增和解引访问。</li>
+<li>OutputIterator（输出迭代器）：只要求支持拷贝、自增和解引赋值。</li>
+<li>ForwardIterator（向前迭代器）：同时满足 InputIterator 和 OutputIterator 的要求。</li>
+<li>BidirectionalIterator（双向迭代器）：在 ForwardIterator 的基础上支持自减（即反向访问）。</li>
+<li>RandomAccessIterator（随机访问迭代器）：在 BidirectionalIterator 的基础上支持加减运算和比较运算（即随机访问）。</li>
+</ul>
+<blockquote>
+<p>“输入”指的是“可以从迭代器中获取输入”，而“输出”指的是“可以输出到迭代器”。</p>
+<p>“输入”和“输出”的施动者是程序的其它部分，而不是迭代器自身。</p>
+</blockquote>
+<p>其实这个“分类”并不互斥——一个“类别”是可以包含另一个“类别”的。例如，在要求使用向前迭代器的地方，同样可以使用双向迭代器。</p>
+<p>不同的STL 容器支持的迭代器类型不同，在使用时需要留意。</p>
+<p>指针满足随机访问迭代器的所有要求，可以当作随机访问迭代器使用。</p>
+<p><strong>STL相关函数</strong></p>
+<p>很多 <a target="_blank" rel="noopener" href="https://oi-wiki.org/lang/csl/algorithm/">STL 函数</a> 都使用迭代器作为参数。</p>
+<p>可以使用 <code>std::advance(it, n)</code> 将迭代器 <code>it</code> 向后移动 <code>n</code> 步；若 <code>n</code> 为负数，则对应向前移动。迭代器必须满足双向迭代器，否则行为未定义。</p>
+<p>在 C++11 以后可以使用 <code>std::next(it)</code> 获得向前迭代器 <code>it</code> 的后继（此时迭代器 <code>it</code> 不变），<code>std::next(it, n)</code> 获得向前迭代器 <code>it</code> 的第 <code>n</code> 个后继。</p>
+<p>在 C++11 以后可以使用 <code>std::prev(it)</code> 获得双向迭代器 <code>it</code> 的前驱（此时迭代器 <code>it</code> 不变），<code>std::prev(it, n)</code> 获得双向迭代器 <code>it</code> 的第 <code>n</code> 个前驱。</p>
+<p>STL 容器一般支持从一端或两端开始的访问，以及对 const 修饰符的支持。例如容器的 <code>begin()</code> 函数可以获得指向容器第一个元素的迭代器，<code>rbegin()</code> 函数可以获得指向容器最后一个元素的反向迭代器，<code>cbegin()</code> 函数可以获得指向容器第一个元素的 const 迭代器，<code>end()</code> 函数可以获得指向容器尾端（“尾端”并不是最后一个元素，可以看作是最后一个元素的后继；“尾端”的前驱是容器里的最后一个元素，其本身不指向任何一个元素）的迭代器。</p>
+<h2 id="3-序列式容器"><a class="markdownIt-Anchor" href="#3-序列式容器"></a> 3 序列式容器</h2>
+<h3 id="31-vector"><a class="markdownIt-Anchor" href="#31-vector"></a> 3.1 vector</h3>
+<p><code>std::vector</code> 是 STL 提供的 <strong>内存连续的</strong>、<strong>可变长度</strong> 的数组（亦称列表）数据结构。能够提供线性复杂度的插入和删除，以及常数复杂度的随机访问。</p>
+<p><strong>使用<code>std::vector</code>的好处</strong></p>
+<ol>
+<li>
+<p><code>std::vector</code> 可以动态分配内存</p>
+<p>很多时候我们不能提前开好那么大的空间（eg：预处理 1~n 中所有数的约数）。尽管我们能知道数据总量在空间允许的级别，但是单份数据还可能非常大，这种时候我们就需要 <code>vector</code> 来把内存占用量控制在合适的范围内。<code>vector</code> 还支持动态扩容，在内存非常紧张的时候这个特性就能派上用场了。</p>
+</li>
+<li>
+<p><code>vector</code> 重写了比较运算符及赋值运算符</p>
+<p><code>vector</code> 重载了六个比较运算符，以字典序实现，这使得我们可以方便的判断两个容器是否相等（复杂度与容器大小成线性关系）。例如可以利用 <code>vector&lt;char&gt;</code> 实现字符串比较（当然，还是用 <code>std::string</code> 会更快更方便）。另外 <code>vector</code> 也重载了赋值运算符，使得数组拷贝更加方便。（c++20中比较运算符的重载被移除）</p>
+</li>
+<li>
+<p><code>vector</code> 便利的初始化</p>
+<p>由于 <code>vector</code> 重载了 <code>=</code> 运算符，所以我们可以方便的初始化。此外从 C++11 起 <code>vector</code> 还支持 <a target="_blank" rel="noopener" href="https://zh.cppreference.com/w/cpp/language/list_initialization">列表初始化</a>，例如 <code>vector&lt;int&gt; data &#123;1, 2, 3&#125;;</code>。</p>
+</li>
+</ol>
+<p><strong><code>vector</code> 的使用方法</strong></p>
+<h4 id="311-构造函数"><a class="markdownIt-Anchor" href="#311-构造函数"></a> 3.1.1 构造函数</h4>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">TestVector</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 创建空的vector，常数复杂度</span></span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; list0;</span><br><span class="line">    <span class="comment">// 该代码保证向vector中插入前三个元素的时候，是常数时间复杂度</span></span><br><span class="line">    list0.<span class="built_in">reserve</span>(<span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 创建一个初始空间为3的vector, 元素的默认值为0; 线性复杂度</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list1</span><span class="params">(<span class="number">3</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 创建一个初始空间为3的vector, 元素的默认值为2; 线性复杂度</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list2</span><span class="params">(<span class="number">3</span>, <span class="number">2</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 创建一个初始空间为3的vector, 元素的默认值是1; </span></span><br><span class="line">    <span class="comment">// 并且使用v2的空间配置器; 线性配置器</span></span><br><span class="line">    <span class="comment">// todo: what is 空间配置器</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list3</span><span class="params">(<span class="number">3</span>, <span class="number">1</span>, list2.get_allocator())</span></span>;</span><br><span class="line">    <span class="comment">// 创建一个v2的拷贝vector v4, 其内容元素和v2一样; 线性复杂度</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list4</span><span class="params">(list2)</span></span>;</span><br><span class="line">    <span class="comment">// 创建一个v4的拷贝vector v5, 其内容是&#123;v4[1], v4[3]&#125;; 线性复杂度</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list5</span><span class="params">(list4.begin() + <span class="number">1</span>, list4.begin() + <span class="number">3</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 移动v2到新创建的vector v6，不发生拷贝; 常数复杂度; 需要 C++11</span></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">list6</span><span class="params">(std::move(list2))</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下是测试代码，有兴趣的同学可以自己编译运行一下本代码。</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 1 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list1.<span class="built_in">begin</span>(), list1.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 2 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list2.<span class="built_in">begin</span>(), list2.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 3 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list3.<span class="built_in">begin</span>(), list3.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 4 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list4.<span class="built_in">begin</span>(), list4.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 5 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list5.<span class="built_in">begin</span>(), list5.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;vector 6 = &quot;</span>;</span><br><span class="line">    std::<span class="built_in">copy</span>(list6.<span class="built_in">begin</span>(), list6.<span class="built_in">end</span>(), std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">int</span>&gt;(std::cout, <span class="string">&quot; &quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="312-元素访问"><a class="markdownIt-Anchor" href="#312-元素访问"></a> 3.1.2 元素访问</h4>
+<p><code>vector</code> 提供了如下几种方法进行元素访问</p>
+<ol>
+<li>
+<p><code>at()</code></p>
+<p><code>v.at(pos)</code> 返回容器中下标为 <code>pos</code> 的引用。如果数组越界抛出 <code>std::out_of_range</code> 类型的异常。</p>
+</li>
+<li>
+<p><code>operator[]</code></p>
+<p><code>v[pos]</code> 返回容器中下标为 <code>pos</code> 的引用。不执行越界检查。</p>
+</li>
+<li>
+<p><code>front()</code></p>
+<p><code>v.front()</code> 返回首元素的引用。</p>
+</li>
+<li>
+<p><code>back()</code></p>
+<p><code>v.back()</code> 返回末尾元素的引用。</p>
+</li>
+<li>
+<p><code>data()</code></p>
+<p><code>v.data()</code> 返回指向数组第一个元素的指针。</p>
+</li>
+</ol>
+<h4 id="313-迭代器"><a class="markdownIt-Anchor" href="#313-迭代器"></a> 3.1.3 迭代器</h4>
+<p>vector 提供了如下几种 <a target="_blank" rel="noopener" href="https://oi-wiki.org/lang/csl/iterator/">迭代器</a></p>
+<ol>
+<li>
+<p><code>begin()/cbegin()</code></p>
+<p>返回指向首元素的迭代器，其中 <code>*begin = front</code>。</p>
+</li>
+<li>
+<p><code>end()/cend()</code></p>
+<p>返回指向数组尾端占位符的迭代器，注意是没有元素的。</p>
+</li>
+<li>
+<p><code>rbegin()/crbegin()</code></p>
+<p>返回指向逆向数组的首元素的逆向迭代器，可以理解为正向容器的末元素。</p>
+</li>
+<li>
+<p><code>rend()/crend()</code></p>
+<p>返回指向逆向数组末元素后一位置的迭代器，对应容器首的前一个位置，没有元素。</p>
+</li>
+</ol>
+<p>以上列出的迭代器中，含有字符 <code>c</code>（<code>const</code>） 的为只读迭代器，你不能通过只读迭代器去修改 <code>vector</code> 中的元素的值。如果一个 <code>vector</code> 本身就是只读的，那么它的一般迭代器和只读迭代器完全等价。只读迭代器自 C++11 开始支持。</p>
+<h4 id="314-长度和容量"><a class="markdownIt-Anchor" href="#314-长度和容量"></a> 3.1.4 长度和容量</h4>
+<p><code>vector</code> 有以下几个与容器长度和容量相关的函数。注意，<code>vector</code> 的长度（size）指有效元素数量，而容量（capacity）指其实际分配的内存长度，相关细节请参见后文的实现细节介绍。</p>
+<p><strong>与长度相关</strong>：</p>
+<ul>
+<li><code>empty()</code> 返回一个 <code>bool</code> 值，即 <code>v.begin() == v.end()</code>，<code>true</code> 为空，<code>false</code> 为非空。</li>
+<li><code>size()</code> 返回容器长度（元素数量），即 <code>std::distance(v.begin(), v.end())</code>。</li>
+<li><code>resize()</code> 改变 <code>vector</code> 的长度，多退少补。补充元素可以由参数指定。</li>
+<li><code>max_size()</code> 返回容器的最大可能长度。</li>
+</ul>
+<p><strong>与容量相关</strong>：</p>
+<ul>
+<li><code>reserve()</code> 使得 <code>vector</code> 预留一定的内存空间，避免不必要的内存拷贝。</li>
+<li><code>capacity()</code> 返回容器的容量，即不发生拷贝的情况下容器的长度上限。</li>
+<li><code>shrink_to_fit()</code> 使得 <code>vector</code> 的容量与长度一致，多退但不会少。</li>
+</ul>
+<h4 id="315-元素增删及修改"><a class="markdownIt-Anchor" href="#315-元素增删及修改"></a> 3.1.5 元素增删及修改</h4>
+<ul>
+<li><code>clear()</code> 清除所有元素</li>
+<li><code>insert()</code> 支持在某个迭代器位置插入元素、可以插入多个。<strong>复杂度与 <code>pos</code> 距离末尾长度成线性而非常数的</strong></li>
+<li><code>erase()</code> 删除某个迭代器或者区间的元素，返回最后被删除的迭代器。复杂度与 <code>insert</code> 一致。</li>
+<li><code>push_back()</code> 在末尾插入一个元素，均摊复杂度为 <strong>常数</strong>，最坏为线性复杂度。</li>
+<li><code>pop_back()</code> 删除末尾元素，常数复杂度。</li>
+<li><code>swap()</code> 与另一个容器进行交换，此操作是 <strong>常数复杂度</strong> 而非线性的。</li>
+</ul>
+<p><strong><code>vector</code> 的实现细节</strong></p>
+<p><code>vector</code> 的底层其实仍然是<strong>定长数组</strong>，它能够实现动态扩容的原因是增加了避免数量溢出的操作。首先需要指明的是 <code>vector</code> 中元素的数量（长度 <code>size</code>） 与它已分配内存最多能包含元素的数量（容量 <code>capacity</code>）<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 是不一致的，<code>vector</code> 会分开存储这两个量。当向 <code>vector</code> 中添加元素时，如发现 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>&gt;</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">n &gt; N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>，那么容器会分配一个尺寸为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>2</mn><mi>N</mi></mrow><annotation encoding="application/x-tex">2N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span> 的数组，然后将旧数据从原本的位置拷贝到新的数组中，再将原来的内存释放。尽管这个操作的渐进复杂度是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> ，但是可以证明其均摊复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 。而在末尾删除元素和访问元素则都仍然是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 的开销。 因此，只要对 <code>vector</code> 的尺寸估计得当并善用 <code>resize()</code> 和 <code>reserve()</code>，就能使得 <code>vector</code> 的效率与定长数组不会有太大差距。</p>
+<p><strong><code>vector&lt;bool&gt;</code></strong></p>
+<p>标准库特别提供了对 <code>bool</code> 的 <code>vector</code> 特化，每个“<code>bool</code>”只占 1 bit，且支持动态增长。但是其 <code>operator[]</code> 的返回值的类型不是 <code>bool&amp;</code> 而是 <code>vector&lt;bool&gt;::reference</code>。因此，使用 <code>vector&lt;bool&gt;</code> 使需谨慎，可以考虑使用 <code>deque&lt;bool&gt;</code> 或 <code>vector&lt;char&gt;</code> 替代。而如果你需要节省空间，请直接使用 <a target="_blank" rel="noopener" href="https://oi-wiki.org/lang/csl/bitset/"><code>bitset</code></a>。</p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://oi-wiki.org/lang/csl/container/">OIWiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.cppreference.com/w/">cppreference</a></li>
+<li>[cplusplus](</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/05/05/Cpp-STL-Learning/">https://zyinnju.com/2022/05/05/Cpp-STL-Learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Cpp/">Cpp</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/05/05/cpp-review/"><i class="fa fa-chevron-left">  </i><span>Cpp Review</span></a></div><div class="next-post pull-right"><a href="/2022/05/03/Database-Management-1/"><span>Database Management Review (1)</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku2.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
