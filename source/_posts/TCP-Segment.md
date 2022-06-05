@@ -1,7 +1,7 @@
 ---
 title: TCP Segment
 date: 2022-06-04 21:10:04
-description: 南京大学2022春季学期《互联网计算》课程笔记(2) -- TCP Segment
+description: 南京大学2022春季学期《互联网计算》课程笔记(3) -- TCP Segment
 top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku46.jpg
 tags:
     - SELearning
