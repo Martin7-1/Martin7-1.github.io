@@ -5,12 +5,12 @@ https://zyinnju.com/2022/02/18/Specific-Tree/
 https://zyinnju.com/2022/05/24/TCP-IP-Model/
 https://zyinnju.com/2022/05/05/cpp-review/
 https://zyinnju.com/about/index.html
-https://zyinnju.com/2022/02/14/Object-oriented-Encapsulation/
 https://zyinnju.com/2022/02/13/Object-oriented-Overview/
 https://zyinnju.com/2022/02/27/Proxy-Pattern/
+https://zyinnju.com/2022/02/14/Object-oriented-Encapsulation/
 https://zyinnju.com/2022/06/01/Fail-Fast-Iterator/
-https://zyinnju.com/2022/02/14/JVM-Learning/
 https://zyinnju.com/2022/02/24/Java-Web/
+https://zyinnju.com/2022/02/14/JVM-Learning/
 https://zyinnju.com/2022/03/17/Object-oriented-Design-Pattern/
 https://zyinnju.com/2022/02/16/Discrete-Math-Review-1/
 https://zyinnju.com/2022/02/16/Discrete-Math-Review-2/
@@ -44,8 +44,8 @@ https://zyinnju.com/tags/Discrete-Math/
 https://zyinnju.com/tags/Algorithm/
 https://zyinnju.com/tags/Java/
 https://zyinnju.com/tags/Concurrent/
-https://zyinnju.com/tags/JVM/
 https://zyinnju.com/tags/Java-Web/
+https://zyinnju.com/tags/JVM/
 https://zyinnju.com/tags/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F/
 https://zyinnju.com/tags/Data-Structure/
 https://zyinnju.com/categories/Computer-Science/
