@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="需求分析方法"><meta name="keywords" content="SELearning,Software Engineering"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>需求分析方法 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text"> 0 需求分析基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%A8%E4%BE%8B%E5%9B%BE"><span class="toc-number">2.</span> <span class="toc-text"> 1 用例图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E7%94%A8%E4%BE%8B%E5%9B%BE%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="toc-number">2.1.</span> <span class="toc-text"> 1.1 用例图的建立</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E7%94%A8%E4%BE%8B%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.2.</span> <span class="toc-text"> 1.2 用例模板</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%86%E6%9E%90%E7%B1%BB%E5%9B%BE"><span class="toc-number">3.</span> <span class="toc-text"> 2 分析类图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E5%88%86%E6%9E%90%E7%B1%BB%E5%9B%BE%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="toc-number">3.1.</span> <span class="toc-text"> 2.1 分析类图的基本元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E5%BB%BA%E7%AB%8B%E6%A6%82%E5%BF%B5%E7%B1%BB%E5%9B%BE"><span class="toc-number">3.2.</span> <span class="toc-text"> 2.2 建立概念类图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#221-%E5%80%99%E9%80%89%E7%B1%BB%E8%AF%86%E5%88%AB"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 2.2.1 候选类识别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#222-%E7%A1%AE%E5%AE%9A%E6%A6%82%E5%BF%B5%E7%B1%BB"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 2.2.2 确定概念类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#223-%E8%AF%86%E5%88%AB%E5%85%B3%E8%81%94"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 2.2.3 识别关联</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#224-%E8%AF%86%E5%88%AB%E9%87%8D%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="toc-number">3.2.4.</span> <span class="toc-text"> 2.2.4 识别重要属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E9%A1%BA%E5%BA%8F%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text"> 3 系统顺序图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%8A%B6%E6%80%81%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text"> 4 状态图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">6.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">38</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">13</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku55.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">需求分析方法</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 6 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="0-需求分析基础"><a class="markdownIt-Anchor" href="#0-需求分析基础"></a> 0 需求分析基础</h2>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609140254.png" alt="需求分析" /></p>
+<span id="more"></span>
+<p><strong>需求分析的任务</strong></p>
+<ol>
+<li>建立<strong>分析模型</strong>，达成开发者和用户对需求信息的共同理解</li>
+<li>依据共同的理解，发挥创造性，创建软件系统解决方案</li>
+</ol>
+<p><strong>需求分析模型与建模</strong></p>
+<ul>
+<li>“模型是对事物的抽象，帮助⼈们在创建⼀个事物之前可以有更好的理解”[Blaha2005]</li>
+<li>建⽴模型的过程被称为建模。“它是对系统进⾏思考和推理的⼀种⽅式。建模的⽬标是建⽴系统的⼀个表示，这个表示以精确⼀致的⽅式描述系统，使得系统的使⽤更加容易“[Fishwick1994]。</li>
+</ul>
+<p>建模常用手段是<strong>抽象（Abstraction）<strong>和</strong>分解（Decomposition/Partitioning）</strong></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609140802.png" alt="需求分析模型" /></p>
+<p><strong>常见分析模型</strong></p>
+<table>
+    <tr>
+        <th>方法</th>
+        <th>模型</th>
+        <th>描述</th>
+    </tr>
+    <tr>
+        <th rowspan="2">结构化方法</th>
+        <th>数据流图，Data Flow Diagram</th>
+        <th>从数据传递和加工的角度，描述了系统从输入到输出的功能处理过程。运用功能分解的方法，用层次结构简化处理复杂的问题</th>
+    </tr>
+    <tr>
+        <th>实体关系图，Entity Relationship Diagram</th>
+        <th>描述系统中的数据对象及其关系，定义了系统中使用、处理和产生的所有数据</th>
+    </tr>
+    <tr>
+        <th rowspan="4">面向对象方法</th>
+        <th>用例图，Use-Case Diagram</th>
+        <th>描述用户与系统的交互。从交互的角度说明了系统的边界和功能范围</th>
+    </tr>
+    <tr>
+        <th>类图，Class Diagram</th>
+        <th>描述应用领域当中重要的概念以及概念之间的关系。它捕获了系统的静态结构</th>
+    </tr>
+    <tr>
+        <th>交互图（顺序图），Interaction(Sequence) Diagram</th>
+        <th>描述系统中一次交互的行为过程，说明了在交互当中的对象协作关系</th>
+    </tr>
+    <tr>
+        <th>状态图，State Diagram</th>
+        <th>描述系统、用例或者对象在其整个生命期内的状态变化和行为过程</th>
+    </tr>
+</table>
+<h2 id="1-用例图"><a class="markdownIt-Anchor" href="#1-用例图"></a> 1 用例图</h2>
+<p><strong>用例</strong>：在系统（或者子系统或者类）和外部对象的<strong>交互</strong>当中所执行的行为序列的描述，包括<strong>各种不同的序列和错误的序列</strong>，它们能够联合提供一种<strong>有价值的服务</strong>。[Rumbaugh2004]</p>
+<p>用例描述了在不同条件下系统对某一用户的请求的响应。根据用户的请求和请求时的系统呢条件，系统将执行不同的行为序列，每一个行为序列被称为一个场景，一个用例是多个场景的集合。</p>
+<p><strong>用例图的基本元素</strong></p>
+<ol>
+<li>用例：椭圆表示</li>
+<li>参与者：小人，是系统或者其它系统对要开发的系统扮演的角色</li>
+<li>关系：简单的就是一条直线，参与者之间可能会有继承之类的关系，用例之间也会有关系</li>
+<li>系统边界：一个框，限定系统的边界</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609142831.png" alt="用例图案例" /></p>
+<h3 id="11-用例图的建立"><a class="markdownIt-Anchor" href="#11-用例图的建立"></a> 1.1 用例图的建立</h3>
+<ol>
+<li>目标非农与解决方向的确定</li>
+<li>寻找参与者</li>
+<li>寻找用例</li>
+<li>细化用例</li>
+</ol>
+<p><strong>细化用例</strong>：如果用例的力度不合适就需要进行细化和调整，判断标准是如果用例描述了为<strong>应对一个业务事件</strong>，<strong>由一个用户发起</strong>，<strong>并在一个连续时间段内完成</strong>，<strong>可以增加业务价值</strong>的任务</p>
+<blockquote>
+<p>用例图建立过程中的常见错误：</p>
+<ol>
+<li>不要讲用例细化为单个操作：例如，不要将用户管理细化为增加、修改和删除三个更小的用例，因为他们要联合起来才能体现出业务价值</li>
+<li>不要将同一个业务目标细化为不同用例：例如特价策略制定和赠送策略制定</li>
+<li>不要将没有业务价值的内容作为用例：常见的错误有“登陆”（应该描述为安全性或者质量需求）、“数据验证”（应该描述为数据需求）、“连接数据库”（属于软件内部实现而不是需求）等</li>
+</ol>
+</blockquote>
+<h3 id="12-用例模板"><a class="markdownIt-Anchor" href="#12-用例模板"></a> 1.2 用例模板</h3>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%94%A8%E4%BE%8B%E6%A8%A1%E6%9D%BF.png" alt="用例模板" /></p>
+<h2 id="2-分析类图"><a class="markdownIt-Anchor" href="#2-分析类图"></a> 2 分析类图</h2>
+<blockquote>
+<p>又称为概念类图或领域模型</p>
+</blockquote>
+<p>分析类图是面向对象分析方法的核心，描述类（对象）和这些类（对象）之间的关系。它与设计类图有所不同，主要关注<strong>系统与外界的交互</strong>，而不是软件系统的内部构造机制。类型、方法、可见性等复杂的软件构造细节不会在概念类图中</p>
+<blockquote>
+<p>需要注意的是这里所说的分析类图和设计类图是不太一样的</p>
+</blockquote>
+<h3 id="21-分析类图的基本元素"><a class="markdownIt-Anchor" href="#21-分析类图的基本元素"></a> 2.1 分析类图的基本元素</h3>
+<ol>
+<li>对象：主要包括标识符、状态和行为</li>
+<li>类：对象集合的抽象</li>
+<li>链接（Link/Dependency）：对象之间的互相协作的关系，描述了对象之间的物理或者业务联系</li>
+<li>关联：对象之间链接的抽象，包括聚合与组合（更强的关联关系）</li>
+<li>继承：是一种泛化的关系</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609144916.png" alt="类图案例" /></p>
+<p><strong>几种关系的图例</strong>：</p>
+<ol>
+<li>依赖：虚线鱼骨箭头</li>
+<li>关联：实线鱼骨箭头（双向关联没有箭头）</li>
+<li>聚合：实线空心菱形箭头</li>
+<li>组合：实线实心菱形箭头</li>
+<li>泛化-继承：实线空心三角形箭头</li>
+<li>泛化-实现接口：虚线空心三角形箭头</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E4%BE%9D%E8%B5%96.png" alt="依赖" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E5%85%B3%E8%81%94.png" alt="关联" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E8%81%9A%E5%90%88.png" alt="聚合" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%BB%84%E5%90%88.png" alt="组合" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E6%B3%9B%E5%8C%96-%E7%BB%A7%E6%89%BF.png" alt="泛化-继承" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E6%B3%9B%E5%8C%96-%E5%AE%9E%E7%8E%B0.png" alt="泛化-实现" /></p>
+<h3 id="22-建立概念类图"><a class="markdownIt-Anchor" href="#22-建立概念类图"></a> 2.2 建立概念类图</h3>
+<p>对每个用例文本描述，尤其是场景描述，建立局部的概念类图：</p>
+<ol>
+<li>根据用例的文本描述，识别候选类</li>
+<li>筛选候选类，确定概念类</li>
+<li>识别关联</li>
+<li>识别重要属性</li>
+</ol>
+<p>将所有用例产生的局部概念类图进行合并，建立软件系统的整体概念类图</p>
+<h4 id="221-候选类识别"><a class="markdownIt-Anchor" href="#221-候选类识别"></a> 2.2.1 候选类识别</h4>
+<ol>
+<li>发现软件系统与外界交互可能涉及的对象与类，它们就是候选类</li>
+<li>行为分析、名词分析、CRC等很多方法都可以用来分析用例文本描述</li>
+</ol>
+<h4 id="222-确定概念类"><a class="markdownIt-Anchor" href="#222-确定概念类"></a> 2.2.2 确定概念类</h4>
+<p><strong>确定概念类的准则</strong></p>
+<ol>
+<li>依据系统的需求</li>
+<li>该类的对象实例的状态与行为是否完全必要</li>
+</ol>
+<p><strong>候选类向概念类的转化</strong></p>
+<ol>
+<li>如果候选类的对象实例：
+<ol>
+<li>既需要维持一定的状态，有需要依据状态表现一定的行为（即有相关的状态和行为），那么它就是一个概念类</li>
+<li>如果只需要维护状态，但是不需要表现行为，那么它应该是其他概念类的属性</li>
+<li>如果不需要维护状态，但是需要表现行为，那么首先要审视需求是否有遗漏，因为没有状态支持的对象无法表现行为。如果确定没有需求的遗漏，就需要剔除该候选类，并将行为转交给具备状态支持能力的其他概念类</li>
+<li>如果既不需要维护状态，又不需要表现行为，那么该候选类应该完全被剔除。</li>
+</ol>
+</li>
+</ol>
+<h4 id="223-识别关联"><a class="markdownIt-Anchor" href="#223-识别关联"></a> 2.2.3 识别关联</h4>
+<ol>
+<li>分析用例文本描述，发现概念类之间的协作，需要协作的类之间需要建立关系</li>
+<li>分析和补充问题域内的关系，例如概念类之间的整体部分关系和明显的语义联系。（但要注意对问题域关系的补充要适可而止，不要把关系搞得过度复杂化）</li>
+<li>去除冗余关联和导出关联</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609151643.png" alt="案例" /></p>
+<h4 id="224-识别重要属性"><a class="markdownIt-Anchor" href="#224-识别重要属性"></a> 2.2.4 识别重要属性</h4>
+<ol>
+<li>这些属性往往是实现类写作时必要的信息，是写作的条件、输入、结果或者过程记录</li>
+<li>通过分析用例的描述，并与用户交流，补充问题域信息，可以发现重要的属性信息</li>
+<li>在分析每个单独的用例（场景）描述时，为各个概念类发现的重要属性可能不多，甚至有些概念类没有任何重要属性。但是，系统通常有多个用例和很多场景，会建立多个局部的概念类图，只有在合并所有局部概念类图之后，各个概念类的重要属性才能得到全面的体现</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609151929.png" alt="案例" /></p>
+<h2 id="3-系统顺序图"><a class="markdownIt-Anchor" href="#3-系统顺序图"></a> 3 系统顺序图</h2>
+<blockquote>
+<p>分析阶段主要是利用系统顺序图，表达系统和外部参与者之间的交互行为。</p>
+</blockquote>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609152027.png" alt="消息种类" /></p>
+<p><strong>消息种类</strong></p>
+<ol>
+<li>同步消息：实线实心三角箭头</li>
+<li>异步消息：实线鱼骨箭头</li>
+<li>返回消息：虚线鱼骨箭头</li>
+</ol>
+<p><strong>图例</strong></p>
+<ol>
+<li>Opt是可选项</li>
+<li>loop是循环</li>
+<li>alt是多选一</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609152244.png" alt="案例" /></p>
+<h2 id="4-状态图"><a class="markdownIt-Anchor" href="#4-状态图"></a> 4 状态图</h2>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%8A%B6%E6%80%81%E5%9B%BE%E7%A4%BA%E4%BE%8B.png" alt="状态图示例" /></p>
+<p><strong>如何建立状态图</strong></p>
+<ol>
+<li>确定上下文环境：状态图是立足于状态快照进行行为描述的，因此建立状态图时首先要搞清楚状态的主体，确定状态的上下文环境。常见的状态主体有：类、用例、多个用例和整个系统。</li>
+<li>识别状态：状态主体会表现出一些稳定的状态，它们需要被识别出来，并且标记出其中的初始状态和结束状态集。在有些情况下，可能会不存在确定的初始状态和结束状态</li>
+<li>建立状态转换：根据需求所描述的系统行为，建立各个稳定状态之间可能存在的转换</li>
+<li>补充详细信息，完善状态图：添加转换的触发事件、转换行为和监护条件等详细信息</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609154314.png" alt="案例" /></p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/09/需求分析方法/">https://zyinnju.com/2022/06/09/需求分析方法/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Software-Engineering/">Software Engineering</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/06/09/%E9%9C%80%E6%B1%82/"><span>需求工程</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku55.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
