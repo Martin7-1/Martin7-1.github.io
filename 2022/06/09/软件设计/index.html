@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="软件设计"><meta name="keywords" content="SELearning,Software Engineering"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>软件设计 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text"> 1 什么是软件设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.1 软件设计思想的发展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-number">1.2.</span> <span class="toc-text"> 1.2 软件设计的核心思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E7%90%86%E8%A7%A3%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text"> 1.3 理解软件设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%88%86%E5%B1%82"><span class="toc-number">2.</span> <span class="toc-text"> 2 软件设计的分层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E5%BA%95%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text"> 2.1 底层设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E4%B8%AD%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.2.</span> <span class="toc-text"> 2.2 中层设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-%E9%AB%98%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.3.</span> <span class="toc-text"> 2.3 高层设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B-%E6%96%B9%E6%B3%95%E5%92%8C%E6%A8%A1%E5%9E%8B-%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.</span> <span class="toc-text"> 3 软件设计过程、方法和模型、描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#31-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%BB%E8%A6%81%E6%B4%BB%E5%8A%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 3.1 软件设计过程的主要活动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%96%B9%E6%B3%95%E5%92%8C%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.</span> <span class="toc-text"> 3.2 软件设计的方法和模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%8F%8F%E8%BF%B0"><span class="toc-number">3.3.</span> <span class="toc-text"> 3.3 软件设计描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">4.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">40</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">13</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku55.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">软件设计</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="1-什么是软件设计"><a class="markdownIt-Anchor" href="#1-什么是软件设计"></a> 1 什么是软件设计</h2>
+<h3 id="11-软件设计思想的发展"><a class="markdownIt-Anchor" href="#11-软件设计思想的发展"></a> 1.1 软件设计思想的发展</h3>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%E7%9A%84%E5%8F%91%E5%B1%95.png" alt="软件设计思想的发展" /></p>
+<span id="more"></span>
+<h3 id="12-软件设计的核心思想"><a class="markdownIt-Anchor" href="#12-软件设计的核心思想"></a> 1.2 软件设计的核心思想</h3>
+<blockquote>
+<p>软件的复杂性是必然的，而不是偶然的</p>
+</blockquote>
+<p><strong>为什么软件会逐渐复杂</strong></p>
+<ol>
+<li>问题域的复杂性</li>
+<li>管理开发过程的难度</li>
+<li>通过软件实现灵活性（可拓展和可变更）</li>
+<li>不同系统上的不同表现的问题</li>
+</ol>
+<p><strong>软件设计的核心思想</strong>：分解与抽象。分而治之是软件设计解决复杂度难题的主要思路。</p>
+<ol>
+<li>**分解（Decomposition）**是横向上将系统分割为几个相对简单的子系统（subsystem）以及各子系统之间的关系。分解之后每次只需关注经过抽象的相对简单的子系统及其相互间的关系，从而降低了复杂度。</li>
+<li>**抽象（Abstraction）**则是在纵向上聚焦各子系统的接口。这里的接口和实现相对，抽象可以分离接口与实现，让人们更好地关注系统本质，从而降低复杂度。</li>
+</ol>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609182348.png" alt="软件设计的核心思想" /></p>
+<h3 id="13-理解软件设计"><a class="markdownIt-Anchor" href="#13-理解软件设计"></a> 1.3 理解软件设计</h3>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609182903.png" alt="软件设计" /></p>
+<p>设计 = 工程 + 艺术</p>
+<p>理性主义 or 经验主义</p>
+<ol>
+<li>理性主义更看重设计的⼯程性，希望以科学化知识为基础，利⽤模型语⾔、建模⽅法、 ⼯具⽀持,将软件设计过程组织成系统、规律的模型建⽴过程。在考虑到⼈的 因素时,理想主义认为⼈是优秀的,虽然会犯错,但是可以通过教育不断完善⾃⼰ [Brooks2010]。设计⽅法学的⽬标就是不断克服⼈的弱点,持续完善软件设计过程中的不⾜,最终达到完美[McPhee1996]。形式化软件⼯程的⽀持者是典型的理想主义。</li>
+<li>经验主义者则在重视⼯程性的同时,也强调艺术性,要求给软件设计过程框架添加⼀些灵活性以应对设计中⼈的因素。[Parnas1986]曾指出没有过程指导和完全依赖个⼈的软件设计活动是不能接受的,因为不能保证质量和⼯程性。但是[Parnas1986]也指出⼀些⼈的因素 决定了完全理性的设计过程是不存在的:
+<ol>
+<li>⽤户并不知道他们到底想要怎样的需求;</li>
+<li>即使⽤户知道需要什么,仍然有些事情需要反复和迭代才能发现或理解;</li>
+<li>⼈类的认知能⼒有限;</li>
+<li>需求的变更⽆法避免;</li>
+<li>⼈类总是会犯错的;</li>
+<li>⼈们会固守⼀些旧有的设计理念;</li>
+<li>不合适复⽤。</li>
+</ol>
+</li>
+</ol>
+<p>所以,[Parnas1986]认为软件设计需要使⽤⼀些⽅法弥补⼈的缺陷,以建⽴⼀个尽可能好的软件设计过程。⽂档化、原型、尽早验证、迭代式开发等都被实践证明能够有效弥补⼈类的缺陷[Parnas1986, Brooks 2010]</p>
+<h2 id="2-软件设计的分层"><a class="markdownIt-Anchor" href="#2-软件设计的分层"></a> 2 软件设计的分层</h2>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609183242.png" alt="软件设计的分层" /></p>
+<h3 id="21-底层设计"><a class="markdownIt-Anchor" href="#21-底层设计"></a> 2.1 底层设计</h3>
+<p>底层设计则深入模块和类的内部，关注具体的数据结构、算法、类型、语句和控制结构等。底层设计的本质是<strong>屏蔽程序中复杂的数据结构与算法</strong>的实现细节。</p>
+<p>主要是对一个方法/函数的内部代码进行设计，通常由程序员独立完成</p>
+<h3 id="22-中层设计"><a class="markdownIt-Anchor" href="#22-中层设计"></a> 2.2 中层设计</h3>
+<p>中层设计更加关注组成构件的模块的划分、导入/导出、过程之间调用关系或者类之间的协作；模块划分隐藏一些程序片段（数据结构+算法）的细节，暴露接口于外界。</p>
+<p>通过模块化、信息隐藏、抽象数据类型、封装等方法来实现程序片段间的尽可能的独立。</p>
+<h3 id="23-高层设计"><a class="markdownIt-Anchor" href="#23-高层设计"></a> 2.3 高层设计</h3>
+<p>高层设计基于反映软件高层抽象的构件层次，描述系统的高层结构、关注点和设计决策；</p>
+<ul>
+<li>部件承载了系统主要的计算与状态</li>
+<li>连接件承载部件之间的交互</li>
+<li>部件于连接件都是抽象的类型定义（就像类定义），它们的实例（就像类的对象实例）组织构成软件系统的整体结构，配置将它们的实例连接起来。</li>
+<li>连接件是一个与部件平等的单位</li>
+</ul>
+<h2 id="3-软件设计过程-方法和模型-描述"><a class="markdownIt-Anchor" href="#3-软件设计过程-方法和模型-描述"></a> 3 软件设计过程、方法和模型、描述</h2>
+<h3 id="31-软件设计过程的主要活动"><a class="markdownIt-Anchor" href="#31-软件设计过程的主要活动"></a> 3.1 软件设计过程的主要活动</h3>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609184139.png" alt="设计活动" /></p>
+<h3 id="32-软件设计的方法和模型"><a class="markdownIt-Anchor" href="#32-软件设计的方法和模型"></a> 3.2 软件设计的方法和模型</h3>
+<p>软件设计的方法可以分为以下几种：</p>
+<ol>
+<li>结构化设计方法</li>
+<li>面向对象设计</li>
+<li>数据为中心设计</li>
+<li>基于构件的设计</li>
+<li>形式化方法设计</li>
+</ol>
+<p><strong>静态模型vs动态模型</strong></p>
+<ol>
+<li>静态模型：静态模型是通过快照的⽅式对系统中时间不变的属性进⾏描述。通常描述的是状态,⽽不是⾏为。（比如一个数字的列表是按大小排序好的）</li>
+<li>动态模型：动态模型通常描述的是系统⾏为和状态转移。（比如排序的过程中是如何进行排序的）</li>
+</ol>
+<p>在结构化设计中，静态模型一般是实体关系图，动态模型是数据流图和结构图；在面向对象设计中，静态模型是类图、对象图、构建图、部署图，动态模型是交互图（顺序图和通信图）、状态图、活动图等</p>
+<h3 id="33-软件设计描述"><a class="markdownIt-Anchor" href="#33-软件设计描述"></a> 3.3 软件设计描述</h3>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609184940.png" alt="设计描述" /></p>
+<p><strong>设计文档书写要点</strong></p>
+<ol>
+<li>充分利用标准的文档模版，根据项目特点进行适当的裁剪</li>
+<li>可以利用体系结构风格的图，让读者更容易把握高层抽象</li>
+<li>利用完整的接口规格说明定义模块与模块之间的交互</li>
+<li>要从多视角出发，让读者感受一个立体的软件系统</li>
+<li>在设计文档中应该体现对于变更的灵活性</li>
+</ol>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/09/软件设计/">https://zyinnju.com/2022/06/09/软件设计/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Software-Engineering/">Software Engineering</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/06/09/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/"><i class="fa fa-chevron-left">  </i><span>软件体系风格</span></a></div><div class="next-post pull-right"><a href="/2022/06/09/%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/"><span>需求分析方法</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku55.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
