@@ -783,6 +783,7 @@ public class LazySingleton {
 ```java
 // initialization on demand holder
 public class Singleton {
+    
     private Singleton() {
         
     }
