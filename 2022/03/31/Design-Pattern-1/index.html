@@ -34,15 +34,10 @@
 <p>通过一个水果工厂产生有共同接口的水果类。</p>
 <h3 id="基本实现流程"><a class="markdownIt-Anchor" href="#基本实现流程"></a> 基本实现流程</h3>
 <ul>
-<li>具体产品类：将需要创建的各种不同产品对象的相关代码封装<br />
-到具体产品类中</li>
-<li>抽象产品类：将具体产品类公共的代码进行抽象和提取后封装<br />
-在一个抽象产品类中</li>
-<li>工厂类：提供一个工厂类用于创建各种产品，在工厂类中提供<br />
-一个创建产品的工厂方法，该方法可以根据所传入参数的不同<br />
-创建不同的具体产品对象</li>
-<li>客户端：只需调用工厂类的工厂方法并传入相应的参数即可得<br />
-到</li>
+<li>具体产品类：将需要创建的各种不同产品对象的相关代码封装到具体产品类中</li>
+<li>抽象产品类：将具体产品类公共的代码进行抽象和提取后封装在一个抽象产品类中</li>
+<li>工厂类：提供一个工厂类用于创建各种产品，在工厂类中提供一个创建产品的工厂方法，该方法可以根据所传入参数的不同创建不同的具体产品对象</li>
+<li>客户端：只需调用工厂类的工厂方法并传入相应的参数即可得到</li>
 </ul>
 <h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
 <p><strong>简单工厂模式（Simple Factory Pattern）</strong>：定义一个工厂类，它可以<span style='color: red'>根据参数的不同返回不同类的实例</span>，被创建的实例通常都具有共同的父类（或实现共同的接口）</p>
@@ -81,24 +76,15 @@
 <li>通过克隆方法创建对象</li>
 <li>通过工厂类创建对象</li>
 </ol>
-<p>将对象的创建与使用分离的其他好处</p>
+<p><strong>将对象的创建与使用分离的其他好处</strong></p>
 <ul>
-<li>防止用来实例化一个类的数据和代码在多个类中到处都是，<br />
-可以将有关创建的知识搬移到一个工厂类中，解决代码重<br />
-复、创建蔓延的问题[Move Creation Knowledge to Factory. Joshua<br />
-Kerievsky, Refactoring to Patterns, 2004]</li>
-<li>构造函数的名字都与类名相同，从构造函数和参数列表中<br />
-大家很难了解不同构造函数所构造的产品的差异 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 将对象<br />
-的创建过程封装在工厂类中，可以提供一系列名字完全不<br />
-同的工厂方法，每一个工厂方法对应一个构造函数，客户<br />
-端可以以一种更加可读、易懂的方式来创建对象</li>
+<li>防止用来实例化一个类的数据和代码在多个类中到处都是，可以将有关创建的知识搬移到一个工厂类中，解决代码重复、创建蔓延的问题[Move Creation Knowledge to Factory. Joshua Kerievsky, Refactoring to Patterns, 2004]</li>
+<li>构造函数的名字都与类名相同，从构造函数和参数列表中大家很难了解不同构造函数所构造的产品的差异 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>→</mo></mrow><annotation encoding="application/x-tex">\rightarrow</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">→</span></span></span></span> 将对象的创建过程封装在工厂类中，可以提供一系列名字完全不同的工厂方法，每一个工厂方法对应一个构造函数，客户端可以以一种更加可读、易懂的方式来创建对象</li>
 </ul>
-<p>何时不需要工厂？</p>
+<p><strong>何时不需要工厂？</strong></p>
 <ul>
 <li>无须为系统中的每一个类都配备一个工厂类</li>
-<li>如果一个类很简单，而且不存在太多变化，其构造过<br />
-程也很简单，此时就无须为其提供工厂类，直接在使<br />
-用之前实例化即可</li>
+<li>如果一个类很简单，而且不存在太多变化，其构造过程也很简单，此时就无须为其提供工厂类，直接在使用之前实例化即可</li>
 <li>否则会导致工厂泛滥，增加系统的复杂度
 <ul>
 <li>例如：java.lang.String</li>
@@ -109,28 +95,20 @@ Kerievsky, Refactoring to Patterns, 2004]</li>
 <h4 id="优点"><a class="markdownIt-Anchor" href="#优点"></a> 优点</h4>
 <ul>
 <li>实现了对象创建和使用的分离</li>
-<li>客户端无须知道所创建的具体产品类的类名，只需要<br />
-知道具体产品类所对应的参数即可</li>
-<li>通过引入配置文件，可以在不修改任何客户端代码的<br />
-情况下更换和增加新的具体产品类，在一定程度上提<br />
-高了系统的灵活性</li>
+<li>客户端无须知道所创建的具体产品类的类名，只需要知道具体产品类所对应的参数即可</li>
+<li>通过引入配置文件，可以在不修改任何客户端代码的情况下更换和增加新的具体产品类，在一定程度上提高了系统的灵活性</li>
 </ul>
 <h4 id="缺点"><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h4>
 <ul>
-<li>工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常<br />
-工作，整个系统都要受到影响</li>
-<li>增加系统中类的个数（引入了新的工厂类），增加了系统的复<br />
-杂度和理解难度</li>
+<li>工厂类集中了所有产品的创建逻辑，职责过重，一旦不能正常工作，整个系统都要受到影响</li>
+<li>增加系统中类的个数（引入了新的工厂类），增加了系统的复杂度和理解难度</li>
 <li>系统扩展困难，一旦添加新产品不得不修改工厂逻辑</li>
-<li>由于使用了静态工厂方法，造成工厂角色无法形成基于继承的<br />
-等级结构，工厂类不能得到很好地扩展</li>
+<li>由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构，工厂类不能得到很好地扩展</li>
 </ul>
 <h4 id="适用环境"><a class="markdownIt-Anchor" href="#适用环境"></a> 适用环境</h4>
 <ul>
-<li>工厂类负责创建的对象比较少，由于创建的对象较少，<br />
-不会造成工厂方法中的业务逻辑太过复杂</li>
-<li>客户端只知道传入工厂类的参数，对于如何创建对象<br />
-并不关心</li>
+<li>工厂类负责创建的对象比较少，由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂</li>
+<li>客户端只知道传入工厂类的参数，对于如何创建对象并不关心</li>
 </ul>
 <h2 id="factory-pattern-工厂方法"><a class="markdownIt-Anchor" href="#factory-pattern-工厂方法"></a> Factory Pattern 工厂方法</h2>
 <blockquote>
@@ -350,7 +328,7 @@ Kerievsky, Refactoring to Patterns, 2004]</li>
 <h4 id="结构-6"><a class="markdownIt-Anchor" href="#结构-6"></a> 结构</h4>
 <p><img src="https://s2.loli.net/2022/03/31/CWfEajcm6DQe1Y3.png" alt="" /></p>
 <h4 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h4>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeManager</span> &#123;</span><br><span class="line">	<span class="comment">// 使用Hashtable存储原型对象</span></span><br><span class="line">    <span class="keyword">private</span> Hashtable prototypeTable=<span class="keyword">new</span> <span class="title class_">Hashtable</span>(); 	</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PrototypeManager</span><span class="params">()</span> &#123;</span><br><span class="line">		prototypeTable.put(<span class="string">&quot;A&quot;</span>, <span class="keyword">new</span> <span class="title class_">ConcretePrototypeA</span>());</span><br><span class="line">		prototypeTable.put(<span class="string">&quot;B&quot;</span>, <span class="keyword">new</span> <span class="title class_">ConcretePrototypeB</span>());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String key, Prototype prototype)</span> &#123;</span><br><span class="line">		prototypeTable.put(key,prototype);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Prototype <span class="title function_">get</span><span class="params">(String key)</span> &#123;</span><br><span class="line">		<span class="type">Prototype</span> <span class="variable">clone</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 通过克隆方法创建新对象</span></span><br><span class="line">		clone = ((Prototype) prototypeTable.get(key)).clone(); </span><br><span class="line">        </span><br><span class="line">		<span class="keyword">return</span> clone;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeManager</span> &#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用Hashtable存储原型对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Hashtable prototypeTable=<span class="keyword">new</span> <span class="title class_">Hashtable</span>(); 	</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PrototypeManager</span><span class="params">()</span> &#123;</span><br><span class="line">        prototypeTable.put(<span class="string">&quot;A&quot;</span>, <span class="keyword">new</span> <span class="title class_">ConcretePrototypeA</span>());</span><br><span class="line">        prototypeTable.put(<span class="string">&quot;B&quot;</span>, <span class="keyword">new</span> <span class="title class_">ConcretePrototypeB</span>());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(String key, Prototype prototype)</span> &#123;</span><br><span class="line">        prototypeTable.put(key,prototype);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Prototype <span class="title function_">get</span><span class="params">(String key)</span> &#123;</span><br><span class="line">        <span class="type">Prototype</span> <span class="variable">clone</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 通过克隆方法创建新对象</span></span><br><span class="line">        clone = ((Prototype) prototypeTable.get(key)).clone(); </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> clone;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="优缺点与适用环境-4"><a class="markdownIt-Anchor" href="#优缺点与适用环境-4"></a> 优缺点与适用环境</h3>
 <h4 id="优点-5"><a class="markdownIt-Anchor" href="#优点-5"></a> 优点</h4>
 <ul>
@@ -412,7 +390,7 @@ Kerievsky, Refactoring to Patterns, 2004]</li>
 <p>Lazy Singleton：将单例的初始化延迟到调用<code>getInstance</code>方法中，但有可能引起多线程问题，需要加锁。（双重加锁锁定）</p>
 </blockquote>
 <h5 id="实现-8"><a class="markdownIt-Anchor" href="#实现-8"></a> 实现</h5>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">LazySingleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingleton</span><span class="params">()</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 锁定代码块</span></span><br><span class="line">            <span class="keyword">synchronized</span> (LazySingleton.clas) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                	instance = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">            	&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="type">LazySingleton</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">LazySingleton</span><span class="params">()</span> &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 锁定代码块</span></span><br><span class="line">            <span class="keyword">synchronized</span> (LazySingleton.clas) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                	instance = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="比较"><a class="markdownIt-Anchor" href="#比较"></a> 比较</h4>
 <ul>
 <li>饿汉式单例类：无须考虑多个线程同时访问的问题；调用速度和反应时间优于懒汉式单例；资源利用效率不及懒汉式单例；系统加载时间可能会比较长。</li>
@@ -460,7 +438,7 @@ Kerievsky, Refactoring to Patterns, 2004]</li>
 <li>面向对象设计方法 – 南京大学计算机科学与技术系2022春季课程</li>
 <li>Design Pattern – GoF 23种设计模式</li>
 </ol>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/03/31/Design-Pattern-1/">https://zyinnju.com/2022/03/31/Design-Pattern-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a><a class="post-meta__tags" href="/tags/Design-Pattern/">Design Pattern</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/04/15/Design-Pattern-2/"><i class="fa fa-chevron-left">  </i><span>Design Pattern (2)</span></a></div><div class="next-post pull-right"><a href="/2022/03/17/Object-oriented-Design-Pattern/"><span>面向对象设计原则</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku10.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/03/31/Design-Pattern-1/">https://zyinnju.com/2022/03/31/Design-Pattern-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a><a class="post-meta__tags" href="/tags/Design-Pattern/">Design Pattern</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/04/15/Design-Pattern-2/"><i class="fa fa-chevron-left">  </i><span>Design Pattern (2)</span></a></div><div class="next-post pull-right"><a href="/2022/03/17/Object-oriented-Design-Principle/"><span>面向对象设计原则</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku10.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')
