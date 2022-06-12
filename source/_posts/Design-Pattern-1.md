@@ -603,23 +603,26 @@ Product product = director.construct();
 ```java
 import java.util.*;
 public class PrototypeManager {
-	// 使用Hashtable存储原型对象
+	/**
+     * 用Hashtable存储原型对象
+     */
     private Hashtable prototypeTable=new Hashtable(); 	
+    
     public PrototypeManager() {
-		prototypeTable.put("A", new ConcretePrototypeA());
-		prototypeTable.put("B", new ConcretePrototypeB());
+        prototypeTable.put("A", new ConcretePrototypeA());
+        prototypeTable.put("B", new ConcretePrototypeB());
 	}
 
     public void add(String key, Prototype prototype) {
-		prototypeTable.put(key,prototype);
+        prototypeTable.put(key,prototype);
 	}
 
     public Prototype get(String key) {
-		Prototype clone = null;
+        Prototype clone = null;
         // 通过克隆方法创建新对象
-		clone = ((Prototype) prototypeTable.get(key)).clone(); 
-        
-		return clone;
+        clone = ((Prototype) prototypeTable.get(key)).clone(); 
+
+        return clone;
 	}
 }
 ```
@@ -763,21 +766,17 @@ public class LazySingleton {
             synchronized (LazySingleton.clas) {
                 if (instance == null) {
                 	instance = new LazySingleton();
-            	}
+                }
             }
         }
     }
 }
 ```
 
-
-
 #### 比较
 
 * 饿汉式单例类：无须考虑多个线程同时访问的问题；调用速度和反应时间优于懒汉式单例；资源利用效率不及懒汉式单例；系统加载时间可能会比较长。
 * 懒汉类单例类：实现了延迟加载；必须处理好多个线程同时访问的问题；需通过双重检查锁定等机制进行控制，将导致系统性能受到一定影响
-
-
 
 ### Java -- 静态内部类
 
@@ -798,8 +797,6 @@ public class Singleton {
     }
 }
 ```
-
-
 
 ### 优缺点与适用环境
 
