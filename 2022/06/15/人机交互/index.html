@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="软件工程与计算二 -- 人机交互"><meta name="keywords" content="SELearning,Software Engineering"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>人机交互 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text"> Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#what-is-hci-design"><span class="toc-number">2.</span> <span class="toc-text"> What is HCI Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7usability"><span class="toc-number">2.1.</span> <span class="toc-text"> 可用性（usability）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#three-factors-in-hci"><span class="toc-number">3.</span> <span class="toc-text"> Three factors in HCI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#human"><span class="toc-number">3.1.</span> <span class="toc-text"> Human</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%BE%E7%A5%9E%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 精神模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%AE%E5%BC%82%E6%80%A7"><span class="toc-number">3.1.2.</span> <span class="toc-text"> 差异性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#computer"><span class="toc-number">3.2.</span> <span class="toc-text"> Computer</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 可视化设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%95%8C%E9%9D%A2%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 常见界面类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#interaction"><span class="toc-number">3.3.</span> <span class="toc-text"> Interaction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E8%88%AA"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 导航</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E9%A6%88"><span class="toc-number">3.3.2.</span> <span class="toc-text"> 反馈</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hci-design-process"><span class="toc-number">4.</span> <span class="toc-text"> HCI Design Process</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E6%B4%81%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.1.</span> <span class="toc-text"> 简洁的设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.2.</span> <span class="toc-text"> 一致性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8E%E5%87%BA%E9%94%99%E7%8E%87%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.3.</span> <span class="toc-text"> 低出错率设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%93%E8%AE%B0%E6%80%A7%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.4.</span> <span class="toc-text"> 易记性设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gui-design"><span class="toc-number">5.</span> <span class="toc-text"> GUI Design</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">6.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">42</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">14</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku58.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">人机交互</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-15</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">3.1k</span><span class="post-meta__separator">|</span><span>阅读时长: 9 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><blockquote>
+<p>HCI, Human Comuter Interaction</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h2>
+<p>用户直接接触到的仅仅是用户界面。用户通过界面与软件系统进行交互，并以此评价软件产品。无论软件的功能多么出色，也无论软件内部的构造有多么高的质量，没有好的用户界面，用户就无法充分体会软件产品的价值。</p>
+<p><strong>用户界面与人机交互的区别</strong></p>
+<p>人们不仅需要关注静态的界面布局，更要重视使用产品的动态过程，这也是人们更多地使用“人机交互设计”而不是“用户界面设计”这一说法的原因。人机交互的目标是探索在人和机器之间沟通的有效办法，让用户利用机器顺利地完成任务。</p>
+<p>好的人机交互应该是欧明的，符合用户的习惯特点，尤其是要适应用户的技能和经验。好的人机交互往往会让人忘记自己是在和机器交互。坏的人机交互则会给用户的使用造成困难，而且增加用户的挫败感。</p>
+<h2 id="what-is-hci-design"><a class="markdownIt-Anchor" href="#what-is-hci-design"></a> What is HCI Design</h2>
+<blockquote>
+<p>Human-Computer Interaction Design seeks to discover the most efficient way to design usable and effective experiences between the human and the computer interface</p>
+</blockquote>
+<h3 id="可用性usability"><a class="markdownIt-Anchor" href="#可用性usability"></a> 可用性（usability）</h3>
+<p>可用性是人机交互中一个既重要又复杂的概念。它不仅关注人使用系统的过程，同时还关注系统对使用它的人所产生的作用。因为比较复杂，所以可用性不是单维度的质量属性，而是多维度的质量属性。</p>
+<p>[Nielsen1993] 推荐可用性维度更易于理解和度量，包括易学性、易记性、效率、出错率和主观满意度</p>
+<ol>
+<li>易学性（Learnability）：指新手用户容易学习，能够很快使用系统。易学性的度量方式是计算完全没有经过培训的用户完成特定任务所需的时间（time/task）</li>
+<li>效率（Efficiency）：指熟练用户使用系统完成任务的速度。数量用户通常希望高效地使用系统。效率的度量方式一般是计算经过培训的熟练用户完成特定任务所需的时间（time/task）</li>
+<li>易记性（Memorability）：指以前使用过软件系统的用户，能够有效记忆或者快速地重新学会使用该系统。易记性的度量方式是计算以前使用过软件系统的用户完成特定任务所需的时间（time/task）</li>
+<li>出错率（Errors）：是指用户在使用系统时，会犯多少错，错误有多严重，以及是否能够从错误中很容易地恢复。系统应该尽可能地避免出现错误。出错率的度量方式是计算用户在完成特定任务过程中出现的错误数量，或者用户一定时间段内出现的错误数量。</li>
+<li>主观满意度（Satisfaction）：让用户有良好的体验。主观满意度不是客观度量的，而是通过调查问卷的方式获得用户的主观评价</li>
+</ol>
+<blockquote>
+<p>需要注意的是，易学性和效率是存在冲突的<br />
+<img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220615194446.png" alt="Learn Curve" /></p>
+</blockquote>
+<h2 id="three-factors-in-hci"><a class="markdownIt-Anchor" href="#three-factors-in-hci"></a> Three factors in HCI</h2>
+<h3 id="human"><a class="markdownIt-Anchor" href="#human"></a> Human</h3>
+<blockquote>
+<p>精神模型和差异性</p>
+</blockquote>
+<h4 id="精神模型"><a class="markdownIt-Anchor" href="#精神模型"></a> 精神模型</h4>
+<p>精神模型就是用户进行人机交互时头脑中的任务模型。人机交互设计需要依据精神模型进行隐喻（metaphor）设计。隐喻又被称为<strong>视觉隐喻</strong>，是视觉上的图像，但会被用户映射为业务事物。隐喻本质上是在用户已有知识的基础上建立一组新的知识，实现界面视觉提示和系统功能之间的知觉联系。</p>
+<p>进行人机交互设计时，要调查用户的目标和任务，分析用户的任务模型，并据此设计界面隐喻。依据精神模型进行隐喻设计的优点不言自明，非常直观生动。</p>
+<h4 id="差异性"><a class="markdownIt-Anchor" href="#差异性"></a> 差异性</h4>
+<p>任务模型时人机交互设计的重要依据，但是不同用户群体的任务模型是有差异的，所以对他们的人机交互设计也要有差异，主要可以将用户群体划分为新手用户、专家用户和熟练用户</p>
+<ul>
+<li>新手用户是对业务不熟悉的人，例如新员工或者新接触系统的人。为新手用户设计系统时要关注<strong>易学性</strong>，进行业务导航，尽量避免出错。如果一个系统的大多数用户都是新手用户，整个系统的人机交互设计都要侧重于易学性。</li>
+<li>专家用户是能够熟练操作计算机完成业务任务的人，一般都是长时间使用软件系统并且计算机操作技能熟练的人。为专家用户设计系统时，要关注<strong>效率</strong>。如果一个系统的大多数用户都是专家用户，整个系统的人机交互设计都要侧重于效率。</li>
+<li>熟练用户，介于新手用户和专家用户之间的人。为熟练用户设计人机交互系统要在易学性和效率之间进行折中。</li>
+</ul>
+<p>好的人机交互应该为不同的用户群体提供<strong>差异化</strong>的交互机制：</p>
+<ul>
+<li>即为新手用户提供易学性高的人机交互机制（图形界面）</li>
+<li>又为专家用户提供效率高的人机交互机制（命令行、快捷方式、热键等）</li>
+</ul>
+<h3 id="computer"><a class="markdownIt-Anchor" href="#computer"></a> Computer</h3>
+<p>人机交互设计所能操纵的<strong>客体</strong>是计算机上的人机交互设备，包括输入设备和以计算机显示设备为主的输出设备</p>
+<ul>
+<li>人机交互输入设备：键盘、鼠标、手写板</li>
+<li>人机交互输出设备：显示屏、声响、打印机</li>
+</ul>
+<h4 id="可视化设计"><a class="markdownIt-Anchor" href="#可视化设计"></a> 可视化设计</h4>
+<p>可视化设计的要点是按照任务模型设计界面隐喻，同时<strong>不要把软件系统的内部构造机制暴露给用户</strong>，除此之外，可视化设计还应该<strong>基于界面隐喻</strong>，尽可能地把功能和任务细节表现出来</p>
+<h4 id="常见界面类型"><a class="markdownIt-Anchor" href="#常见界面类型"></a> 常见界面类型</h4>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>特征</th>
+<th>人机交互控件</th>
+<th>适合场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>批处理</td>
+<td>所有的命令预先设置好后，由机器直接一次性执行完毕，中途用户没法进行任何干涉</td>
+<td>不接受输入、无控件、行文本显示（一堆输出）</td>
+<td>不需要人机交互</td>
+</tr>
+<tr>
+<td>命令行</td>
+<td>命令行是一维的交互方式。用户输入一条命令，机器执行一次</td>
+<td>键盘输入（命令）、命令行交互、行文本显示（一堆输出）</td>
+<td>执行固定任务的熟练用户</td>
+</tr>
+<tr>
+<td>全屏</td>
+<td>全屏模式下，通过表单、菜单、导航键和用户进行交互</td>
+<td>键盘输入（命令、热键、信息）、菜单、表单交互、可视化输出（菜单、表单、二维全屏输出）</td>
+<td>有限任务下熟练用户</td>
+</tr>
+<tr>
+<td>图形化</td>
+<td>用户利用窗口、菜单、按钮、定位设备（如鼠标等）和机器交互。而且交互操作的方式也是面向对象的，多是可以直观感受到的实物的隐喻</td>
+<td>键盘、鼠标输入、直接操纵（所见即所得）交互、可视化输出（各类可视化空间，多窗口重叠产生二维半输出）</td>
+<td>操作技能不熟练的用户</td>
+</tr>
+<tr>
+<td>多维交互</td>
+<td>正在发展和逐渐出现的交互方式。其中可能会用到声音、视频登等机制/更易用和更个性化</td>
+<td>多维输入、多维输出</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="interaction"><a class="markdownIt-Anchor" href="#interaction"></a> Interaction</h3>
+<p>“交互（Interaction）”是双向的</p>
+<ul>
+<li>一方面用户主动向软件系统提出请求（输入信息），软件系统基于用户响应（输出信息）</li>
+<li>另一方面，软件系统也应该主动告知用户相应的信息，并等待用户的响应</li>
+</ul>
+<p><strong>Interaction Types</strong></p>
+<ol>
+<li>Direct manipulation(Graphic)：Window-Icon</li>
+<li>Menu selection</li>
+<li>Form fill-in</li>
+<li>Command language</li>
+<li>Natural language</li>
+</ol>
+<h4 id="导航"><a class="markdownIt-Anchor" href="#导航"></a> 导航</h4>
+<p>软件系统导航也要能够帮助用户找到任务的入口。导航的目的就是为用户提供一个很好的完成任务的入口，好的导航会让这个入口非常符合人的精神模型。软件系统的导航有全局结构和局部结构两种方式：</p>
+<ol>
+<li><strong>全局结构</strong>：全局结构按照任务模型将软件产品的功能组织起来，并区分不同的重要性和主题提供给不同的用户
+<ol>
+<li>全局结构常用的导航控件包括窗口、菜单、列表、快捷方式、热键等等</li>
+<li>全局结构的设计主要以功能分层和任务交互过程为主要依据</li>
+</ol>
+</li>
+<li>局部结构通过安排界面布局细节，制造视觉上的线索来给用户提供导航
+<ol>
+<li>局部结构常用的导航控件包括可视化控件布局与组合、按钮设置、文本颜色或字体大小等等</li>
+<li>局部结构的设计主要以用户关注的任务细节为主要依据</li>
+</ol>
+</li>
+</ol>
+<h4 id="反馈"><a class="markdownIt-Anchor" href="#反馈"></a> 反馈</h4>
+<p>[Sheiderman2003]总结的部分经验如下：</p>
+<ol>
+<li>用户喜欢较短的响应时间</li>
+<li>较长的响应时间（&gt; 15秒）具有破坏性</li>
+<li>用户会根据响应时间的变化调整自己的工作方式</li>
+<li>较短的响应时间导致了较短的用户思考时间</li>
+<li>较快的节奏可能会提高效率，但也会增加出错率</li>
+<li>根据任务选择适当的响应时间</li>
+<li>响应时间适度的变化是可接受的</li>
+<li>意外延迟可能具有破坏性</li>
+<li>经验测试有助于设置适当的响应时间</li>
+</ol>
+<h2 id="hci-design-process"><a class="markdownIt-Anchor" href="#hci-design-process"></a> HCI Design Process</h2>
+<p><strong>协作式设计</strong></p>
+<p>协作式设计：调整计算机因素以更好地适应并帮助用户的设计方式</p>
+<p>下面介绍了人机交互设计原则中比较常见的几个</p>
+<h3 id="简洁的设计"><a class="markdownIt-Anchor" href="#简洁的设计"></a> 简洁的设计</h3>
+<ol>
+<li>人类的信息处理能力：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>7</mn><mo>±</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">7 \pm 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">±</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span>。人机交互应该遵循这个原则，并且在有效表达交互信息的情况下越简洁越好</li>
+<li>要求：不要使用太大的彩蛋，不要在一个窗口中表现过多的信息类别们不要在一个表单中使用太多的颜色和字体作为线索，等等</li>
+</ol>
+<h3 id="一致性设计"><a class="markdownIt-Anchor" href="#一致性设计"></a> 一致性设计</h3>
+<ol>
+<li>相似的任务具有完全不一致的交互机制，那么会导致用户精神模型的不一致，造成不必要的麻烦和负担</li>
+<li>遵循用户已有的精神模型，这是因为某些特定的原因（比如存在已有系统，用户使用过相似的系统等）的情况下，用户已经建立了成熟的精神模型。</li>
+</ol>
+<h3 id="低出错率设计"><a class="markdownIt-Anchor" href="#低出错率设计"></a> 低出错率设计</h3>
+<ol>
+<li>人机交互设计首先要帮助人们避免犯错，尽可能设计不让用户犯严重错误的系统。
+<blockquote>
+<ol>
+<li>比如将不适当的菜单选项功能以灰色显示屏蔽</li>
+<li>禁止在数值输入域中国呢出现字母字符等</li>
+</ol>
+</blockquote>
+</li>
+<li>错误出现时，系统还要在人机交互中提供简洁、有建设性、具体的指导来帮助用户消除错误。
+<blockquote>
+<ol>
+<li>填写表单时如果用户输入了无效的编码，那么系统应该引导他们对此进行修改，而不是要求用户重新填写整个表单</li>
+</ol>
+</blockquote>
+</li>
+<li>出错信息应当遵循一下四个简单原则：
+<ol>
+<li>应当使用清晰的语言来表达，而不妖使用难懂的代码</li>
+<li>使用的语言应当精炼准确，而不是空泛、模糊的</li>
+<li>应当对用户解决问题提供建设性的帮助</li>
+<li>出错信息应当友好，不要威胁或责备用户</li>
+</ol>
+</li>
+</ol>
+<h3 id="易记性设计"><a class="markdownIt-Anchor" href="#易记性设计"></a> 易记性设计</h3>
+<p>易记的人机交互设计会使得用户具有更少的记忆负担，所以使用的时候会更顺畅和更好出错，可以使用下列方法来提高系统的易记性：</p>
+<ol>
+<li>减少短期记忆负担</li>
+<li>使用逐层递进的方式展示信息</li>
+<li>使用直观的快捷方式</li>
+<li>设置有意义的默认值</li>
+</ol>
+<h2 id="gui-design"><a class="markdownIt-Anchor" href="#gui-design"></a> GUI Design</h2>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220615233141.png" alt="人机交互设计过程" /></p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》课程笔记</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/15/人机交互/">https://zyinnju.com/2022/06/15/人机交互/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Software-Engineering/">Software Engineering</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/06/12/Design-Pattern-5/"><span>Design Pattern (5)</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku58.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
