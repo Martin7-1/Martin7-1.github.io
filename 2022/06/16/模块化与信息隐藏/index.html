@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="软件工程与计算二 -- 模块化与信息隐藏"><meta name="keywords" content="SELearning,Software Engineering"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>模块化与信息隐藏 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E4%B8%8E%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E6%80%9D%E6%83%B3"><span class="toc-number">1.</span> <span class="toc-text"> 模块化与信息隐藏思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text"> 结构化的模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%A6%E5%90%88"><span class="toc-number">2.1.</span> <span class="toc-text"> 耦合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%9A"><span class="toc-number">2.2.</span> <span class="toc-text"> 内聚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E6%83%B3%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text"> 思想的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E7%9A%84%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F"><span class="toc-number">3.</span> <span class="toc-text"> 结构化的信息隐藏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%AD%96%E7%95%A5"><span class="toc-number">3.1.</span> <span class="toc-text"> 信息隐藏策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#module-guide"><span class="toc-number">3.2.</span> <span class="toc-text"> Module Guide</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E4%B8%BB%E8%A6%81%E7%A7%98%E5%AF%86"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 模块的主要秘密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E6%AC%A1%E8%A6%81%E7%A7%98%E5%AF%86"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 模块的次要秘密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-number">3.2.3.</span> <span class="toc-text"> 模块的角色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AF%B9%E5%A4%96%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.2.4.</span> <span class="toc-text"> 模块的对外接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E6%83%B3%E7%9A%84%E5%BA%94%E7%94%A8-2"><span class="toc-number">3.3.</span> <span class="toc-text"> 思想的应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">4.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">46</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">15</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku61.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">模块化与信息隐藏</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B8%8E%E8%AE%A1%E7%AE%97%E4%BA%8C/">软件工程与计算二</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 6 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><span id="more"></span>
+<h2 id="模块化与信息隐藏思想"><a class="markdownIt-Anchor" href="#模块化与信息隐藏思想"></a> 模块化与信息隐藏思想</h2>
+<h2 id="结构化的模块化"><a class="markdownIt-Anchor" href="#结构化的模块化"></a> 结构化的模块化</h2>
+<h3 id="耦合"><a class="markdownIt-Anchor" href="#耦合"></a> 耦合</h3>
+<p>定义：耦合描述的是<strong>两个模块之间的关系的复杂程度</strong>。根据其耦合性的高低可以依次分为：内容耦合、公共耦合、重复耦合、控制耦合、印记耦合、数据耦合。模块耦合性越高，模块的划分越差，越不利于软件的变更和复用。（下表的耦合性从高到低排列）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>解释</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容耦合</td>
+<td>一个模块直接修改或者依赖于另一个模块的内容</td>
+<td>程序跳转GOTO；某些语言机制支持直接更改另一个模块的代码；改变另一个模块的内部数据</td>
+</tr>
+<tr>
+<td>公共耦合</td>
+<td>模块之间共享全局的数据</td>
+<td>全局变量</td>
+</tr>
+<tr>
+<td>重复耦合</td>
+<td>模块之间有同样逻辑的重复代码</td>
+<td>逻辑代码被复制到两个地方</td>
+</tr>
+<tr>
+<td>控制耦合</td>
+<td>一个模块给另一个模块传递控制信息</td>
+<td>传递“显示星期天”。传递模块和接收模块必须共享一个共同的内部结构和逻辑</td>
+</tr>
+<tr>
+<td>印记耦合</td>
+<td>共享一个数据结构，但是却只用了其中一部分</td>
+<td>传递了整个记录给另一个模块，另一个模块却只需要一个字段</td>
+</tr>
+<tr>
+<td>数据耦合</td>
+<td>两个模块的所有参数是同类型的数据项</td>
+<td>传递一个整数给一个计算平方根的函数</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>没有耦合是最好的，但是对象之间的协作导致各个对象间肯定存在不同程度的耦合，我们要做的事尽量降低对象之间的耦合程度</p>
+</blockquote>
+<p><strong>四个原则</strong></p>
+<ol>
+<li>全局变量是有害的</li>
+<li>显式声明成员变量</li>
+<li>不要重复</li>
+<li>面向接口编程</li>
+</ol>
+<h3 id="内聚"><a class="markdownIt-Anchor" href="#内聚"></a> 内聚</h3>
+<p>定义：内聚表达的是一个<strong>模块内部的联系和紧密性</strong>。内聚可以分为7个级别，由高到低包括信息内聚、功能内聚、通信内聚、过程内聚、时间内聚、逻辑内聚、偶然内聚。（下表按内聚的从低到高排列）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>解释</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>偶然内聚</td>
+<td>模块执行多个完全不相关的操作</td>
+<td>把下列方法放在一个模块中：修车、烤面包、遛狗、看电影</td>
+</tr>
+<tr>
+<td>逻辑内聚</td>
+<td>模块执行一系列相关操作，每个操作的调用由其他模块来决定</td>
+<td>把下列方法放在一个模块中：开车去、坐火车去、坐飞机去</td>
+</tr>
+<tr>
+<td>时间内聚</td>
+<td>模块执行一系列与时间有关的操作</td>
+<td>把下列方法放在一个模块中：起床、刷牙、洗脸、吃早餐</td>
+</tr>
+<tr>
+<td>过程内聚</td>
+<td>模块执行一些与步骤顺序有关的操作</td>
+<td>把下列方法放在一个模块中：守门员传球给后卫、后卫传球给中场球员、中场球员传球给前锋、前锋射门</td>
+</tr>
+<tr>
+<td>通信内聚</td>
+<td>模块执行一系列与步骤有关的操作，并且这些操作在相同的数据上进行</td>
+<td>把下列方法放在一个模块中：查书的名字、查书的作者、查书的出版商</td>
+</tr>
+<tr>
+<td>功能内聚</td>
+<td>模块只执行一个操作或者达到一个单一的目的</td>
+<td>下列内容都作为独立模块：计算平方根、决定最短路径、压缩数据</td>
+</tr>
+<tr>
+<td>信息内聚</td>
+<td>模块进行许多操作，各个都有各自的入口点，每个操作的代码相对独立，而且所有操作都在相同的数据结构上完成</td>
+<td>比如数据结构中的栈，它包含相应的数据和操作。所有的操作都是针对相同的数据结构</td>
+</tr>
+</tbody>
+</table>
+<h3 id="思想的应用"><a class="markdownIt-Anchor" href="#思想的应用"></a> 思想的应用</h3>
+<p><strong>低耦合处理</strong></p>
+<ul>
+<li>软件体系结构的分层设计中：不同层的模块之间仅能通过程序调用与数据传递实现交互，不能共享数据（例如 Model 层建立一个数据对象并将引用传递给 Logic 曾使用），否则将导致公共耦合</li>
+<li>软件体系结构的逻辑包设计中：依据功能的特点将三个层次进一步划分为更小的包，而不是只使用 <code>Presentation</code>、<code>Logic</code>、<code>Model</code> 三个包，可以通过包分割实现接口最小化，这能去除不必要的耦合</li>
+<li>软件体系结构的物理包设计中：将不同包的重复内容独立为单独的包以消除重复，避免产生隐式的重复耦合</li>
+<li>详细设计中对象创建者的选择：如果两个对象A、B间已经有了比较高的耦合度了，那么使用A创建B或者反之就不会带来额外的耦合度 – 不增加新的耦合</li>
+<li>详细设计中选择控制风格：接触界面与逻辑对象的直接耦合</li>
+</ul>
+<p><strong>高内聚处理</strong></p>
+<ul>
+<li>软件体系结构的分层设计中：三个层次都是高内聚的，一个交互处理任务，一个处理业务逻辑，一个处理数据持久化</li>
+<li>软件体系结构包设计中：将三个层次进一步划分为更小的包，可以实现每个更小的包都是高内聚的</li>
+<li>详细设计中抽象类的职责：要求状态与方法紧密联系就是为了达到高内聚（信息内聚）</li>
+<li>详细设计中使用控制风格：控制风格分离了控制逻辑，可以实现业务逻辑对象的高内聚（功能内聚）、因为封装了控制逻辑，所以控制器对象承载了不可避免的过程内聚、通信内聚和逻辑内聚，这就要求控制器对象必须是受控的，也是它们为什么倾向于对外委托而不是自己进行业务计算的原因。</li>
+</ul>
+<h2 id="结构化的信息隐藏"><a class="markdownIt-Anchor" href="#结构化的信息隐藏"></a> 结构化的信息隐藏</h2>
+<h3 id="信息隐藏策略"><a class="markdownIt-Anchor" href="#信息隐藏策略"></a> 信息隐藏策略</h3>
+<ol>
+<li>按决策抽象的信息隐藏：每个模块都隐藏一个重要的设计决策。每个模块都承担一定的职责，对外表现为一份契约，并且在这份契约之下隐藏着只有这个模块知道的设计决策或者秘密，决策实现的细节只有该模块自己知道。抽象就是<strong>总结提炼本质特征，消除非本质的特征</strong>。只需要定义好各个模块的接口，就可以进行独立的开发，描述也相对简单</li>
+<li>按算法分解的信息隐藏：必须先设计好所有的数据结构，建立复杂、准确的描述，然后才能并行开发。因为各个模块都共享数据结构。</li>
+</ol>
+<blockquote>
+<p>第一种优于第二种[Parnas1972]</p>
+</blockquote>
+<h3 id="module-guide"><a class="markdownIt-Anchor" href="#module-guide"></a> Module Guide</h3>
+<h4 id="模块的主要秘密"><a class="markdownIt-Anchor" href="#模块的主要秘密"></a> 模块的主要秘密</h4>
+<p>主要秘密描述的是这个模块所要实现的用户需求。是设计者对用户需求的实现的一次职责分配。有了这个描述以后，我们可以利用它检查我们是否完成所有的用户需求，还可以利用它和需求优先级来决定开发的次序。</p>
+<h4 id="模块的次要秘密"><a class="markdownIt-Anchor" href="#模块的次要秘密"></a> 模块的次要秘密</h4>
+<p>次要秘密描述的是这个模块在实现职责时候所涉及的具体的实现细节。包括数据结构，算法，硬件平台等信息。</p>
+<h4 id="模块的角色"><a class="markdownIt-Anchor" href="#模块的角色"></a> 模块的角色</h4>
+<p>描述了独立的模块在整个系统中所承担的角色，所起的作用。以及与那些模块由相关联的关系。</p>
+<h4 id="模块的对外接口"><a class="markdownIt-Anchor" href="#模块的对外接口"></a> 模块的对外接口</h4>
+<p>模块提供给别的模块的接口。</p>
+<h3 id="思想的应用-2"><a class="markdownIt-Anchor" href="#思想的应用-2"></a> 思想的应用</h3>
+<ul>
+<li>在软件体系结构设计的分层设计中：经验表明软件系统的界面是最经常变化的，其次是业务逻辑，最稳定的是业务数据。这就是分层⻛格建立 <code>Prensentation</code>、 <code>Logic</code> 和 <code>Model</code> 三个层次的原因，它们体现了决策变化的划分类型，它们之间的依赖关系符合各自的稳定性。</li>
+<li>在软件体系结构设计的物理包设计中：
+<ol>
+<li>消除重复可以避免重复耦合，同时可以避免同一个设计决策出现在多个地方 – 这意味着该决策没有被真正隐藏（这也是控制耦合比数据耦合差的原因，因为没有将决策隐藏，而是交给了其他模块）</li>
+<li>建立独立的安全包、通信包和数据库连接包，是为了封装各自的设计决策 – 安全处理、网络通信与数据库处理</li>
+</ol>
+</li>
+<li>在软件体系结构设计与详细设计中：严格要求定义模块与类的接口，可以便利开发，更是为了实现信息隐藏。</li>
+<li>在详细设计中使用控制风格：专门用控制器对象封装关于业务逻辑的设计决策，而不是将其拆散分布到整个对象网络中去。</li>
+</ul>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/16/模块化与信息隐藏/">https://zyinnju.com/2022/06/16/模块化与信息隐藏/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Software-Engineering/">Software Engineering</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/06/16/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96/"><i class="fa fa-chevron-left">  </i><span>面向对象的模块化</span></a></div><div class="next-post pull-right"><a href="/2022/06/16/%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1/"><span>详细设计</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku61.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>

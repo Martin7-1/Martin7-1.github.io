@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="软件工程与计算二 -- 面向对象的模块化"><meta name="keywords" content="SELearning,Software Engineering"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>面向对象的模块化 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text"> 面向对象中的模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text"> 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text"> 类之间的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%80%A6%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text"> 访问耦合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%BF%E9%97%AE%E8%80%A6%E5%90%88"><span class="toc-number">2.1.</span> <span class="toc-text"> 什么是访问耦合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%8D%E4%BD%8E%E8%AE%BF%E9%97%AE%E8%80%A6%E5%90%88%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text"> 降低访问耦合的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B-programming-to-interface"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 针对接口编程 Programming to interface</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%9C%80%E5%B0%8F%E5%8C%96%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99-interface-segregation-principleisp"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 接口最小化&#x2F;接口隔离原则 Interface Segregation Principle（ISP）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E8%80%A6%E5%90%88%E7%9A%84%E5%90%88%E7%90%86%E8%8C%83%E5%9B%B4%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99-the-law-of-demeter"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 访问耦合的合理范围&#x2F;迪米特法则 The Law of Demeter</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E8%80%A6%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text"> 继承耦合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%A7%E6%89%BF%E8%80%A6%E5%90%88"><span class="toc-number">3.1.</span> <span class="toc-text"> 什么是继承耦合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%8D%E4%BD%8E%E7%BB%A7%E6%89%BF%E8%80%A6%E5%90%88%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text"> 降低继承耦合的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99-liskov-substitution-principlelsp"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 里氏替换原则 Liskov Substitution Principle（LSP）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%84%E5%90%88%E4%BB%A3%E6%9B%BF%E7%BB%A7%E6%89%BF-%E7%BB%84%E5%90%88%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99carp"><span class="toc-number">3.2.2.</span> <span class="toc-text"> 使用组合代替继承 组合&#x2F;聚合复用原则（CARP）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%81%9A"><span class="toc-number">4.</span> <span class="toc-text"> 内聚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99"><span class="toc-number">4.1.</span> <span class="toc-text"> 单一职责原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%A6%E5%90%88%E5%92%8C%E5%86%85%E8%81%9A%E7%9A%84%E5%BA%A6%E9%87%8F"><span class="toc-number">5.</span> <span class="toc-text"> 耦合和内聚的度量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E4%B9%9D%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="toc-number">6.</span> <span class="toc-text"> 总结：模块化的九大原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">7.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">46</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">15</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku62.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">面向对象的模块化</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E4%B8%8E%E8%AE%A1%E7%AE%97%E4%BA%8C/">软件工程与计算二</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 7 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="面向对象中的模块"><a class="markdownIt-Anchor" href="#面向对象中的模块"></a> 面向对象中的模块</h2>
+<h3 id="类"><a class="markdownIt-Anchor" href="#类"></a> 类</h3>
+<p>模块化是消除软件复杂度的一个重要方法，它将一个复杂系统分解为若干个代码片段，每个代码片段完成一个功能，并且包含完成这个功能所需要的信息。每个代码片段相对独立，这样能够提高可维护性。在面向对象方法中，代码片段可以是模块，也可以是方法，但更重要的是类，整个类的所有代码联合起来构成独立的代码片段。</p>
+<span id="more"></span>
+<p>模块化希望代码片段由两部分组成：接口和实现。接口就是<strong>代码片段之间用来交互的协议</strong>，包括供接口（供给别人使用的契约）和需接口（需要使用别人的契约）。实现则是该协议具体的实施。函数的供接口是函数的声明，包括函数名、输入参数、输出返回值，可以通过使用该声明来达到对函数的访问。函数的需接口是其实现中调用的其他函数。</p>
+<p>对于类来说，类的供接口是所有共有的成员变量和成员方法的声明，这些都是可以被别的类直接访问的名代表了类愿意与他人协作的一个协议。类的需接口则是在其实现中使用到的其他类及其相关协议。</p>
+<h3 id="类之间的关系"><a class="markdownIt-Anchor" href="#类之间的关系"></a> 类之间的关系</h3>
+<p>方法调用相互发送消息，模块化希望各个模块之间尽可能相互独立 – 低耦合。内容耦合、重复耦合和公共耦合是不允许的；控制耦合与印记耦合是可以接受的；数据耦合是最好的。在面向对象方法中，除了不同类的方法之间存在调用关系之外，类与类之间还会存在其他复杂关系：</p>
+<ul>
+<li>关联：如果某个类关联了另一个类，那么它就持有另一个类的引用，则这个类的所有的对象都具有向另一个类的对象发送消息的能力</li>
+<li>继承：子类可以访问弗雷德成员方法和成员变量</li>
+</ul>
+<h2 id="访问耦合"><a class="markdownIt-Anchor" href="#访问耦合"></a> 访问耦合</h2>
+<h3 id="什么是访问耦合"><a class="markdownIt-Anchor" href="#什么是访问耦合"></a> 什么是访问耦合</h3>
+<blockquote>
+<p>关联关系产生的耦合</p>
+</blockquote>
+<p>访问耦合分为4级，如下表所示，耦合性从高到低。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>解释</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐式访问</td>
+<td>B既没在A的规格中出现，也没在视线中出现</td>
+<td>Cascading Message</td>
+</tr>
+<tr>
+<td>实现中访问</td>
+<td>B的引用是A方法中的局部变量</td>
+<td>通过引入局部变量，避免Cascading Message；在方法中创建一个对象，将其引用赋予方法的局部变量，并使用</td>
+</tr>
+<tr>
+<td>成员变量访问</td>
+<td>B的引用是A的成员变量</td>
+<td>类的规格中包含所有需接口和供接口（需要特殊语言机制）</td>
+</tr>
+<tr>
+<td>参数变量访问</td>
+<td>B的引用是A的方法的参数变量</td>
+<td>类的规格中包含所有需接口和供接口（需要特殊语言机制）</td>
+</tr>
+<tr>
+<td>无访问</td>
+<td>理论最优，无关联耦合，维护时不需要对方任何信息</td>
+<td>完全独立</td>
+</tr>
+</tbody>
+</table>
+<p><code>Cascading Message</code>（级联消息）是指如 <code>Client</code> 类中出现连续的方法调用 <code>a.methodA().methodB()</code>。这样写的坏处是，从代码上我们很难看出来 <code>Client</code> 和 <code>B</code> 是有关系的。既没有出现在规格中，也没有出现在实现中。因此在 <code>B</code> 修改后，可能并不知道 <code>Client</code> 也需要修改。</p>
+<p>衡量两个类之间的耦合度，除了看它们之间存在的访问耦合关系的复杂程度，还得看存在具体访问的次数。访问的次数多，则耦合强，反之则弱。</p>
+<p>在几种访问耦合关系中，隐式访问是需要避免的，例外情况是使用标准类库的时候（通常标准类库都比较稳定不会发生变化）允许出现级联访问。实现访问是可以接受的，也是必要的，毕竟不可能将所有使用的其他类都作为成员变量或者写为方法的参数。成员变量访问和参数变量访问是比较好的，也是提倡的。</p>
+<h3 id="降低访问耦合的方法"><a class="markdownIt-Anchor" href="#降低访问耦合的方法"></a> 降低访问耦合的方法</h3>
+<h4 id="针对接口编程-programming-to-interface"><a class="markdownIt-Anchor" href="#针对接口编程-programming-to-interface"></a> 针对接口编程 Programming to interface</h4>
+<p>考虑（非继承）类与类之间的关系时，一方面要求<strong>只访问对方的接口</strong>（直接属性访问会导致公共耦合），另一方面要<strong>避免隐式访问</strong>。如果为每个类都定义明确的<span style='color: red'><strong>契约</strong></span>（包括供接口和需接口），并按照契约组织和理解软件结构。那么就可以满足上述要求。这就是针对接口编程</p>
+<p>针对接口要求我们在设计时要在类规格中明确类的契约。一种是语言提供的机制，另一种是文档。</p>
+<p><a href="https://zyinnju.com/2022/06/11/OOC-Review/#3-%E5%A5%91%E7%BA%A6%E5%BC%8F%E8%AE%BE%E8%AE%A1">契约式设计</a></p>
+<h4 id="接口最小化接口隔离原则-interface-segregation-principleisp"><a class="markdownIt-Anchor" href="#接口最小化接口隔离原则-interface-segregation-principleisp"></a> 接口最小化/接口隔离原则 Interface Segregation Principle（ISP）</h4>
+<blockquote>
+<p>Programming to Simpler Interface</p>
+</blockquote>
+<p>Many client-specific interfaces are better than one general purpose interface（多个针对客户功能的接口要比一个总的接口好）</p>
+<ol>
+<li>不是所有客户（或者实现接口的类）都想要实现所有接口</li>
+<li>会导致不必要的依赖，以及破坏了单一职责的原则。</li>
+</ol>
+<p><a href="https://zyinnju.com/2022/03/17/Object-oriented-Design-Principle/#6-isp-%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99">接口隔离原则</a></p>
+<h4 id="访问耦合的合理范围迪米特法则-the-law-of-demeter"><a class="markdownIt-Anchor" href="#访问耦合的合理范围迪米特法则-the-law-of-demeter"></a> 访问耦合的合理范围/迪米特法则 The Law of Demeter</h4>
+<blockquote>
+<p>避免隐式访问耦合</p>
+</blockquote>
+<ol>
+<li>每个单元对于其他的单元只能拥有有限的知识，只是与当前单元紧密联系的单元</li>
+<li>每个单元只能和它的朋友交谈，不能和陌生单元交谈</li>
+<li>只和自己<strong>直接</strong>的朋友交谈</li>
+</ol>
+<p>即对于对象 <code>O</code> 中的一个方法 <code>M</code>，那么 <code>M</code> 只能调用下列对象的方法</p>
+<ol>
+<li><code>O</code> 自己</li>
+<li><code>M</code> 中的参数对象</li>
+<li>任何在 <code>M</code> 中创建的对象</li>
+<li><code>O</code> 的成员变量</li>
+</ol>
+<h2 id="继承耦合"><a class="markdownIt-Anchor" href="#继承耦合"></a> 继承耦合</h2>
+<h3 id="什么是继承耦合"><a class="markdownIt-Anchor" href="#什么是继承耦合"></a> 什么是继承耦合</h3>
+<blockquote>
+<p>继承关系产生的耦合</p>
+</blockquote>
+<p>在面向对象方法中，由于有继承关系，父类和子类之间也存在耦合。下表从耦合性高到低简单介绍了四种继承耦合</p>
+<table>
+    <tr>
+        <th colspan="2">类型</th>
+        <th>解释</th>
+    </tr>
+    <tr>
+        <th rowspan="2">修改（modification）</th>
+        <th>规格</th>
+        <th>子类任意修改从父类继承回来的方法的接口</th>
+    </tr>
+    <tr>
+        <th>实现</th>
+        <th>子类任意修改从父类继承回来的方法的实现</th>
+    </tr>
+    <tr>
+        <th rowspan="2">精化（refinement）</th>
+        <th>规格</th>
+        <th>子类只根据已经定义好的规则（语义）来修改父类的方法，且至少有一个方法的接口被改动</th>
+    </tr>
+    <tr>
+        <th>实现</th>
+        <th>子类只根据已经定义好的规则（语义）来修改父类的方法，但只改动了方法的实现</th>
+    </tr>
+    <tr>
+        <th colspan="2">扩展（extension）</th>
+        <th>子类知识增加新的方法和成员变量，不对从父类继承回来的任何成员进行更改</th>
+    </tr>
+    <tr>
+        <th colspan="2">无（nil）</th>
+        <th>两个类之间没有继承关系</th>
+    </tr>
+</table>
+<p>上述的继承耦合关系中，修改规格、修改实现、精化规格三种类型事不可接受的。精化实现事可以接受的，也是经常被使用的。扩展是最好的继承耦合，但是并非每个继承关系都能达到只扩展不调整的程度</p>
+<h3 id="降低继承耦合的方法"><a class="markdownIt-Anchor" href="#降低继承耦合的方法"></a> 降低继承耦合的方法</h3>
+<h4 id="里氏替换原则-liskov-substitution-principlelsp"><a class="markdownIt-Anchor" href="#里氏替换原则-liskov-substitution-principlelsp"></a> 里氏替换原则 Liskov Substitution Principle（LSP）</h4>
+<p><a href="https://zyinnju.com/2022/03/17/Object-oriented-Design-Principle/#4-lsp-%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8D%A2%E5%8E%9F%E5%88%99">里氏替换原则</a>：子类型必须能够替换掉基类型而起同样的作用。</p>
+<h4 id="使用组合代替继承-组合聚合复用原则carp"><a class="markdownIt-Anchor" href="#使用组合代替继承-组合聚合复用原则carp"></a> 使用组合代替继承 组合/聚合复用原则（CARP）</h4>
+<p><a href="https://zyinnju.com/2022/03/17/Object-oriented-Design-Principle/#7-carp-%E5%90%88%E6%88%90%E8%81%9A%E5%90%88%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99">组合/聚合复用原则</a></p>
+<h2 id="内聚"><a class="markdownIt-Anchor" href="#内聚"></a> 内聚</h2>
+<p>内聚有不同的类型：</p>
+<ol>
+<li>方法的内聚</li>
+<li>类的内聚</li>
+<li>子类与父类的继承内聚</li>
+</ol>
+<p>方法内聚和结构化的函数内聚一致，主要是体现在方法实现时语句之间的内聚性。内聚性由高到低分为：功能内聚、通信内聚、过程内聚、时间内聚、逻辑内聚、偶然内聚</p>
+<p>类应该是<strong>信息内聚</strong>，又应该是<strong>功能内聚</strong>的：</p>
+<ol>
+<li>方法和属性是否一致</li>
+<li>属性之间是否体现一个职责</li>
+<li>属性之间是否可以抽象</li>
+</ol>
+<h3 id="单一职责原则"><a class="markdownIt-Anchor" href="#单一职责原则"></a> 单一职责原则</h3>
+<p><a href="https://zyinnju.com/2022/03/17/Object-oriented-Design-Principle/#2-srp-%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99">单一职责原则</a></p>
+<h2 id="耦合和内聚的度量"><a class="markdownIt-Anchor" href="#耦合和内聚的度量"></a> 耦合和内聚的度量</h2>
+<h2 id="总结模块化的九大原则"><a class="markdownIt-Anchor" href="#总结模块化的九大原则"></a> 总结：模块化的九大原则</h2>
+<ol>
+<li>Global Variables Consider Harmful：不要使用全局变量</li>
+<li>To be Explicit：成员变量的定义应该显式，而不是通过一个数组存放所有的成员变量定义</li>
+<li>Do not Repeat：不要有重复的代码，这是一个模块决策泄漏的体现，也是一种重复耦合</li>
+<li>Programming to Interface：契约式设计，面向接口编程</li>
+<li>The Law of Demeter：迪米特法则，最少知识原则，只应该知道与自身密切相关的信息且也只能与这些朋友通信</li>
+<li>Interface Segregation Principle：接口隔离原则，接口要小，每个接口应该承担独立角色</li>
+<li>Liskov Substitution Principle：里氏替换原则，父类的引用一定能替换成子类的对象，判断是否能够使用继承的一个好原则，同时是实现开闭原则的一个重要方法</li>
+<li>Favor Composite Over Inheritance：组合/聚合复用原则，优先使用组合/聚合而不是继承</li>
+<li>Single Responsibility Principle：单一职责原则，一个类的数据和行为应该只对应着一种职责。</li>
+</ol>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/16/面向对象的模块化/">https://zyinnju.com/2022/06/16/面向对象的模块化/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Software-Engineering/">Software Engineering</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2022/06/16/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F/"><i class="fa fa-chevron-left">  </i><span>面向对象的信息隐藏</span></a></div><div class="next-post pull-right"><a href="/2022/06/16/%E6%A8%A1%E5%9D%97%E5%8C%96%E4%B8%8E%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F/"><span>模块化与信息隐藏</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku62.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
