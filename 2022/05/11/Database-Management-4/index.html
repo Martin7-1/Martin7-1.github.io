@@ -31,7 +31,7 @@
 <p>同时并发方式（Simultaneous Concurrency）：多处理机系统中，每个处理机可以运行一个事务，多个处理机可以同时运行多个事务，实现多个事务真正的并行运行。这是最理想的并发方式，但受制于硬件环境，同时也需要更复杂的并发方式机制</p>
 </li>
 </ol>
-<p><strong>事务是并发控制的<span style='color: red'>基本单位</span>&gt;</strong></p>
+<p><strong>事务是并发控制的<span style='color: red'>基本单位</span></strong></p>
 <p>并发控制机制的任务：</p>
 <ul>
 <li>对并发操作进行正确调度</li>
@@ -40,15 +40,15 @@
 </ul>
 <p>并发操作可能带来的数据不一致性：</p>
 <ul>
-<li>丢失修改（Lost Update）：丢失修改指的是两个事务读入了同一个数据，又分别先后写回数据库，由于读取时两者是同时读取，修改时并不知道另一个事务修改了该数据，于是写回的时候有一个事务的更新就被另一个事务给覆盖了。</li>
-<li>不可重复读（Non-repeatable Read）：不可重复读指的是事务一读取数据后，事务二更新了数据导致事务一无法再读取到之前的结果，有时也称为幻影现象（Phantom Row）：
+<li><strong>丢失修改</strong>（Lost Update）：丢失修改指的是两个事务读入了同一个数据，又分别先后写回数据库，由于读取时两者是同时读取，修改时并不知道另一个事务修改了该数据，于是写回的时候有一个事务的更新就被另一个事务给覆盖了。</li>
+<li><strong>不可重复读</strong>（Non-repeatable Read）：不可重复读指的是事务一读取数据后，事务二更新了数据导致事务一无法再读取到之前的结果，有时也称为幻影现象（Phantom Row）：
 <ul>
 <li>事务T1读取某一数据后，事务T2对其做了修改，当事务T1再次读该数据时，得到与前一次不同的值</li>
 <li>事务T1按一定条件从数据库中读取了某些数据记录后，事务T2删除了其中部分记录，当T1再次按相同条件读取数据时，发现某些记录神秘地消失了。</li>
 <li>事务T1按一定条件从数据库中读取某些数据记录后，事务T2插入了一些记录，当T1再次按相同条件读取数据时，发现多了一些记录。</li>
 </ul>
 </li>
-<li>读脏数据（Dirty Read）：
+<li><strong>读脏数据</strong>（Dirty Read）：
 <ul>
 <li>事务T1修改某一数据，并将其写回磁盘</li>
 <li>事务T2读取同一数据后，T1由于某种原因被撤销（ROLLBACK）</li>
@@ -150,17 +150,17 @@
 </blockquote>
 <p>一级封锁协议可以防止丢失修改，并保证事务T是可恢复的。在一级封锁协议中，如果仅仅是读数据不对其进行修改，是不需要加锁的，所以它不能保证可重复读和不读脏数据。</p>
 <h4 id="2821-例子"><a class="markdownIt-Anchor" href="#2821-例子"></a> 28.2.1 例子</h4>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160044691.png" alt="image-20220509160044691" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160044691.png" alt="一级封锁协议" /></p>
 <h3 id="283-二级封锁协议"><a class="markdownIt-Anchor" href="#283-二级封锁协议"></a> 28.3 二级封锁协议</h3>
-<p>内容：一级封锁协议加上事务T在读取数据R之前必须先对其加上S锁，**<span style='color:red'>读完后</span>**即可释放S锁。</p>
+<p>内容：一级封锁协议加上事务T在读取数据R之前必须先对其加上S锁，<span style='color:red'><strong>读完后</strong></span>即可释放S锁。</p>
 <p>二级封锁协议可以防止丢失修改和读“脏”数据。在二级封锁协议中，由于读完数据后即可释放S锁，所以它不能保证可重复读。</p>
 <h4 id="2831-例子"><a class="markdownIt-Anchor" href="#2831-例子"></a> 28.3.1 例子</h4>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160335777.png" alt="image-20220509160335777" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160335777.png" alt="二级封锁协议" /></p>
 <h3 id="284-三级封锁协议"><a class="markdownIt-Anchor" href="#284-三级封锁协议"></a> 28.4 三级封锁协议</h3>
-<p>内容：一级封锁协议机上事务T在读取数据R之前必须先对其加S锁，**<span style='color: red'>直到事务结束</span>**才释放。</p>
+<p>内容：一级封锁协议机上事务T在读取数据R之前必须先对其加S锁，<span style='color: red'><strong>直到事务结束</strong></span>才释放。</p>
 <p>三级封锁协议可防止丢失修改、读脏数据和不可重复读。</p>
 <h4 id="2841-例子"><a class="markdownIt-Anchor" href="#2841-例子"></a> 28.4.1 例子</h4>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160641141.png" alt="image-20220509160641141" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220509160641141.png" alt="三级封锁协议" /></p>
 <ul>
 <li>三级协议的主要区别：什么操作需要申请封锁以及何时释放锁。</li>
 <li>不同的封锁协议使事务达到的一致性级别不同：封锁协议级别越高，一致性程度越高</li>
@@ -214,7 +214,7 @@
     </tr>
 </table>
 <h3 id="285-活锁"><a class="markdownIt-Anchor" href="#285-活锁"></a> 28.5 活锁</h3>
-<p>由于并发之间的调度其实不是可预测的，所以有可能某个事务在并发中会处于永远等待的状态，这个情况我们称为“活锁”。解决活锁一般是采用**先来先服务（First Come First Service, FCFS）**的处理。下面的情形介绍了一种典型的活锁情况：</p>
+<p>由于并发之间的调度其实不是可预测的，所以有可能某个事务在并发中会处于永远等待的状态，这个情况我们称为“活锁”。解决活锁一般是采用<strong>先来先服务</strong>（First Come First Service, FCFS）的处理。下面的情形介绍了一种典型的活锁情况：</p>
 <ul>
 <li>事务 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">T_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 封锁了数据 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span></li>
 <li>事务 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">T_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 又请求封锁 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>，于是 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">T_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 等待。</li>
@@ -275,7 +275,7 @@
 <p><strong>可串行性（Serializability）</strong>：可串行性是并发事务正确调度的准则。一个给定的并发调度，当且仅当它是可串行化的，才认为是正确的调度。</p>
 <h3 id="291-冲突可串行化"><a class="markdownIt-Anchor" href="#291-冲突可串行化"></a> 29.1 冲突可串行化</h3>
 <p><strong>冲突可串行化</strong>是一个比可串行化<strong>更严格</strong>的条件，商用系统中的调度器采用。</p>
-<p>**冲突操作：**冲突操作是指不同的事务对同一数据的读写操作和写写操作。除此之外的其他操作是不冲突的操作。</p>
+<p><strong>冲突操作</strong>：冲突操作是指不同的事务对同一数据的读写操作和写写操作。除此之外的其他操作是不冲突的操作。</p>
 <p><strong>不能交换的动作</strong>：</p>
 <ul>
 <li>同一事物的两个操作</li>
@@ -288,7 +288,7 @@
 </ul>
 <p>冲突可串行化调度是可串行化调度的<strong>充分条件</strong>，不是必要条件。还有不满足冲突可串行化条件的可串行化调度。</p>
 <h3 id="292-两段锁协议"><a class="markdownIt-Anchor" href="#292-两段锁协议"></a> 29.2 两段锁协议</h3>
-<p>数据库管理系统普遍采用**<span style='color: red'>两段锁协议</span>**的方法实现并发调度的可串行性，从而保证调度的正确性</p>
+<p>数据库管理系统普遍采用<span style='color: red'><strong>两段锁协议</strong></span>的方法实现并发调度的可串行性，从而保证调度的正确性</p>
 <p>两段锁协议：两段锁协议是指所有事务必须分两个阶段，对数据项<strong>加锁</strong>和对数据项<strong>解锁</strong></p>
 <ul>
 <li>在对任何数据进行读、写操作之前，事务<strong>首先要获得对该数据的封锁</strong></li>
@@ -340,7 +340,7 @@
 <li>根结点是整个数据库，表示最大的粒度</li>
 <li>叶结点表示最小的数据粒度</li>
 </ul>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220510205931663.png" alt="image-20220510205931663" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220510205931663.png" alt="多粒度树" /></p>
 <p><strong>多粒度封锁协议</strong></p>
 <ul>
 <li>允许多粒度树中的每个结点被独立地加锁</li>
@@ -449,7 +449,7 @@
 </table>
 <p><strong>锁的强度</strong></p>
 <p>锁的强度的偏序关系：</p>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220511161242.png" alt="" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220511161242.png" alt="强度关系" /></p>
 <ul>
 <li>锁的强度是指它对其他锁的排斥程度</li>
 <li>一个事务在申请封锁时以强锁代替弱锁是安全的，反之则不然</li>
@@ -467,7 +467,7 @@
 </li>
 </ul>
 <h2 id="31-查询处理"><a class="markdownIt-Anchor" href="#31-查询处理"></a> 31 查询处理</h2>
-<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220511161450799.png" alt="image-20220511161450799" /></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220511161450799.png" alt="查询处理" /></p>
 <h3 id="311-查询分析"><a class="markdownIt-Anchor" href="#311-查询分析"></a> 31.1 查询分析</h3>
 <p>查询分析的任务：对查询语句进行扫描、词法分析和语法分析</p>
 <ul>
