@@ -763,7 +763,7 @@ public class LazySingleton {
     public static LazySingleton getInstance() {
         if (instance == null) {
             // 锁定代码块
-            synchronized (LazySingleton.clas) {
+            synchronized (LazySingleton.class) {
                 if (instance == null) {
                 	instance = new LazySingleton();
                 }
