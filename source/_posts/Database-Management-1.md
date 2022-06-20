@@ -8,6 +8,7 @@ tags:
     - Database
 categories:
     - Computer Science
+    - Software Engineering
     - Database
 ---
 
@@ -825,9 +826,6 @@ categories:
 		> $Y_x$：$x$ 在 $R$ 中的象集，$x = t_r[x]$ 
 
 ![](https://s2.loli.net/2022/02/23/nl3uWkzC8JSTaRI.png)
-
-
-
 
 ## Reference
 
