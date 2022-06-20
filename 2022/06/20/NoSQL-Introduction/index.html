@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="南京大学2022春季学期《数据管理基础》课程笔记 -- NoSQL部分"><meta name="keywords" content="SELearning,Database"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>NoSQL数据库介绍 | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text"> 键值数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text"> 存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text"> 适合存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.</span> <span class="toc-text"> 不适合存什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text"> 文档数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E4%BB%80%E4%B9%88-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-2"><span class="toc-number">2.2.</span> <span class="toc-text"> 适合存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-2"><span class="toc-number">2.3.</span> <span class="toc-text"> 不适合存什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E6%97%8F%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text"> 列族数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E4%BB%80%E4%B9%88-3"><span class="toc-number">3.1.</span> <span class="toc-text"> 存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-3"><span class="toc-number">3.2.</span> <span class="toc-text"> 适合存什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-3"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 不适合存什么</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.3.</span> <span class="toc-text"> 图数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E4%BB%80%E4%B9%88-4"><span class="toc-number">3.3.1.</span> <span class="toc-text"> 存什么</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-4"><span class="toc-number">3.4.</span> <span class="toc-text"> 适合存什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88-4"><span class="toc-number">3.5.</span> <span class="toc-text"> 不适合存什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">4.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">49</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">16</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">15</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku64.jepg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">NoSQL数据库介绍</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-06-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/">Computer Science</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/">Software Engineering</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Computer-Science/Software-Engineering/Database/">Database</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.2k</span><span class="post-meta__separator">|</span><span>阅读时长: 6 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="键值数据库"><a class="markdownIt-Anchor" href="#键值数据库"></a> 键值数据库</h2>
+<h3 id="存什么"><a class="markdownIt-Anchor" href="#存什么"></a> 存什么</h3>
+<p>键值数据库（key-value store）是一张简单的哈希表，主要用在所有数据库访问均通过主键（primary key）来操作的情况下。</p>
+<span id="more"></span>
+<ul>
+<li>可以把此表想象成传统的“关系”，该关系仅仅只有两列：ID与NAME</li>
+<li>ID列代表关键字，NAME存放之。NAME列仅能存放<strong>String</strong>类型的数据</li>
+<li>应用程序可提供ID及VALUE值，并将这一键值对持久化</li>
+<li>加入ID已存在，就用新值覆盖当前值，否则就新建一条数据</li>
+</ul>
+<blockquote>
+<p>客户端可以根据键查询值，设置键所对应的值，或者从数据库中删除键</p>
+<ul>
+<li>“值”只是数据库存储的一块数据而已，它不关心也无需知道其中的内容</li>
+<li>应用程序负责理解所存数据的含义</li>
+</ul>
+<p>键值数据库并不关心键值对里的值，它可以是二进制块、文本、JSON、XML等</p>
+</blockquote>
+<h3 id="适合存什么"><a class="markdownIt-Anchor" href="#适合存什么"></a> 适合存什么</h3>
+<ol>
+<li>存放会话信息：网络会话是唯一的，分配给它们的seesionId值也各不相同，所以可以将sessionId作为键值来存放，全部的会话内容就可以通过一条PUT请求来存放，而只需要通过一条GET请求就可以获得</li>
+<li>存放用户配置信息/产品信息：用户配置信息包含一些独立的配置信息（比如id、username或者其他独特的属性），存放在键值数据库中可以通过一次GET操作即获取某位用户的全部配置信息</li>
+<li>存放购物车数据：购物车内容要在不同时间、不同浏览器、不同电脑、不同会话中保持一致，所以可以把购物信息放在value中，并将其绑定到userId这个键名中。</li>
+</ol>
+<h3 id="不适合存什么"><a class="markdownIt-Anchor" href="#不适合存什么"></a> 不适合存什么</h3>
+<ol>
+<li>数据间关系：即将不同键值集合联系起来</li>
+<li>含有多项操作的事务</li>
+<li>查询数据：根据键值对的<strong>部分值</strong>来搜寻关键字，那么键值数据库就不是很理想的，无法直接检视键值数据库中的值</li>
+<li>操作关键字集合：操作多个关键字最好在客户端处理（键值数据库一次只能操作一个键）</li>
+</ol>
+<h2 id="文档数据库"><a class="markdownIt-Anchor" href="#文档数据库"></a> 文档数据库</h2>
+<h3 id="存什么-2"><a class="markdownIt-Anchor" href="#存什么-2"></a> 存什么</h3>
+<p>文档（document）是文档数据库中的主要概念</p>
+<ul>
+<li>其格式可以是XML、JSON、BSON等</li>
+<li>文档具备自述性（self-describing），呈现分层的树状数据结构（hierarchical tree data structure），可以包含映射表、集合和标量值</li>
+</ul>
+<p>文档彼此相似，但不必完全相同。文档数据库所存放的文档，就相当于键值数据库所存放的“值”。文档数据库可视为<strong>其值可查</strong>的键值数据库。</p>
+<p>文档数据库中，放在同一“集合”内的各文档的“数据模式”（the schema of the data）可以不同。</p>
+<blockquote>
+<p>关系型数据库中，表格中每行数据的模式都要相同。</p>
+</blockquote>
+<p>文档中可以嵌套数组等基本数据类型，也可以将“子文档”（child document）以“子对象”(subobject) 的形式嵌入主文档。由于没有“数据模式”约定，文档数据库的文档中无需空属性，若其中不存在某属性，就假定该属性值未设定或与此文档无关。向文档中新增属性时，既无需预先定义，也不用修改已有文档内容。</p>
+<blockquote>
+<p>关系型数据库中，需要定义表中的每一列，而且若某条记录中的某列没有数据，则要将其留空(empty) 或设为null。</p>
+</blockquote>
+<h3 id="适合存什么-2"><a class="markdownIt-Anchor" href="#适合存什么-2"></a> 适合存什么</h3>
+<ol>
+<li>事件记录：企业级解决方案中，许多不同的应用程序都需要记录事件。应用程序对事件记录各有需求</li>
+<li>其他：
+<ol>
+<li>内容管理系统及博客平台：文档数据库没有预设模式，而且支持JSON文档，所以可以用在“内容管理系统”及网站发布程序上，也可以用来管理用户评论、用户注册、用户配置和面向Web文档</li>
+<li>网站分析与实时分析：文档数据库可以存储实时分析数据。由于可以只更新部分文档内容，所以用它来存储“页面浏览量”（page view）或者“独立访客数”（unique visitor）会非常方便，无需改变模式即可新增度量标准</li>
+<li>电子商务应用程序：需要灵活模式存储订单和产品，需要不做高成本数据库重构及数据迁移的前提下进化其数据模型</li>
+</ol>
+</li>
+</ol>
+<h3 id="不适合存什么-2"><a class="markdownIt-Anchor" href="#不适合存什么-2"></a> 不适合存什么</h3>
+<ol>
+<li>包含多项操作的复杂事务</li>
+<li>查询持续变化的聚合结构</li>
+</ol>
+<h2 id="列族数据库"><a class="markdownIt-Anchor" href="#列族数据库"></a> 列族数据库</h2>
+<h3 id="存什么-3"><a class="markdownIt-Anchor" href="#存什么-3"></a> 存什么</h3>
+<p>列族数据库可以存储关键字及其映射值，并且可以把值分成多个了列族，让每个列族代表一张数据映射表（map of data）。</p>
+<p>列族数据库将数据存储在列族中，而列族里的行则把许多列数据与本行的“行键”（row key）关联起来</p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220620150535.png" alt="列族数据库" /></p>
+<p>Cassandra（一款流行的列族数据库）的基本存储单元为“列”，列由一个“名值对“（name-value pair）组成，其中的名字也充当关键字。</p>
+<p>每个键值对都占据一列，并且都存有一个“时间戳”值。令数据过期、解决写入冲突、处理陈旧数据等操作都会用到时间戳。若某列数据不再使用，则数据库可于稍后的“压缩阶段”（compaction phase）回收其所占空间。</p>
+<p>行是列的集合，这些列都附在某个关键字名下，或与之相连。由相似行所构成的集合就是列族。</p>
+<blockquote>
+<p>每个列族都可以与关系型数据库的“行容器”（container of rows）相对照:</p>
+<ul>
+<li>两者都用关键字标识行，并且每一行都由多个列组成。</li>
+<li>其差别在于，列族数据库的各行不一定要具备完全相同的列，并且可以随意向其中某行加入一列，而不用把它添加到其他行中</li>
+</ul>
+</blockquote>
+<p>列族数据库中的两种列：</p>
+<ol>
+<li>“标准列族”（standard column family）中的列都是“简单列”（simple column）。</li>
+<li>“超列族”（super column family）：
+<ol>
+<li>如果某列中包含一个由小列组成的映射表，那么它就是“超列”（super column）。可将超列视为“列容器”（container of columns）。</li>
+<li>用超列构建的列族叫做“超列族” 。</li>
+<li>超列族适合将相关数据存在一起。但是，如果部分列在大部分情况下都用不到，则存在不必要的开销。</li>
+</ol>
+</li>
+</ol>
+<p>“键空间”（keyspace）与关系型数据库中的“数据库”类似，与应用程序有关的全部列族都存放于此。必须先创建键空间，才能为其增添列族</p>
+<h3 id="适合存什么-3"><a class="markdownIt-Anchor" href="#适合存什么-3"></a> 适合存什么</h3>
+<ol>
+<li>事件记录：由于列族数据库可存放任意数据结构，所以它很适合用来保存应用程序状态或运行中遇到的错误等事件信息。列族数据库的写入能力可扩展，所以在事件记录系统中用它的效果会很好</li>
+<li>内容管理系统与博客平台：使用列族可以把博文中的“标签”（tag）、“类别”（category）、“链接”（link）和“trackback”日等属性放在不同的列中</li>
+<li>其他
+<ol>
+<li>计数器：统计某页面的访问人数并对其分类，以算出分析数据</li>
+<li>限期：可能需要向用户提供试用版，或是在网站上将某个广告条显示一定时间。这些功能可以通过“带过期时限的列”（expiringcolumn）来完成。</li>
+</ol>
+</li>
+</ol>
+<h4 id="不适合存什么-3"><a class="markdownIt-Anchor" href="#不适合存什么-3"></a> 不适合存什么</h4>
+<ol>
+<li>需要以“ACID事务”执行写入以及读取操作的系统</li>
+<li>让数据库根据查询结果来聚合数据的场景</li>
+</ol>
+<h3 id="图数据库"><a class="markdownIt-Anchor" href="#图数据库"></a> 图数据库</h3>
+<h4 id="存什么-4"><a class="markdownIt-Anchor" href="#存什么-4"></a> 存什么</h4>
+<ul>
+<li>图数据库可存放实体及实体间关系。</li>
+<li>实体也叫“节点”（node），它们具有属性（property）。可将节点视为应用程序中某对象的实例。</li>
+<li>关系又叫“边”（edge），它们也有属性。边具备方向性（directional significance），而节点则按关系组织起来，以便在其中查找所需模式。</li>
+<li>用图将数据一次性组织好，稍后便可根据“关系”以不同方式解读它。</li>
+</ul>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220620152140.png" alt="图数据库" /></p>
+<blockquote>
+<p>注意关系（即边）是有方向的，同时关系也可能有自己的属性</p>
+</blockquote>
+<h3 id="适合存什么-4"><a class="markdownIt-Anchor" href="#适合存什么-4"></a> 适合存什么</h3>
+<ol>
+<li>互联数据：富含链接关系的领域都很适合用图数据库来表示</li>
+<li>安排运输路线、分派货物和基于位置的服务</li>
+<li>推荐引擎</li>
+</ol>
+<h3 id="不适合存什么-4"><a class="markdownIt-Anchor" href="#不适合存什么-4"></a> 不适合存什么</h3>
+<ol>
+<li>更新全部或者某个子集内的实体时也许不适用</li>
+<li>涉及整张图的操作很多的场景</li>
+</ol>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/26317662/">数据库系统概论（第五版）</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/10548379/">数据库系统概念</a></li>
+<li>南京大学软件学院2022春季学期数据管理基础课程</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/06/20/NoSQL-Introduction/">https://zyinnju.com/2022/06/20/NoSQL-Introduction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SELearning/">SELearning</a><a class="post-meta__tags" href="/tags/Database/">Database</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/06/18/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/"><span>软件构造</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku64.jepg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
