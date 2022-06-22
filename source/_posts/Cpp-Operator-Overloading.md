@@ -75,9 +75,7 @@ public:
      * @param real 实部
      * @param image 虚部
      */
-    Complex(double real = 0.0, double image = 0.0)
-        : m_Real(real), m_Image(image)
-    {}
+    Complex(double real = 0.0, double image = 0.0);
 
     /**
      * @brief operator = overloading
@@ -85,41 +83,21 @@ public:
      * @param complex anthoer complex
      * @return Complex& complex object reference
      */
-    Complex& operator=(const Complex& complex)
-    {
-        m_Real = complex.m_Real;
-        m_Image = complex.m_Image;
-        return *this;
-    }
+    Complex& operator=(const Complex& complex);
 
     /**
      * @brief prefix ++
      * 
      * @return Complex& complex object reference 
      */
-    Complex& operator++()
-    {
-        m_Real++;
-        m_Image++;
-        return *this;
-    }
+    Complex& operator++();
 
     /**
      * @brief postfix ++, int is dummy parameter
      * 
      * @return Complex& comlex object reference
      */
-    Complex& operator++(int)
-    {
-        // 拷贝构造
-        Complex temp(*this);
-        m_Real++;
-        m_Image++;
-        // 返回的是拷贝的老对象
-        return temp;
-
-        // 返回但是自身++了
-    }
+    Complex operator++(int);
 
     // 友元函数 << >> 的操作符重载
     // 如果直接在类中重载会与原先的操作符写法不一样
@@ -127,19 +105,45 @@ public:
     friend std::istream& operator>>(std::istream& in, Complex& complex);
 };
 
+Complex::Complex(double real, double image)
+    : m_Real(real), m_Image(image)
+{}
+
+Complex& Complex::operator=(const Complex& complex)
+{
+    // 拷贝赋值
+    m_Real = complex.m_Real;
+    m_Image = complex.m_Image;
+    return *this;
+}
+
+Complex& Complex::operator++()
+{
+    // 前缀++
+    // 返回引用以便链式调用
+    // 注意需要不在栈上的元素才能够返回引用
+    m_Real++;
+    m_Image++;
+    return *this;
+}
+
+Complex Complex::operator++(int)
+{
+    // 后缀++
+    // 只能返回拷贝
+    Complex temp(*this);
+    m_Real++;
+    m_Image++;
+
+    return temp;
+}
+
 std::ostream& operator<<(std::ostream& out, const Complex& complex)
 {
     out << complex.m_Real << "+" << complex.m_Image << "i";
     return out;
 }
 
-/**
- * @brief operator >> overloading
- * 
- * @param in in stream, represent cin
- * @param complex comlex object
- * @return std::istream& istream object reference, due to link call
- */
 std::istream& operator>>(std::istream& in, Complex& complex)
 {
     in >> complex.m_Real >> complex.m_Image;
@@ -169,17 +173,16 @@ int main()
 
 需要注意的有几点：
 
-1. 对于 `<<` 和 `>>` 的重载，实际上重载的是 `ostream` 与 `instream` 对该类的操作符，所以需要定义为友元函数，才能够访问该类的成员变量，如果不定义为友元函数进行操作符重载，而是直接在类中进行重载，则写法就会变成 `complext << cin`。
+1. 对于 `<<` 和 `>>` 的重载，实际上重载的是 `ostream` 与 `instream` 对该类的操作符，所以需要定义为友元函数，才能够访问该类的成员变量，如果不定义为友元函数进行操作符重载，而是直接在类中进行重载，则写法就会变成 `complex << cin`。
 
 	> 注意函数定义：
 	>
 	> ```cpp
-	> std::ostream& operator<<(std::ostream& out const Complex& complext); // cout不需要更改原有内容，所以设为const变量
+	> std::ostream& operator<<(std::ostream& out const Complex& complex); // cout不需要更改原有内容，所以设为const变量
 	> ```
 
 2. 前缀++与后缀++的区别：我们会发现后缀++有一个没有名字的参数，其实是为了区分前缀++与后缀++的，该参数其实没有任何的作用，被称为“Dummy Parameter”。同时，后缀++在实现的时候经过了一次**拷贝构造**，然后对原有对象进行自增，然后返回拷贝构造的对象，这也是为什么我们认为后缀++是在当前语句执行完后才会对值进行改变的一个原因，不是因为它在语句完之后才调用了后缀++函数，而是因为它返回的是一个++前的拷贝构造出的对象。
-
-
+3. 后缀++返回的是一个拷贝，前缀++返回的是一个引用，返回引用通常是为了支持链式调用，但是需要注意的是对于在栈上创建的对象是不能够返回引用的，否则函数执行完毕之后退栈会导致栈上对象消失，此时引用作为“别名”的对象已经消失不见
 
 ## 4 prefix and postfix ++
 
@@ -337,7 +340,7 @@ New operator overloading
 Delete operator overloading
 ```
 
-> 需要注意的是，这里只能用 `malloc` 来申请内存，因为全局的 `new` 函数调用会陷入无线递归。
+> 需要注意的是，这里只能用 `malloc` 来申请内存，因为全局的 `new` 函数调用会陷入无限递归。
 
 
 
