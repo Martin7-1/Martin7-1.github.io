@@ -10,7 +10,7 @@ categories:
     - Java
 ---
 
-## 1 前言
+## 前言
 
 快速失败（Fail-Fast）机制是一种在多线程写入或更新情况下的应对机制，能够在不处理后续操作的情况下先行抛出异常以便后续的处理。为什么会突然来学习快速失败机制呢，主要是在看 `ArrayList` 的源码的时候看到其有一个成员变量：`protected transient int modCount = 0`，好奇这个变量是做什么用的，查看了它的调用方法发现其是用于在检查多线程和迭代器写入，于是就去查阅文档和资料。
 
@@ -18,7 +18,7 @@ categories:
 
 ![image-20220531232146974](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/image-20220531232146974.png)
 
-## 2 概述
+## 概述
 
 Fail-Fast是用在一个 `Collection` 类型（[Java Collection Framework](https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html)）遍历时修改自身或者多线程并发修改一个 `Collection` 类型的情况下出现的现象，对于不同的 `Collection` 类型，可能会有不同的处理并发修改的机制。
 
@@ -31,15 +31,11 @@ Fail-Fast是用在一个 `Collection` 类型（[Java Collection Framework](https
 3. **Snapshot**
 4. **Undefined**
 
-
-
-## 3 并发操作
+## 并发操作
 
 Java 中的并发修改是在另一个任务在其上运行时同时修改一个对象。简单来说，并发修改是在另一个线程运行对象时修改对象的过程。它将通过删除、添加或更新集合中元素的值来改变数据集合的结构。 并非所有迭代器都支持这种行为；某些迭代器的实现可能会抛出 `ConcurrentModificationException`。
 
-
-
-## 4 Fail-Fast
+## Fail-Fast
 
 **Fail-Fast**，顾名思义，就是在遇到不正确行为的时候，不执行任何行为就快速的抛出异常，快速失败机制在 Java 中的典型代表主要有 `ArrayList` 和 `HashMap` 等线程不安全的 `Collection`。在 [ArrayList Specification](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html#fail-fast) 中是这么描述的：
 
@@ -87,8 +83,6 @@ Exception in thread "main" java.util.ConcurrentModificationException
 
 * **Fail-Fast** 的迭代器会在我们使用迭代器遍历时操作该集合时抛出 `ConcurrentModificationException` 异常
 * **Fail-Fast** 迭代器操作的是**原始**（请留意这个词，后面我们会有别的不同实现以做对比）的数据
-
-
 
 源码中的抛出异常是这样写的（以 `ArrayList` 为例子）：
 
@@ -161,7 +155,7 @@ public void remove() {
 
 
 
-## 5 Weakly-Consistent
+## Weakly-Consistent
 
 这一类主要指的是在 `java.util.concurrent` 包下的一些 `Collection` 的拓展类，一般是在类前面包括 `concurrent` 的前缀，比如：
 
@@ -256,7 +250,7 @@ synchronized (f) {
 
 
 
-## 6 Snapshot
+## Snapshot
 
 快照，顾名思义，就是保存某一时刻瞬间的状态，反应在迭代器上就是我们在使用迭代器的时候其实获得的是当前 `Collection` 的副本，因此对原 `Collection` 进行操作实际上无法变成对副本进行操作，且不会抛出 `ConcurrentModificationExpection`，但是修改后的结果对**迭代器**来说是不可见的，这一类的代表是 `CopyOnWriteArrayList`，是一种线程安全的 `ArrayList`。在文档中是这样描述的：
 
@@ -352,20 +346,13 @@ public boolean add(E e) {
 
 这其实也是线程安全的数据一致性体现，当前时刻获取的数据就要一直保持是当前时刻的数据，而不能随着后续数据的增加而一直变动，这样会造成一些不可预知的问题，用户想要获得当前时刻的数据就只要通过迭代器获得拷贝的副本，就可以遍历当前时刻的数据了，同时，对于多个迭代器，为了防止相同引用之间不互相干扰和修改数据， `CopyOnWriteList` 杜绝了迭代器修改元素的可能性，做到了线程之间的隔离和安全。当然，所需的内存相比线程不安全的 `Collection` 也是有所提升的（毕竟进行了数组的拷贝）。
 
-
-
-## 7 Undefined
+## Undefined
 
 这一类就是没有指定在使用迭代器的时候修改原先 `Collection` 的元素会发生什么，未定义行为可能会导致不一致的结果，此类的代表通常是 `Vector`、`HashTable` 等。（`Enumeration` 是 **undefined** 的，`iterator` 是 **Fail-Fast** 的）。
 
-
-
-## 8 总结
+## 总结
 
 迭代器模式是一种设计中常用的模式，通过迭代器模式可以实现元素的获得和更改之间的职责解耦，同时通过迭代器，用户可以专心于对其中元素进行操作，而不用关心是如何实现获得元素。**Fail-Fast** 和其他机制下实现的迭代器适用于不同的场景，需要根据不同的场景来进行选择。
-
-
-
 
 ## Reference
 
@@ -373,4 +360,4 @@ public boolean add(E e) {
 2. [请不要再说了fail-safe了，Java里根本没有这回事](https://zhuanlan.zhihu.com/p/300162795)
 3. [java.util.concurrent package specification](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#Weakly)
 4. [java.util.ArrayList specification](https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html#fail-fast)
-5. [java.util.concurrent.CopyOnWriteArrayList](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html)
+5. [java.util.concurrent.CopyOnWriteArrayList specification](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CopyOnWriteArrayList.html)
