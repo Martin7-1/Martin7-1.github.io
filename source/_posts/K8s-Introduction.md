@@ -1,8 +1,8 @@
 ---
-title: K8s-Introduction
+title: K8s Introduction
 date: 2022-07-15 23:55:20
-description: 
-top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku65.jpg
+description: K8s简介
+top_img: https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku65.jpeg
 tags:
     - K8s
     - Cloud Native
@@ -17,6 +17,8 @@ categories:
 1. 传统部署：直接部署在物理机上，简单，不需要要其他技术参与，但是不能够为应用程序资源定义边界
 2. 虚拟机部署：程序环境之间不会相互产生影响，提供一定程度的安全性；但是增加了操作系统，浪费了部分资源
 3. 容器化部署：保证每个容器拥有自己的文件系统、CPU、内存、进程空间等。运行应用程序所需要的资源都被容器包装，并和底层基础架构解藕。可以跨云服务商，跨Linux操作系统发行版进行部署
+
+<!-- more -->
 
 ![部署方式演变](https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220715162551.png)
 
