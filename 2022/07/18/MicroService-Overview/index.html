@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="微服务简介"><meta name="keywords" content="Micro-Service,SpringCloud"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>Micro-Service Overview | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text"> 我们为什么需要微服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text"> 认识微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98"><span class="toc-number">2.1.</span> <span class="toc-text"> 服务架构演变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E5%BE%AE%E6%9C%8D%E5%8A%A1-2"><span class="toc-number">2.2.</span> <span class="toc-text"> 认识微服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-cloud"><span class="toc-number">2.3.</span> <span class="toc-text"> Spring Cloud</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">3.</span> <span class="toc-text"> Reference</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">51</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku65.jpeg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">Micro-Service Overview</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-07-18</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/">Cloud Native</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/Micro-Service/">Micro-Service</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/Micro-Service/SpringCloud/">SpringCloud</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="我们为什么需要微服务"><a class="markdownIt-Anchor" href="#我们为什么需要微服务"></a> 我们为什么需要微服务</h2>
+<p>微服务技术是为了应对随着程序规模的扩大和功能的增多，代码的管理难度、可维护性、鲁棒性不断下降而产生的一个因素，其核心的技术就是通过将一个大的、耦合程度高的服务集合拆分成一个个具有独立功能的服务模块独立应用（即一个个Springboot应用），让每个服务之间进行相互通信和发现来进行服务之间的调用。在微服务架构中通常会包括以下的一些组件和中间件：</p>
+<span id="more"></span>
+<ol>
+<li>服务集群：服务集群是由一个个单独的服务应用组成的，是程序的核心和逻辑实现的地方，通过将大而广的服务集合拆分成一个个的单独服务，能够实现对项目的可扩展性。</li>
+<li>注册中心：注册中心的主要功能是为服务之间的互相调用提供一个“广场”，即所有服务将自己注册到注册中心当中，当需要某个服务的时候，就到注册中心来查找自己所需要的服务，同时时刻保持和注册中心的联系（心跳检测机制），以确保自己时刻都是注册在注册中心当中，能够被其他服务所发现的。<br />
+当在集群中运行微服务的时候，多副本的服务实例能够使得程序的可靠性得到很大的提升，因为某个服务具有多个实例，即使一个服务因为某些原因没有注册在注册中心当中，其他相同的服务样本也会在注册中心中注册，从而使别的服务发现自己。</li>
+<li>配置中心：当服务越来越多时，每一个服务都需要有一个配置文件，这对开发人员和运维人员来说都是不能接受的，过多的重复配置文件会导致维护修改十分困难，因此就有了配置中心的诞生，在配置中心存储了整个项目的所有配置文件，某个微服务需要的话只需要通过配置中心调取对应的配置文件即可，而不需要自己再重复写一遍。使用配置中心能够方便配置的修改和维护。</li>
+<li>服务网关：服务网关的作用有点类似一个公司的前台，公司部门众多导致某个访客访问时不知道应该去哪，需要通过询问前台从而知道目的的地址，服务网关的作用类似，服务集群暴露的服务接口众多，用户可能不知道应该使用哪一个，这时就需要服务网关来做请求的路由或者负载均衡，让请求到达对应的服务。</li>
+<li>消息队列：消息队列主要是为了减少消息串行调用带来的性能损耗和时间延迟，服务集群之间的调用需要到配置中心寻找对应的服务提供方，然后再调用服务提供方获取对应的结果，这将导致请求在服务间一层层的传递，会浪费很多时间。消息队列的出现是提供了一种异步的机制给服务调用，某个服务在收到请求后通过“消息”告诉自己所需要的服务开始工作，自己则直接返回结果。</li>
+<li>…</li>
+</ol>
+<blockquote>
+<p>除上述之外，微服务架构还包括分布式缓存、分布式搜索、分布式日志服务等，结合 Jenkins、Docker、K8s 的持续集成/持续部署技术，构成了微服务的基本架构</p>
+</blockquote>
+<h2 id="认识微服务"><a class="markdownIt-Anchor" href="#认识微服务"></a> 认识微服务</h2>
+<h3 id="服务架构演变"><a class="markdownIt-Anchor" href="#服务架构演变"></a> 服务架构演变</h3>
+<p><strong>单体架构</strong>： 将业务的所有功能集中在一个项目中开发，打成一个包部署。优点主要有架构简单、部署成本低。但缺点在于耦合度高，打包时间编程，模块之间的边界越来越模糊，在拓展和修改代码的时候会导致其他模块受到影响</p>
+<p><strong>分布式架构</strong>：根据业务功能对系统进行拆分，每个业务模块作为独立项目开发，称为一个服务。优点在于降低服务耦合，有利于服务升级拓展。</p>
+<p><strong>分布式架构要考虑的问题</strong></p>
+<ol>
+<li>服务拆分粒度如何</li>
+<li>服务集群地址如何维护</li>
+<li>服务之间如何实现远程调用</li>
+<li>服务健康状态如何感知</li>
+</ol>
+<p><strong>微服务</strong>：经过良好架构设计的分布式架构方案，微服务的架构特征：</p>
+<ol>
+<li>单一职责：微服务拆分粒度更小，每一个服务都对应唯一的业务能力，做到单一职责，避免重复业务开发</li>
+<li>面向服务：微服务对外暴露业务接口</li>
+<li>自治：团队独立、技术独立、数据独立、部署独立</li>
+<li>隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题。</li>
+</ol>
+<h3 id="认识微服务-2"><a class="markdownIt-Anchor" href="#认识微服务-2"></a> 认识微服务</h3>
+<p>SpringCloud 和阿里巴巴的 Dubbo 是国内比较知名的微服务框架。下面是三种微服务技术的对比</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Dubbo</th>
+<th>SpringCloud</th>
+<th>SpringCloudAlibaba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>注册中心</td>
+<td>zookeeper、Redis</td>
+<td>Eureka、Consul</td>
+<td>Nacos、Eureka</td>
+</tr>
+<tr>
+<td>远程服务调用</td>
+<td>Dubbo协议（RPC）</td>
+<td>Feign（http协议）</td>
+<td>Dubbo、Feign</td>
+</tr>
+<tr>
+<td>配置中心</td>
+<td>无</td>
+<td>SpringCloudConfig</td>
+<td>SpringCloudConfig、Nacos</td>
+</tr>
+<tr>
+<td>服务网关</td>
+<td>无</td>
+<td>SpringCloudGateway、Zuul</td>
+<td>SpringCloudGateway、Zuul</td>
+</tr>
+<tr>
+<td>服务监控和保护</td>
+<td>dubbo-admin，功能弱</td>
+<td>Hystrix</td>
+<td>Sentinel</td>
+</tr>
+</tbody>
+</table>
+<h3 id="spring-cloud"><a class="markdownIt-Anchor" href="#spring-cloud"></a> Spring Cloud</h3>
+<p>Spring Cloud 是目前国内使用最广泛的微服务框架，集成了各种微服务功能组件，并基于 SpringBoot 实现了这些组件的自动装配，从而提供了良好的开箱即用体验。Spring Cloud 提供的功能大致有以下的几点：</p>
+<ol>
+<li>服务注册与发现：Eureka、Nacos、Consul</li>
+<li>服务远程调用：OpenFeign、Dubbo</li>
+<li>服务链路监控：Zipkin、Sleuth</li>
+<li>统一配置管理：SpringCloudConfig、Nacos</li>
+<li>统一网关路由：SpringCloudGateway、Zuul</li>
+<li>流控、降级、保护：Hystix、Sentinel</li>
+</ol>
+<p><strong>SpringCloud于SpringBoot的兼容版本关系</strong></p>
+<p><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220718220301.png" alt="SpringCloud与SpringBoot版本对应关系" /></p>
+<h2 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://spring.io/projects/spring-cloud">SpringCloud</a></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/07/18/MicroService-Overview/">https://zyinnju.com/2022/07/18/MicroService-Overview/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Micro-Service/">Micro-Service</a><a class="post-meta__tags" href="/tags/SpringCloud/">SpringCloud</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/07/15/K8s-Introduction/"><span>K8s Introduction</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku65.jpeg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
