@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Ribbon 负载均衡和 Nacos 注册中心"><meta name="keywords" content="Micro-Service,SpringCloud"><meta name="author" content="ZY"><meta name="copyright" content="ZY"><title>Ribbon and Nacos | ZY in NJU</title><link rel="shortcut icon" href="/img/zy-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><link rel="stylesheet" href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  hexoVersion: '6.1.0'
+} </script><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="ZY in NJU" type="application/atom+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ribbon-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">1.</span> <span class="toc-text"> Ribbon 负载均衡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text"> 负载均衡原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><span class="toc-number">1.2.</span> <span class="toc-text"> 负载均衡策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.3.</span> <span class="toc-text"> 懒加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nacos-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-number">2.</span> <span class="toc-text"> Nacos 注册中心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C"><span class="toc-number">2.1.</span> <span class="toc-text"> 服务注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%88%86%E7%BA%A7%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 服务分级存储模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nacosrule-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">2.3.</span> <span class="toc-text"> NacosRule 负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%9D%83%E9%87%8D%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.4.</span> <span class="toc-text"> 服务实例的权重设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nacos-%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB"><span class="toc-number">2.5.</span> <span class="toc-text"> Nacos 环境隔离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eureka-%E5%92%8C-nacos-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">2.6.</span> <span class="toc-text"> Eureka 和 Nacos 的对比</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/avatar.jpg"></div><div class="author-info__name text-center">ZY</div><div class="author-info__description text-center">ZY在NJU中学习的简单记录~</div><div class="follow-button"><a target="_blank" rel="noopener" href="https://github.com/Martin7-1">Follow Me on Github</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">53</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">21</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">19</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" target="_blank" rel="noopener" href="http://www.littleblack.cc/">Little-Black</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku68.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">ZY in NJU</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">Ribbon and Nacos</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2022-07-20</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/">Cloud Native</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/Micro-Service/">Micro-Service</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Cloud-Native/Micro-Service/SpringCloud/">SpringCloud</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">1.5k</span><span class="post-meta__separator">|</span><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="ribbon-负载均衡"><a class="markdownIt-Anchor" href="#ribbon-负载均衡"></a> Ribbon 负载均衡</h2>
+<h3 id="负载均衡原理"><a class="markdownIt-Anchor" href="#负载均衡原理"></a> 负载均衡原理</h3>
+<p>Ribbon 源码。</p>
+<ol>
+<li><code>LoadBalancerInterceptor</code> 负载均衡拦截器拦截 HTTP 请求</li>
+<li><code>RibbonLoadBalancerClient</code> 获取url中的服务id（hostname，即前面所说的user-service），交给 <code>DynamicServerListLoadBalancer</code> 来获取该服务id对应的服务列表</li>
+<li><code>DynamicServerListLoadBalancer</code> 到 Eureka 获取对应的服务列表，通过 <code>IRule</code> 接口对应的规则来获得负载均衡选择到的服务</li>
+<li>返回给 <code>RibbonLoadBalancerClient</code> 进行请求，返回结果</li>
+</ol>
+<span id="more"></span>
+<h3 id="负载均衡策略"><a class="markdownIt-Anchor" href="#负载均衡策略"></a> 负载均衡策略</h3>
+<p>Ribbon 的负载均衡规则是一个叫做 IRule 的接口来定义的，每一个子接口都是一种规则</p>
+<table>
+<thead>
+<tr>
+<th>内置负责均衡规则类</th>
+<th>规则描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RoundRobinRule</td>
+<td>简单轮询服务列表来选择服务器。它是Ribbon默认的负载均衡规则</td>
+</tr>
+<tr>
+<td>AvailabilityFilteringRule</td>
+<td>对以下两种服务器进行忽略 </br> 1. 在默认情况下，这台服务器如果3次连接失败，这台服务器就会被设置为“短路”状态。短路状态将持续30秒，如果再次连接失败，短路的持续时间就会几何级地增加 </br> 2. 并发数过高的服务器。如果一个服务器的并发连接数过高，配置了 AvailabilityFilteringRule 规则的客户端也会将其忽略。并发连接数的上线，可以由客户端的 [clinetName].[clientConfigNameSpace].ActiveConnectionsLimit 属性进行配置</td>
+</tr>
+<tr>
+<td>WeightedResponseTimeRule</td>
+<td>为每一个服务器赋予一个权重值。服务器响应时间越长，这个服务器的权重就越小。这个规则会随机选择服务器，这个权重值会影响服务器的选择</td>
+</tr>
+<tr>
+<td>ZoneAvoidanceRule</td>
+<td>以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做轮询</td>
+</tr>
+<tr>
+<td>BestAvailableRule</td>
+<td>忽略那些短路的服务，并选择并发数较低的服务器</td>
+</tr>
+<tr>
+<td>RandomRule</td>
+<td>随机选择一个可用的服务器</td>
+</tr>
+<tr>
+<td>RetryRule</td>
+<td>重试机制的选择逻辑</td>
+</tr>
+</tbody>
+</table>
+<p><strong>如何调整负载均衡规则</strong></p>
+<ol>
+<li>代码方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> IRule <span class="title function_">randomRule</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 将负载均衡方式变成随机</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RandomRule</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置文件方式：yml中配置修改规则</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">user-service:</span></span><br><span class="line">    <span class="attr">ribbon:</span></span><br><span class="line">        <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.RandomRule</span></span><br></pre></td></tr></table></figure>
+<h3 id="懒加载"><a class="markdownIt-Anchor" href="#懒加载"></a> 懒加载</h3>
+<p>Ribbon 默认采用的是<strong>懒加载</strong>，即第一次访问的时候才会去创建 <code>LoadBalanceClient</code>，请求时间会很长。采用<strong>饥饿加载</strong>会在项目启动时创建，降低第一次访问的耗时，通过下面的配置可以开启饥饿加载。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">ribbon:</span></span><br><span class="line">    <span class="attr">eager-load:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">clients:</span> <span class="string">user-service</span> <span class="comment"># 指定对 user-service 的服务开启饥饿加载</span></span><br></pre></td></tr></table></figure>
+<h2 id="nacos-注册中心"><a class="markdownIt-Anchor" href="#nacos-注册中心"></a> Nacos 注册中心</h2>
+<p><a target="_blank" rel="noopener" href="https://nacos.io">Nacos</a></p>
+<h3 id="服务注册"><a class="markdownIt-Anchor" href="#服务注册"></a> 服务注册</h3>
+<blockquote>
+<p>和 Eureka 类似</p>
+</blockquote>
+<ol>
+<li>引入依赖</li>
+<li>配置nacos地址，默认端口为8848</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">server-addr:</span> <span class="string">localhost:8848</span> <span class="comment"># nacos 服务端地址</span></span><br></pre></td></tr></table></figure>
+<h3 id="服务分级存储模型"><a class="markdownIt-Anchor" href="#服务分级存储模型"></a> 服务分级存储模型</h3>
+<p>服务 - 集群 - 实例：为了应对容灾和多实例的负载均衡问题，将服务分级，每个地域作为一个集群，集群中包含多个服务的实例。优先访问本地的集群，本地集群不可用的时候才访问其他集群。</p>
+<p><strong>Nacos中配置集群属性</strong></p>
+<p>在yml中配置</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">discovery:</span></span><br><span class="line">                <span class="attr">cluster-name:</span> <span class="string">HangZhou</span> <span class="comment"># 集群的名字</span></span><br></pre></td></tr></table></figure>
+<h3 id="nacosrule-负载均衡"><a class="markdownIt-Anchor" href="#nacosrule-负载均衡"></a> NacosRule 负载均衡</h3>
+<p>如何做到优先访问本地集群的设置？与上面Ribbon相同，需要配置负载均衡的策略：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">userservice:</span></span><br><span class="line">    <span class="attr">ribbon:</span></span><br><span class="line">        <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="comment"># 负载均衡规则</span></span><br></pre></td></tr></table></figure>
+<p>NacosRule 负载均衡策略</p>
+<ol>
+<li>优先选择同集群服务实例列表</li>
+<li>本地集群找不到提供者，采取其他集群寻找，并且会有警告</li>
+<li>确定了可用实例列表后，再采用随机负载均衡挑选实例</li>
+</ol>
+<h3 id="服务实例的权重设置"><a class="markdownIt-Anchor" href="#服务实例的权重设置"></a> 服务实例的权重设置</h3>
+<p>实际部署可能会出现以下的情况：服务器设备性能有差异，部分实例所在机器性能较好，另一些较差，我们希望性能好的机器承担更多的用户请求</p>
+<blockquote>
+<p>Nacos 提供了权重配置累控制访问频率，权重越大则访问频率也越高</p>
+</blockquote>
+<p>Nacos 控制台可以设置实例权重值，范围为0-1，可以将性能较差的实例权重调小。权重为0的不会被访问，可以实现平滑替换。</p>
+<h3 id="nacos-环境隔离"><a class="markdownIt-Anchor" href="#nacos-环境隔离"></a> Nacos 环境隔离</h3>
+<p>Nacos 中服务存储和数据存储的最外层都是一个名为namespace的东西，用来做最外层的隔离，用来对不同环境做隔离。namespace之下还有group的划分，可以将关联度较高的服务作为一个group。</p>
+<p>在 Nacos 控制台创建新的命名空间，生成的id在服务中配置对应的namespace</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">namespace:</span> <span class="string">$&#123;namespace-id&#125;</span> <span class="comment"># 对应的namespace id</span></span><br></pre></td></tr></table></figure>
+<h3 id="eureka-和-nacos-的对比"><a class="markdownIt-Anchor" href="#eureka-和-nacos-的对比"></a> Eureka 和 Nacos 的对比</h3>
+<p>Nacos 会将实例划分为临时实例和非临时实例，默认情况下所有实例都是临时实例。</p>
+<ol>
+<li>临时实例采用的是心跳检测（服务向注册中心发消息），和 Eureka 相同（Nacos 频率较高），如果检测不到则直接剔除</li>
+<li>非临时实例采用的是主动询问（注册中心向服务发消息），如果挂了也不会剔除，而是标记为不健康，保留。</li>
+</ol>
+<p><strong>如何设置为非临时实例</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">nacos:</span></span><br><span class="line">            <span class="attr">ephemeral:</span> <span class="literal">false</span> <span class="comment"># 是否为临时实例</span></span><br></pre></td></tr></table></figure>
+<p>在 Eureka 中则没有临时实例和非临时实例之分，所有的实例都是类似于 Nacos 中的非临时实例。同时，对于服务列表的变更，Eureka 和 Nacos 也有差别</p>
+<ol>
+<li>Eureka 采用的是定时拉取服务缓存（pull，每隔30s一次），但是这会导致如果30s内有服务实例变化，其他服务无法知道。</li>
+<li>Nacos 采用的是定时拉取服务和主动推送变更消息（pull and push）结合，如果有服务挂了，那么会及时通知服务的消费者。</li>
+</ol>
+<p>在集群中，两者的模式也有差别</p>
+<ol>
+<li>Nacos集群默认采用AP模式，当集群中存在非临时实例时，采用CP模式；</li>
+<li>Eureka采用AP模式</li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">ZY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://zyinnju.com/2022/07/20/Ribbon-and-Nacos/">https://zyinnju.com/2022/07/20/Ribbon-and-Nacos/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://zyinnju.com">ZY in NJU</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Micro-Service/">Micro-Service</a><a class="post-meta__tags" href="/tags/SpringCloud/">SpringCloud</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2022/07/20/Service-Discovery/"><span>服务注册与服务发现</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer class="footer-bg" style="background-image: url(https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/miku68.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2021 - 2022 By ZY</div><div class="framework-info"><span>驱动 - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Just A Miku Fan</div><div class="icp"><a><span>闽ICP备2022001541号-1</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.min.js"></script><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/velocity/1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><link rel="stylesheet" type="text/css" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script src="/js/katex.js"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="false"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"superSample":2,"width":210,"height":420,"position":"right","hOffset":-25,"vOffset":-50},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"tagMode":false});</script></body></html>
