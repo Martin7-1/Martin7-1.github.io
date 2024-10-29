@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-software-engineering/software-requirement-engineering" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.5.2">
+<title data-rh="true">需求工程 | Martin&#x27;s Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://martin7-1.github.io/docs/software-engineering/software-requirement-engineering"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="需求工程 | Martin&#x27;s Blog"><meta data-rh="true" name="description" content="1 需求工程"><meta data-rh="true" property="og:description" content="1 需求工程"><link data-rh="true" rel="icon" href="/img/zy-favicon.ico"><link data-rh="true" rel="canonical" href="https://martin7-1.github.io/docs/software-engineering/software-requirement-engineering"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/software-requirement-engineering" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/software-requirement-engineering" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Martin&#39;s Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Martin&#39;s Blog Atom Feed"><link rel="stylesheet" href="/assets/css/styles.4a2f474a.css">
+<script src="/assets/js/runtime~main.77756e03.js" defer="defer"></script>
+<script src="/assets/js/main.3538c9a9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">My Site</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/intro">Tutorial</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro">Tutorial Intro</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/software-engineering/detail-design">software-engineering</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/detail-design">详细设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-delivery">软件交付</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-system-style">软件体系风格</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-development-process-model">软件开发过程模型</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-construction">软件构造</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-maintenance-and-evolution">软件维护与演化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-design">软件设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/software-engineering/software-requirement-engineering">需求工程</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/requirement-and-business-model-introduction">需求与商业模式创新</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/requirement-analysis-method">需求分析方法</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-information-hiding">面向对象的信息 隐藏</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-modularisation">面向对象的模块化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/project-start">项目启动</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-testing">软件测试</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">software-engineering</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">需求工程</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>需求工程</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-需求工程">1 需求工程<a href="#1-需求工程" class="hash-link" aria-label="1 需求工程的直接链接" title="1 需求工程的直接链接">​</a></h2>
+<blockquote>
+<p>单纯的软件系统是不能解决问题的，它只有和现实世界之间形成有效互动才能实现问题的解决</p>
+</blockquote>
+<p><strong>需求工程的概念</strong>：所有需求处理活动的总和。它收集信息、分析问题、整合观点、记录需求并验证其正确性，最终描述出软件被应用后与其环境互动形成的<strong>期望效应</strong></p>
+<p><strong>需求工程的三个主要任务</strong></p>
+<ol>
+<li>需求工程必须说明软件系统被应用的应用环境及其目标，说明用来达成这些目标的软件功能，也即要同时说明需要“<strong>做什么</strong>”和“<strong>为什么</strong>”需要做</li>
+<li>需求工程必须将目标和功能反映到软件系统当中，映射位可行的软件行为，并对软件行为进行准确的规格说明</li>
+<li>现实世界是不断变化的世界，因此需求工程还需要妥善处理目标和功能随着时间演化的变动情况</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E9%9C%80%E6%B1%82%E5%B7%A5%E7%A8%8B%E6%B4%BB%E5%8A%A8.png" alt="需求工程活动" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E9%9C%80%E6%B1%82%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="需求开发过程模型" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="11-需求开发">1.1 需求开发<a href="#11-需求开发" class="hash-link" aria-label="1.1 需求开发的直接链接" title="1.1 需求开发的直接链接">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1111-需求获取">1.1.1.1 需求获取<a href="#1111-需求获取" class="hash-link" aria-label="1.1.1.1 需求获取的直接链接" title="1.1.1.1 需求获取的直接链接">​</a></h4>
+<p>从人、文档或者环境当中获取需求的过程，要利用各种方法和技术来“发现”需求，需要根据问题来确定目标，通过分析利害关系人来确定目标。</p>
+<p>用户需求获取的方法主要有：面谈、问卷、文档分析、头脑风暴、专题讨论、原型、民族志、竞品分析</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1112-需求分析">1.1.1.2 需求分析<a href="#1112-需求分析" class="hash-link" aria-label="1.1.1.2 需求分析的直接链接" title="1.1.1.2 需求分析的直接链接">​</a></h4>
+<p>通过建模来整合各种信息，以使得人们更好的理解问题。位问题定义出一个需求集合，这个集合能够为问题界定一个有效的解决方案。检查需求当中存在的错误、遗漏、不一致等各种缺陷，并加以修正。</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1113-规格说明">1.1.1.3 规格说明<a href="#1113-规格说明" class="hash-link" aria-label="1.1.1.3 规格说明的直接链接" title="1.1.1.3 规格说明的直接链接">​</a></h4>
+<p>需求规格说明是在系统用户之间交流需求信息，需要简洁、精确、一致和易于理解，需求工程师在这个阶段的重要工作包括：</p>
+<ol>
+<li>定制文档模版</li>
+<li>编写文档</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="1114-需求验证">1.1.1.4 需求验证<a href="#1114-需求验证" class="hash-link" aria-label="1.1.1.4 需求验证的直接链接" title="1.1.1.4 需求验证的直接链接">​</a></h4>
+<p>需求规格说明文档至少要满足下面几个标准：</p>
+<ol>
+<li>文档内每条需求都正确、准确的反映了用户的意图</li>
+<li>文档记录的需求集在整体上具有完整性和一致性</li>
+<li>文档的组织方式和需求书写方式具有可读性和可修改性</li>
+</ol>
+<p>需求验证的方法主要有：同级评审、原型、模拟</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="12-需求管理">1.2 需求管理<a href="#12-需求管理" class="hash-link" aria-label="1.2 需求管理的直接链接" title="1.2 需求管理的直接链接">​</a></h3>
+<p>需求管理的作用主要有以下两点：</p>
+<ol>
+<li>保证需求作用的持续、稳定和有效发挥：在需求开发活动之后，设计、测试、实现等后续的软件系统开发活动都需要以围绕需求开展工作。</li>
+<li>进行变更控制：纳入和实现合理的变更请求，拒绝不合理的变更请求，控制变更的成本和影响范围</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-需求基础">2 需求基础<a href="#2-需求基础" class="hash-link" aria-label="2 需求基础的直接链接" title="2 需求基础的直接链接">​</a></h2>
+<p><strong>什么是需求</strong>：IEEE对需求的定义为以下三点：</p>
+<ol>
+<li>用户为了解决问题或者达到某些目标所需要的条件或能力</li>
+<li>系统或系统部件为了满足合同、标准、规范或其它正式文档所规定的要求而需要具备的条件或能力</li>
+<li>对1或2中的一个条件或一种能力的一种文档化表述</li>
+</ol>
+<p><strong>需求的表述</strong></p>
+<p>作为一种期望，需要通常被表述为“系统应该...”、“在...时，系统应该...”、“用户可以通过系统...”等，例如：</p>
+<blockquote>
+<p>系统应该允许客户退回已经购买的产品</p>
+</blockquote>
+<p><strong>需求</strong>是一种期望，源自现实又高于现实，需求是多变的可调整的，项目可以依据实际情况调整需求的实现程度。<strong>问题域</strong>是现实世界运行规律的一种反应，是需求的产生地也是需求的解决地。最终的软件产品要在现实中部署，它能够部分影响问题域，但不能任意改变现实。</p>
+<blockquote>
+<p>软件开发必须尊重问题域，不能因为技术原因妄自修改现实世界的实际情况</p>
+</blockquote>
+<p><strong>规格说明</strong>是软件产品的方案描述，它以软件产品的运行机制为主要内容。它不是需求但实现需求，不是问题域但需要与问题域互动。规格说明要以关注对外交互的方式描述软件解决方案，它既需要从软件产品的角度而不是用户的角度进行描述，又不能太多地涉及软件产品的内部构造机制。</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="21-需求的层次性">2.1 需求的层次性<a href="#21-需求的层次性" class="hash-link" aria-label="2.1 需求的层次性的直接链接" title="2.1 需求的层次性的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609105524.png" alt="需求层次性" class="img_ev3q"></p>
+<p>需求分为三个层次，分别是：</p>
+<ol>
+<li>业务需求</li>
+<li>用户需求</li>
+<li>系统级需求</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="211-业务需求">2.1.1 业务需求<a href="#211-业务需求" class="hash-link" aria-label="2.1.1 业务需求的直接链接" title="2.1.1 业务需求的直接链接">​</a></h4>
+<p>业务需求是系统建立的战略出发点，表现为<strong>高层次的目标（Objective）</strong>，它描述了组织为什么要开发系统。为了满足用户的业务需求，需求工程师需要描述系统高层次的解决方案，定义系统应该具备的特性（Feature）。参与各方必须要对高层次的解决方案达成一致，以建立一个共同的前景（Vision）。特性说明了系统位用户提供的各项功能，它限定了系统的范围（Scope）</p>
+<blockquote>
+<p>例：R2：在系统使用3个月后，销售额度应该提高20%（单纯的一种从业务角度的期望，并没有从软件角度来描述软件应该实现成什么样）</p>
+<p>可以建立高层次的解决方案，其系统特性如SF1～SF4所示：</p>
+<p>SF1：管理VIP顾客信息</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="212-用户需求">2.1.2 用户需求<a href="#212-用户需求" class="hash-link" aria-label="2.1.2 用户需求的直接链接" title="2.1.2 用户需求的直接链接">​</a></h4>
+<p>用户需求是执行实际工作的用户对系统所<strong>能完成的具体任务的期望</strong>，描述了系统能够帮助用户做些什么（这里的用户可能是直接用户或者间接用户，间接用户指通用软件的销售人员和售后支持人员）。</p>
+<p>对所有的用户需求，都应该有充分的<strong>问题域知识</strong>作为背景支持，用户需求有如下的特性：</p>
+<ol>
+<li>模糊、不清晰（允许适度的用形容词和副词）</li>
+<li>多特性混杂（功能和非功能的混杂）</li>
+<li>多逻辑混杂（一个任务需要多次系统交互才能完成）</li>
+</ol>
+<blockquote>
+<p>例：SF1：管理VIP顾客信息。</p>
+<p>针对每一个系统特性，都可以建立一组用户需求。例如对SF1，可以建立用户需求组如UR1.1 ～ UR1.7，它们中每一条都是用户完成具体任务所需要的功能</p>
+<p>UR1.1：系统应该允许客户经理添加、修改或者删除会员个人信息</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="213-系统需求">2.1.3 系统需求<a href="#213-系统需求" class="hash-link" aria-label="2.1.3 系统需求的直接链接" title="2.1.3 系统需求的直接链接">​</a></h4>
+<p>系统需求是用户对系统行为的期望，每个系统级需求反映了一次外界与系统的交互行为，或者系统的一个实现细节。它<strong>描述了开发人员需要实现什么</strong>。</p>
+<p>将用户需求转化为系统需求的过程是一个复杂的过程</p>
+<ul>
+<li>首先需要分析问题领域及其特性，从中发现问题域和计算机系统的共享知识，建立系统的知识模型；</li>
+<li>然后将用户需求部署到系统模型当中，即定义系列的系统行为，让它们联合起来实  现用户需求，每一个系统行为即为一个系统需求</li>
+<li>该过程就是需求工程当中最为重要的需求分析活动，又称建模与分析活动</li>
+</ul>
+<blockquote>
+<p>例：UR1.3：系统应该允许客户经理查看会员的个人信息和购买信息</p>
+<p>对用户需求UR1.3，可以依据任务中的交互细节将之转化为系统级需求SR1.3.1 ～ SR1.3.4
+SR1.3.1：在接到客户经理的请求后，系统应该为客户经理提供所有客户的个人信息</p>
+</blockquote>
+<p><strong>需要注意的是</strong>：需求主要是描述用户对系统的期望，它以系统与外界的交互为主，所以即使是系统级需求也尽可能不要涉及系统的内部构造细节，例如方法、参数、按钮、菜单、界面布局等。</p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609113112.png" alt="功能需求的层次性" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-需求分类">3 需求分类<a href="#3-需求分类" class="hash-link" aria-label="3 需求分类的直接链接" title="3 需求分类的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E9%9C%80%E6%B1%82%E5%88%86%E7%B1%BB.png" alt="需求分类" class="img_ev3q"></p>
+<p><strong>项目需求</strong></p>
+<p>R5：项目的成本要控制在60万元人民币以下
+R6：项目要在6个月内完成</p>
+<p><strong>过程需求</strong></p>
+<p>R7：在开发中，开发者要提交软件需求规格说明文档、设计描述文档和测试报告
+R8：项目要使用持续集成方法进行开发</p>
+<p><strong>其它需求</strong></p>
+<p>R9：系统要购买专用服务器，其规格不低于...
+R10：系统投入使用时，需要对用户进行一个星期的集中培训</p>
+<p><strong>不切实际的期望</strong></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="31-需求的分类">3.1 需求的分类<a href="#31-需求的分类" class="hash-link" aria-label="3.1 需求的分类的直接链接" title="3.1 需求的分类的直接链接">​</a></h3>
+<p>软件需求的分类主要有以下几个：</p>
+<ol>
+<li>功能需求（Functional Requirement）：和系统主要工作相关的需求，即在不考虑物理约束的情况下，用户希望系统所能够执行的活动，这些活动可以帮助用户完成任务。功能需求主要表现为<strong>系统和环境之间的交互</strong></li>
+<li>数据需求：数据需求是需要在数据库、文件或者其他介质中存储的数据描述。（数据需求如果再功能需求中描述了就不需要再单独描述）</li>
+<li>非功能需求<!-- -->
+<ol>
+<li>性能需求（Performance Requirement）：系统整体或系统组成部分应该拥有的性能特性，例如CPU使用率、内存使用率等。</li>
+<li>质量属性（Quality Attribute）：系统完成工作的质量，即系统需要在一个“好的程度”上实现功能需求，例如可靠性程度、可维护性程度等。</li>
+<li>对外接口（External Interface）：系统和环境中其他系统之间需要建立的接口，包括硬件接口、软件接口、数据库接口等等。</li>
+<li>约束：进行系统构造时需要遵守的约束，例如编程语言、硬件设施等。</li>
+</ol>
+</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="32-功能需求">3.2 功能需求<a href="#32-功能需求" class="hash-link" aria-label="3.2 功能需求的直接链接" title="3.2 功能需求的直接链接">​</a></h3>
+<ul>
+<li>最常见、最主要和最重要的需求</li>
+<li>能够为用户带来业务价值和系统行为</li>
+<li>最需要按照三个抽象层次（即业务需求、用户需求、系统级需求）进行展开</li>
+<li>软件产品产生价值的基础</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="33-性能需求">3.3 性能需求<a href="#33-性能需求" class="hash-link" aria-label="3.3 性能需求的直接链接" title="3.3 性能需求的直接链接">​</a></h3>
+<p>需要进行专门模拟和测试，比如速度、容量、吞吐量、负载、实时性等</p>
+<blockquote>
+<p>PR1：所有的用户查询都必须在10秒内完成
+PR2：系统应该能够存储至少100万个销售信息</p>
+</blockquote>
+<p>可以分为最低标准、一般标准和理想标准</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="34-质量属性">3.4 质量属性<a href="#34-质量属性" class="hash-link" aria-label="3.4 质量属性的直接链接" title="3.4 质量属性的直接链接">​</a></h3>
+<p>系统为了满足规定的及隐含的所有要求而需要具备的要素称为质量。质量属性时为了度量质量要素而选用的特征，质量模型就是能够为质量需求的描述和评价提供工作基础的特征集及特征之间的联系。</p>
+<blockquote>
+<p>比如可移植性、可维护性、功能性、可靠性、可用性等</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="341-可靠性">3.4.1 可靠性<a href="#341-可靠性" class="hash-link" aria-label="3.4.1 可靠性的直接链接" title="3.4.1 可靠性的直接链接">​</a></h4>
+<p>可靠性是指在规格时间间隔内和规定条件下，系统或部件执行所要求能力的能力。</p>
+<blockquote>
+<p>QA1：在进行数据的下载和上传中，如果网络故障，系统不能出现故障</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="342-可用性">3.4.2 可用性<a href="#342-可用性" class="hash-link" aria-label="3.4.2 可用性的直接链接" title="3.4.2 可用性的直接链接">​</a></h4>
+<p>软件系统在投入使用时可操作和可访问的程度或能实现其制定系统功能的概率</p>
+<blockquote>
+<p>QA2：系统的可用性要达到98%</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="343-安全性">3.4.3 安全性<a href="#343-安全性" class="hash-link" aria-label="3.4.3 安全性的直接链接" title="3.4.3 安全性的直接链接">​</a></h4>
+<p>软件阻止对其程序和数据进行未授权访问的能力，未授权的访问可能是有意，也可能是无意的。</p>
+<blockquote>
+<p>QA3：VIP顾客只能查看自己的个人信息和购买记录</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="344-可维护性">3.4.4 可维护性<a href="#344-可维护性" class="hash-link" aria-label="3.4.4 可维护性的直接链接" title="3.4.4 可维护性的直接链接">​</a></h4>
+<p>软件系统或部件能修改以排除故障、改进性能或其他属性或适应变更了的环境的容易程度，包括可修改性（Modifiability）和可扩展性（Extensibility）。</p>
+<blockquote>
+<p>QA4：如果系统要增加新的特价类型，要能够在2个人月内完成</p>
+</blockquote>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="345-可移植性">3.4.5 可移植性<a href="#345-可移植性" class="hash-link" aria-label="3.4.5 可移植性的直接链接" title="3.4.5 可移植性的直接链接">​</a></h4>
+<p>系统或部件能从一种硬件或软件环境转换至另外一种环境的特性</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="346-易用性">3.4.6 易用性<a href="#346-易用性" class="hash-link" aria-label="3.4.6 易用性的直接链接" title="3.4.6 易用性的直接链接">​</a></h4>
+<p>与用户使用软件所花费的努力及其对使用的评价相关的特性</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="347-质量属性的开发">3.4.7 质量属性的开发<a href="#347-质量属性的开发" class="hash-link" aria-label="3.4.7 质量属性的开发的直接链接" title="3.4.7 质量属性的开发的直接链接">​</a></h4>
+<p>用户并不能明确地提出他们对产品质量的期望，大多数用户并不了解软件系统的开发过程，也就无从判断哪些质量属性会在怎样的程度上给设计带来多大的影响，也无法将他们对软件系统的质量要求细化成一组组的可量化的质量属性</p>
+<p><strong>需求⼯程师</strong></p>
+<p> 质量属性⼤都是和功能需求联系在⼀起的，因此需要对照软件的质量属性检查每⼀项功能需求，尽⼒去判断质量属性存在的可能性。形容词和副词通常意味着质量属性的存在，对于⼀些不和任何功能需求相联系的全局性质量属性，需求⼯程师要在碰到特定的实例时意识到它们的存在</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="35-对外接口">3.5 对外接口<a href="#35-对外接口" class="hash-link" aria-label="3.5 对外接口的直接链接" title="3.5 对外接口的直接链接">​</a></h3>
+<p>了解系统和其它系统之间的软硬件接口，包括：</p>
+<ol>
+<li>接口的用途</li>
+<li>接口的输入输出</li>
+<li>数据格式</li>
+<li>命令格式</li>
+<li>异常处理要求</li>
+</ol>
+<p>用户界面也是一种对外接口</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="36-约束">3.6 约束<a href="#36-约束" class="hash-link" aria-label="3.6 约束的直接链接" title="3.6 约束的直接链接">​</a></h3>
+<p>约束在总体上限制了开发人员设计和构建系统时的选额范围，比如系统开发及运行的环境、问题域内的相关标准、商业规则等</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="37-数据需求">3.7 数据需求<a href="#37-数据需求" class="hash-link" aria-label="3.7 数据需求的直接链接" title="3.7 数据需求的直接链接">​</a></h3>
+<p>数据需求是功能需求的补充，如果在功能需求部分明确定义了相关的数据结构，那么就不需要再定义数据需求。数据需求是需要在数据库、文件或者其他介质中存储的数据描述，通常包括下列内容：</p>
+<ol>
+<li>各个功能使用的数据信息</li>
+<li>使用频率</li>
+<li>可访问性要求</li>
+<li>数据实体及其关系</li>
+<li>完整性约束</li>
+<li>数据保持要求</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="reference">Reference<a href="#reference" class="hash-link" aria-label="Reference  的直接链接" title="Reference的直接链接">​</a></h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/software-engineering/software-requirement-engineering.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/software-engineering/software-design"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">软件设计</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/software-engineering/requirement-and-business-model-introduction"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">需求与商业模式创新</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-需求工程" class="table-of-contents__link toc-highlight">1 需求工程</a><ul><li><a href="#11-需求开发" class="table-of-contents__link toc-highlight">1.1 需求开发</a></li><li><a href="#12-需求管理" class="table-of-contents__link toc-highlight">1.2 需求管理</a></li></ul></li><li><a href="#2-需求基础" class="table-of-contents__link toc-highlight">2 需求基础</a><ul><li><a href="#21-需求的层次性" class="table-of-contents__link toc-highlight">2.1 需求的层次性</a></li></ul></li><li><a href="#3-需求分类" class="table-of-contents__link toc-highlight">3 需求分类</a><ul><li><a href="#31-需求的分类" class="table-of-contents__link toc-highlight">3.1 需求的分类</a></li><li><a href="#32-功能需求" class="table-of-contents__link toc-highlight">3.2 功能需求</a></li><li><a href="#33-性能需求" class="table-of-contents__link toc-highlight">3.3 性能需求</a></li><li><a href="#34-质量属性" class="table-of-contents__link toc-highlight">3.4 质量属性</a></li><li><a href="#35-对外接口" class="table-of-contents__link toc-highlight">3.5 对外接口</a></li><li><a href="#36-约束" class="table-of-contents__link toc-highlight">3.6 约束</a></li><li><a href="#37-数据需求" class="table-of-contents__link toc-highlight">3.7 数据需求</a></li></ul></li><li><a href="#reference" class="table-of-contents__link toc-highlight">Reference</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Tutorial</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

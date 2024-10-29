@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-software-engineering/requirement-analysis-method" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.5.2">
+<title data-rh="true">需求分析方法 | Martin&#x27;s Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://martin7-1.github.io/docs/software-engineering/requirement-analysis-method"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="需求分析方法 | Martin&#x27;s Blog"><meta data-rh="true" name="description" content="0 需求分析基础"><meta data-rh="true" property="og:description" content="0 需求分析基础"><link data-rh="true" rel="icon" href="/img/zy-favicon.ico"><link data-rh="true" rel="canonical" href="https://martin7-1.github.io/docs/software-engineering/requirement-analysis-method"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/requirement-analysis-method" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/requirement-analysis-method" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Martin&#39;s Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Martin&#39;s Blog Atom Feed"><link rel="stylesheet" href="/assets/css/styles.4a2f474a.css">
+<script src="/assets/js/runtime~main.77756e03.js" defer="defer"></script>
+<script src="/assets/js/main.3538c9a9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">My Site</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/intro">Tutorial</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro">Tutorial Intro</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/software-engineering/detail-design">software-engineering</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/detail-design">详细设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-delivery">软件交付</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-system-style">软件体系风格</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-development-process-model">软件开发过程模型</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-construction">软件构造</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-maintenance-and-evolution">软件维护与演化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-design">软件设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-requirement-engineering">需求工程</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/requirement-and-business-model-introduction">需求与商业模式创新</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/software-engineering/requirement-analysis-method">需求分析方法</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-information-hiding">面向对象的信息 隐藏</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-modularisation">面向对象的模块化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/project-start">项目启动</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-testing">软件测试</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">software-engineering</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">需求分析方法</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>需求分析方法</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="0-需求分析基础">0 需求分析基础<a href="#0-需求分析基础" class="hash-link" aria-label="0 需求分析基础的直接链接" title="0 需求分析基础的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609140254.png" alt="需求分析" class="img_ev3q"></p>
+<p><strong>需求分析的任务</strong></p>
+<ol>
+<li>建立<strong>分析模型</strong>，达成开发者和用户对需求信息的共同理解</li>
+<li>依据共同的理解，发挥创造性，创建软件系统解决方案</li>
+</ol>
+<p><strong>需求分析模型与建模</strong></p>
+<ul>
+<li>“模型是对事物的抽象，帮助⼈们在创建⼀个事物之前可以有更好的理解”[Blaha2005]</li>
+<li>建⽴模型的过程被称为建模。“它是对系统进⾏思考和推理的⼀种⽅式。建模的⽬标是建⽴系统的⼀个表示，这个表示以精确⼀致的⽅式描述系统，使得系统的使⽤更加容易“[Fishwick1994]。</li>
+</ul>
+<p>建模常用手段是<strong>抽象（Abstraction）<strong>和</strong>分解（Decomposition/Partitioning）</strong></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609140802.png" alt="需求分析模型" class="img_ev3q"></p>
+<p><strong>常见分析模型</strong></p>
+<table><tr><th>方法</th><th>模型</th><th>描述</th></tr><tr><th rowspan="2">结构化方法</th><th>数据流图，Data Flow Diagram</th><th>从数据传递和加工的角度，描述了系统从输入到输出的功能处理过程。运用功能分解的方法，用层次结构简化处理复杂的问题</th></tr><tr><th>实体关系图，Entity Relationship Diagram</th><th>描述系统中的数据对象及其关系，定义了系统中使用、处理和产生的所有数据</th></tr><tr><th rowspan="4">面向对象方法</th><th>用例图，Use-Case Diagram</th><th>描述用户与系统的交互。从交互的角度说明了系统的边界和功能范围</th></tr><tr><th>类图，Class Diagram</th><th>描述应用领域当中重要的概念以及概念之间的关系。它捕获了系统的静态结构</th></tr><tr><th>交互图（顺序图），Interaction(Sequence) Diagram</th><th>描述系统中一次交互的行为过程，说明了在交互当中的对象协作关系</th></tr><tr><th>状态图，State Diagram</th><th>描述系统、用例或者对象在其整个生命期内的状态变化和行为过程</th></tr></table>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-用例图">1 用例图<a href="#1-用例图" class="hash-link" aria-label="1 用例图的直接链接" title="1 用例图的直接链接">​</a></h2>
+<p><strong>用例</strong>：在系统（或者子系统或者类）和外部对象的<strong>交互</strong>当中所执行的行为序列的描述，包括<strong>各种不同的序列和错误的序列</strong>，它们能够联合提供一种<strong>有价值的服务</strong>。[Rumbaugh2004]</p>
+<p>用例描述了在不同条件下系统对某一用户的请求的响应。根据用户的请求和请求时系统的条件，系统将执行不同的行为序列，每一个行为序列被称为一个场景，一个用例是多个场景的集合。</p>
+<p><strong>用例图的基本元素</strong></p>
+<ol>
+<li>用例：椭圆表示</li>
+<li>参与者：小人，是系统或者其它系统对要开发的系统扮演的角色</li>
+<li>关系：简单的就是一条直线，参与者之间可能会有继承之类的关系，用例之间也会有关系</li>
+<li>系统边界：一个框，限定系统的边界</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609142831.png" alt="用例图案例" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="11-用例图的建立">1.1 用例图的建立<a href="#11-用例图的建立" class="hash-link" aria-label="1.1 用例图的建立的直接链接" title="1.1 用例图的建立的直接链接">​</a></h3>
+<ol>
+<li>目标分析与解决方向的确定</li>
+<li>寻找参与者</li>
+<li>寻找用例</li>
+<li>细化用例</li>
+</ol>
+<p><strong>细化用例</strong>：如果用例的力度不合适就需要进行细化和调整，判断标准是如果用例描述了为<strong>应对一个业务事件</strong>，<strong>由一个用户发起</strong>，<strong>并在一个连续时间段内完成</strong>，<strong>可以增加业务价值</strong>的任务</p>
+<blockquote>
+<p>用例图建立过程中的常见错误：</p>
+<ol>
+<li>不要讲用例细化为单个操作：例如，不要将用户管理细化为增加、修改和删除三个更小的用例，因为他们要联合起来才能体现出业务价值</li>
+<li>不要将同一个业务目标细化为不同用例：例如特价策略制定和赠送策略制定</li>
+<li>不要将没有业务价值的内容作为用例：常见的错误有“登陆”（应该描述为安全性或者质量需求）、“数据验证”（应该描述为数据需求）、“连接数据库”（属于软件内部实现而不是需求）等</li>
+</ol>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="12-用例模板">1.2 用例模板<a href="#12-用例模板" class="hash-link" aria-label="1.2 用例模板的直接链接" title="1.2 用例模板的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%94%A8%E4%BE%8B%E6%A8%A1%E6%9D%BF.png" alt="用例模板" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-分析类图">2 分析类图<a href="#2-分析类图" class="hash-link" aria-label="2 分析类图的直接链接" title="2 分析类图的直接链接">​</a></h2>
+<blockquote>
+<p>又称为概念类图或领域模型</p>
+</blockquote>
+<p>分析类图是面向对象分析方法的核心，描述类（对象）和这些类（对象）之间的关系。它与设计类图有所不同，主要关注<strong>系统与外界的交互</strong>，而不是软件系统的内部构造机制。类型、方法、可见性等复杂的软件构造细节不会在概念类图中</p>
+<blockquote>
+<p>需要注意的是这里所说的分析类图和设计类图是不太一样的</p>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="21-分析类图的基本元素">2.1 分析类图的基本元素<a href="#21-分析类图的基本元素" class="hash-link" aria-label="2.1 分析类图的基本元素的直接链接" title="2.1 分析类图的基本元素的直接链接">​</a></h3>
+<ol>
+<li>对象：主要包括标识符、状态和行为</li>
+<li>类：对象集合的抽象</li>
+<li>链接（Link/Dependency）：对象之间的互相协作的关系，描述了对象之间的物理或者业务联系</li>
+<li>关联：对象之间链接的抽象，包括聚合与组合（更强的关联关系）</li>
+<li>继承：是一种泛化的关系</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609144916.png" alt="类图案例" class="img_ev3q"></p>
+<p><strong>几种关系的图例</strong>：</p>
+<ol>
+<li>依赖：虚线鱼骨箭头</li>
+<li>关联：实线鱼骨箭头（双向关联没有箭头）</li>
+<li>聚合：实线空心菱形箭头</li>
+<li>组合：实线实心菱形箭头</li>
+<li>泛化-继承：实线空心三角形箭头</li>
+<li>泛化-实现接口：虚线空心三角形箭头</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E4%BE%9D%E8%B5%96.png" alt="依赖" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E5%85%B3%E8%81%94.png" alt="关联" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E8%81%9A%E5%90%88.png" alt="聚合" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%BB%84%E5%90%88.png" alt="组合" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E6%B3%9B%E5%8C%96-%E7%BB%A7%E6%89%BF.png" alt="泛化-继承" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E6%B3%9B%E5%8C%96-%E5%AE%9E%E7%8E%B0.png" alt="泛化-实现" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="22-建立概念类图">2.2 建立概念类图<a href="#22-建立概念类图" class="hash-link" aria-label="2.2 建立概念类图的直接链接" title="2.2 建立概念类图的直接链接">​</a></h3>
+<p>对每个用例文本描述，尤其是场景描述，建立局部的概念类图：</p>
+<ol>
+<li>根据用例的文本描述，识别候选类</li>
+<li>筛选候选类，确定概念类</li>
+<li>识别关联</li>
+<li>识别重要属性</li>
+</ol>
+<p>将所有用例产生的局部概念类图进行合并，建立软件系统的整体概念类图</p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="221-候选类识别">2.2.1 候选类识别<a href="#221-候选类识别" class="hash-link" aria-label="2.2.1 候选类识别的直接链接" title="2.2.1 候选类识别的直接链接">​</a></h4>
+<ol>
+<li>发现软件系统与外界交互可能涉及的对象与类，它们就是候选类</li>
+<li>行为分析、名词分析、CRC等很多方法都可以用来分析用例文本描述</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="222-确定概念类">2.2.2 确定概念类<a href="#222-确定概念类" class="hash-link" aria-label="2.2.2 确定概念类的直接链接" title="2.2.2 确定概念类的直接链接">​</a></h4>
+<p><strong>确定概念类的准则</strong></p>
+<ol>
+<li>依据系统的需求</li>
+<li>该类的对象实例的状态与行为是否完全必要</li>
+</ol>
+<p><strong>候选类向概念类的转化</strong></p>
+<ol>
+<li>如果候选类的对象实例 ：<!-- -->
+<ol>
+<li>既需要维持一定的状态，有需要依据状态表现一定的行为（即有相关的状态和行为），那么它就是一个概念类</li>
+<li>如果只需要维护状态，但是不需要表现行为，那么它应该是其他概念类的属性</li>
+<li>如果不需要维护状态，但是需要表现行为，那么首先要审视需求是否有遗漏，因为没有状态支持的对象无法表现行为。如果确定没有需求的遗漏，就需要剔除该候选类，并将行为转交给具备状态支持能力的其他概念类</li>
+<li>如果既不需要维护状态，又不需要表现行为，那么该候选类应该完全被剔除。</li>
+</ol>
+</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="223-识别关联">2.2.3 识别关联<a href="#223-识别关联" class="hash-link" aria-label="2.2.3 识别关联的直接链接" title="2.2.3 识别关联的直接链接">​</a></h4>
+<ol>
+<li>分析用例文本描述，发现概念类之间的协作，需要协作的类之间需要建立关系</li>
+<li>分析和补充问题域内的关系，例如概念类之间的整体部分关系和明显的语义联系。（但要注意对问题域关系的补充要适可而止，不要把关系搞得过度复杂化）</li>
+<li>去除冗余关联和导出关联</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609151643.png" alt="案例" class="img_ev3q"></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="224-识别重要属性">2.2.4 识别重要属性<a href="#224-识别重要属性" class="hash-link" aria-label="2.2.4 识别重要属性的直接链接" title="2.2.4 识别重要属性的直接链接">​</a></h4>
+<ol>
+<li>这些属性往往是实现类写作时必要的信息，是写作的条件、输入、结果或者过程记录</li>
+<li>通过分析用例的描述，并与用户交流，补充问题域信息，可以发现重要的属性信息</li>
+<li>在分析每个单独的用例（场景）描述时，为各个概念类发现的重要属性可能不多，甚至有些概念类没有任何重要属性。但是，系统通常有多个用例和很多场景，会建立多个局部的概念类图，只有在合并所有局部概念类图之后，各个概念类的重要属性才能得到全面的体现</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609151929.png" alt="案例" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-系统顺序图">3 系统顺序图<a href="#3-系统顺序图" class="hash-link" aria-label="3 系统顺序图的直接链接" title="3 系统顺序图的直接链接">​</a></h2>
+<blockquote>
+<p>分析阶段主要是利用系统顺序图，表达系统和外部参与者之间的交互行为。</p>
+</blockquote>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609152027.png" alt="消息种类" class="img_ev3q"></p>
+<p><strong>消息种类</strong></p>
+<ol>
+<li>同步消息：实线实心三角箭头</li>
+<li>异步消息：实线鱼骨箭头</li>
+<li>返回消息：虚线鱼骨箭头</li>
+</ol>
+<p><strong>图例</strong></p>
+<ol>
+<li>Opt是可选项</li>
+<li>loop是循环</li>
+<li>alt是多选一</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609152244.png" alt="案例" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4-状态图">4 状态图<a href="#4-状态图" class="hash-link" aria-label="4 状态图的直接链接" title="4 状态图的直接链接">​</a></h2>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E7%8A%B6%E6%80%81%E5%9B%BE%E7%A4%BA%E4%BE%8B.png" alt="状态图示例" class="img_ev3q"></p>
+<p><strong>如何建立状态图</strong></p>
+<ol>
+<li>确定上下文环境：状态图是立足于状态快照进行行为描述的，因此建立状态图时首先要 搞清楚状态的主体，确定状态的上下文环境。常见的状态主体有：类、用例、多个用例和整个系统。</li>
+<li>识别状态：状态主体会表现出一些稳定的状态，它们需要被识别出来，并且标记出其中的初始状态和结束状态集。在有些情况下，可能会不存在确定的初始状态和结束状态</li>
+<li>建立状态转换：根据需求所描述的系统行为，建立各个稳定状态之间可能存在的转换</li>
+<li>补充详细信息，完善状态图：添加转换的触发事件、转换行为和监护条件等详细信息</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609154314.png" alt="案例" class="img_ev3q"></p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="reference">Reference<a href="#reference" class="hash-link" aria-label="Reference的直接链接" title="Reference的直接链接">​</a></h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/software-engineering/requirement-analysis-method.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/software-engineering/requirement-and-business-model-introduction"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">需求与商业模式创新</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/software-engineering/object-oriented-information-hiding"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">面向对象的信息隐藏</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#0-需求分析基础" class="table-of-contents__link toc-highlight">0 需求分析基础</a></li><li><a href="#1-用例图" class="table-of-contents__link toc-highlight">1 用例图</a><ul><li><a href="#11-用例图的建立" class="table-of-contents__link toc-highlight">1.1 用例图的建立</a></li><li><a href="#12-用例模板" class="table-of-contents__link toc-highlight">1.2 用例模板</a></li></ul></li><li><a href="#2-分析类图" class="table-of-contents__link toc-highlight">2 分析类图</a><ul><li><a href="#21-分析类图的基本元素" class="table-of-contents__link toc-highlight">2.1 分析类图的基本元素</a></li><li><a href="#22-建立概念类图" class="table-of-contents__link toc-highlight">2.2 建立概念类图</a></li></ul></li><li><a href="#3-系统顺序图" class="table-of-contents__link toc-highlight">3 系统顺序图</a></li><li><a href="#4-状态图" class="table-of-contents__link toc-highlight">4 状态图</a></li><li><a href="#reference" class="table-of-contents__link toc-highlight">Reference</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Tutorial</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-software-engineering/software-system-style" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.5.2">
+<title data-rh="true">软件体系风格 | Martin&#x27;s Blog</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://martin7-1.github.io/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://martin7-1.github.io/docs/software-engineering/software-system-style"><meta data-rh="true" property="og:locale" content="zh_Hans"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="软件体系风格 | Martin&#x27;s Blog"><meta data-rh="true" name="description" content="1 软件体系结构的发展"><meta data-rh="true" property="og:description" content="1 软件体系结构的发展"><link data-rh="true" rel="icon" href="/img/zy-favicon.ico"><link data-rh="true" rel="canonical" href="https://martin7-1.github.io/docs/software-engineering/software-system-style"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/software-system-style" hreflang="zh-Hans"><link data-rh="true" rel="alternate" href="https://martin7-1.github.io/docs/software-engineering/software-system-style" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Martin&#39;s Blog RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Martin&#39;s Blog Atom Feed"><link rel="stylesheet" href="/assets/css/styles.4a2f474a.css">
+<script src="/assets/js/runtime~main.77756e03.js" defer="defer"></script>
+<script src="/assets/js/main.3538c9a9.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();t(null!==e?e:"light")}(),function(){try{const n=new URLSearchParams(window.location.search).entries();for(var[t,e]of n)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="My Site Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">My Site</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/intro">Tutorial</a><a class="navbar__item navbar__link" href="/blog">Blog</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="切换浅色/暗黑模式（当前为浅色模式）" aria-label="切换浅色/暗黑模式（当前为浅色模式）" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/docs/intro">Tutorial Intro</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/software-engineering/detail-design">software-engineering</a></div><ul style="display:block;overflow:visible;height:auto" class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/detail-design">详细设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-delivery">软件交付</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/software-engineering/software-system-style">软件体系风格</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-development-process-model">软件开发过程模型</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-construction">软件构造</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-maintenance-and-evolution">软件维护与演化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-design">软件设计</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-requirement-engineering">需求工程</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/requirement-and-business-model-introduction">需求与商业模式创新</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/requirement-analysis-method">需求分析方法</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-information-hiding">面向对象的信息 隐藏</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/object-oriented-modularisation">面向对象的模块化</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/project-start">项目启动</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/software-engineering/software-testing">软件测试</a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">software-engineering</span><meta itemprop="position" content="1"></li><li itemscope="" itemprop="itemListElement" itemtype="https://schema.org/ListItem" class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link" itemprop="name">软件体系风格</span><meta itemprop="position" content="2"></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header><h1>软件体系风格</h1></header>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-软件体系结构的发展">1 软件体系结构的发展<a href="#1-软件体系结构的发展" class="hash-link" aria-label="1 软件体系结构的发展的直接链接" title="1 软件体系结构的发展的直接链接">​</a></h2>
+<p>（略）</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-理解软件体系结构">2 理解软件体系结构<a href="#2-理解软件体系结构" class="hash-link" aria-label="2 理解软件体系结构的直接链接" title="2 理解软件体系结构的直接链接">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="21-概念和定义">2.1 概念和定义<a href="#21-概念和定义" class="hash-link" aria-label="2.1 概念和定义的直接链接" title="2.1 概念和定义的直接链接">​</a></h3>
+<p><strong>软件体系结构的定义</strong></p>
+<p>软件体系结构目前还没有统一的定义，常见的定义是 Shaw1995 提出的：软件体系结构 = 部件(Component) + 连接件(Connector) + 配置(Configuration)。其中：</p>
+<ol>
+<li>“部件”是软件体系结构的基本组成单位之一，承载系统的主要功能，包括处理与数据；</li>
+<li>“连接件”是软件体系结构的另一个基本组成单位，定义了部件间的交互，是连接的抽象表示</li>
+<li>“配置”是对“形式”的发展，定义了“部件”以及“连接件”之间的关联方式，将它们组织称系统的总体结构</li>
+</ol>
+<p>简单来说，一个软件系统的体系结构规定了系统的计算部件和部件之间的交互。</p>
+<blockquote>
+<p>需要注意的是：</p>
+<ol>
+<li>连接件是一个与部件平等的单位。在软件的详细设计中，交互与计算是交织在一起的，但是在软件体系结构中国呢，连接件将交互从计算中独立出来进行抽象和封装。</li>
+<li>部件与连接件是比类、模块等软件单位更高层的抽象。部件和连接件也既有抽象规格，又拥有“模块+连接 ”的具体实现</li>
+</ol>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="22-区分物理和逻辑">2.2 区分物理和逻辑<a href="#22-区分物理和逻辑" class="hash-link" aria-label="2.2 区分物理和逻辑的直接链接" title="2.2 区分物理和逻辑的直接链接">​</a></h3>
+<p>物理和逻辑的区分也可以看作高层和低层的区分、抽象和实现的区分。逻辑是抽象层面的，面对用户的，与真正的物理实现可能有所不同，但对外表现的是用户期待的或者需求所需要的。</p>
+<p><strong>物理实现的载体</strong></p>
+<ul>
+<li>低层：基本类型 + 基本控制结构</li>
+<li>中层：OO编程语言机制<!-- -->
+<ul>
+<li>类生命、实例创建与撤销、实例生命期管理</li>
+<li>类权限控制机制</li>
+<li>复杂机制：继承</li>
+</ul>
+</li>
+<li>高层：导入导出和名称匹配</li>
+</ul>
+<blockquote>
+<p>什么是导入导出：</p>
+<ul>
+<li>导入：比如java中的import</li>
+<li>导出：比如使用包作为一个整体结构供其他类使用，比如声明为public供其他方法调用都是一种导出</li>
+</ul>
+</blockquote>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="23-高层抽象">2.3 高层抽象<a href="#23-高层抽象" class="hash-link" aria-label="2.3 高层抽象的直接链接" title="2.3 高层抽象的直接链接">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="231-部件">2.3.1 部件<a href="#231-部件" class="hash-link" aria-label="2.3.1 部件的直接链接" title="2.3.1 部件的直接链接">​</a></h4>
+<p>部件是一种包含了系统中的数据和处理的软件体系结构的一部分，通常只暴露接口而隐藏内部实现，可以分为原始（Primitive）部件和复合（Composite）部件两种类型</p>
+<ul>
+<li>原始类型的部件可以直接被实现为相应的软件实现机制</li>
+<li>复合部件则由更细粒度的部件和连接件组成，复合部件通过局部配置将其内部的部件和连接件连接起来，构成一个整体</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E9%83%A8%E4%BB%B6.png" alt="部件" class="img_ev3q"></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="232-连接件">2.3.2 连接件<a href="#232-连接件" class="hash-link" aria-label="2.3.2 连接件的直接链接" title="2.3.2 连接件的直接链接">​</a></h4>
+<p>连接件也可以分为原始（Primitive）连接件和复合（Composite）连接件两种类型。</p>
+<ol>
+<li>原始类型的连接件可以直接被实现为相应的软件实现机制。</li>
+<li>复合部件则由更细粒度的部件和连接件组成，复合部件通过局部配置将其内部的部件和连接件连接起来，构成一个整体</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/%E8%BF%9E%E6%8E%A5%E4%BB%B6.png" alt="连接件" class="img_ev3q"></p>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="233-配置">2.3.3 配置<a href="#233-配置" class="hash-link" aria-label="2.3.3 配置的直接链接" title="2.3.3 配置的直接链接">​</a></h4>
+<p>配置是一种专门将部件和连接件连接起来的机制，构成系统的整体结构，达到系统的设计目标</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-体系结构风格初步">3 体系结构风格初步<a href="#3-体系结构风格初步" class="hash-link" aria-label="3 体系结构风格初步的直接链接" title="3 体系结构风格初步的直接链接">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="31-主程序子程序">3.1 主程序/子程序<a href="#31-主程序子程序" class="hash-link" aria-label="3.1 主程序/子程序的直接链接" title="3.1 主程序/子程序的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609193327.png" alt="主程序-子程序" class="img_ev3q"></p>
+<p><strong>设计决策与约束</strong></p>
+<ol>
+<li>基于声明-使⽤(程序调⽤)关系建⽴连接件,以层次分解的⽅式建⽴系统部件,共同组成层次结构。</li>
+<li>每⼀个上层部件可以“使⽤”下层部件,但下层部件不能“使⽤”上层部件,即不允许逆⽅向调⽤。</li>
+<li>系统应该是单线程执⾏。主程序部件拥有最初的执⾏控制权,并在“使⽤”中将控制权转移给下层⼦程序。</li>
+<li>⼦程序只能够通过上层转移来获得控制权,可以在执⾏中将控制权转交给下层的⼦程序,并在⾃身执⾏完成之后必须将控制权还交给上层部件。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="311-优点">3.1.1 优点<a href="#311-优点" class="hash-link" aria-label="3.1.1 优点的直接链接" title="3.1.1 优点的直接链接">​</a></h4>
+<ol>
+<li>流程清晰，易于理解：严格的层次分解使得整个系统的组织结构非常符合功能分解和分而治之的思维方式，从而能够清晰的描述整个系统的执行流程，易于理解</li>
+<li>强控制性：严格的层次分解和严格的控制权转移使得主程序/子程序风格对程序的实际执行过程具备很强的控制能力。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="312-缺点">3.1.2 缺点<a href="#312-缺点" class="hash-link" aria-label="3.1.2 缺点的直接链接" title="3.1.2 缺点的直接链接">​</a></h4>
+<ol>
+<li>程序调用是一种强耦合的连接方式，非常依赖交互方的接口规格，这会使得系统难以修改和复用</li>
+<li>程序调用的连接方式限制了各部件之间的数据交互，可能会使得不同部件使用隐含的共享数据交流，产生不必要的公共耦合，进而破坏它的“正确性”控制能力。</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="32-面向对象式">3.2 面向对象式<a href="#32-面向对象式" class="hash-link" aria-label="3.2 面向对象式的直接链接" title="3.2 面向对象式的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220609193802.png" alt="面向对象式" class="img_ev3q"></p>
+<p><strong>设计决策与约束</strong></p>
+<ol>
+<li>依照对数据的使⽤情况,⽤信息内聚的标准,为系统建⽴对象部件。每个对象部件基于内部数据提供对外服务接⼝,并隐藏内部数据的表示。</li>
+<li>基于⽅法调⽤(Method Invocation)机制建⽴连接件,将对象部件连接起来。</li>
+<li>每个对象负责维护其⾃身数据的⼀致性与完整性,并以此为基础对外提供“正确”的服务。</li>
+<li>每个对象都是⼀个⾃治单位,不同对象之间是平级的,没有主次、从属、层次、分解等关系。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="321-优点">3.2.1 优点<a href="#321-优点" class="hash-link" aria-label="3.2.1 优点的直接链接" title="3.2.1 优点的直接链接">​</a></h4>
+<ol>
+<li>内部实现的可修改性。因为面向对象式风格要求封装内部数据，隐藏内部实现，所以它可以在不影响外界的情况下，变更其内部实现。</li>
+<li>易开发、易理解、易复用的结构组织。面向对象式风格将系统组织为一系列平等、自治的单位，每个单位负责自身的正确性，不同单位之间仅仅是通过方法调用相连接，这非常契合模块化的思想，能够建立一个易开发、易理解、易服用的实现结构</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="322-缺点">3.2.2 缺点<a href="#322-缺点" class="hash-link" aria-label="3.2.2 缺点的直接链接" title="3.2.2 缺点的直接链接">​</a></h4>
+<ol>
+<li>接口的耦合性。虽然面向对象式风格有利于对象修改自己的内部实现，但是其所用的方法调用连接机制使得它无法消除接口的耦合性</li>
+<li>标识（Identity）的耦合性。除了接口的耦合性之外，方法调用机制带来的还有标识的耦合性，即一个 对象要与其他对象交互，就必须知道其他对象的标识</li>
+<li>副作用。例如A和B都使用C，那么B对C的修改可能会对A产生未预期的影响。</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="33-分层">3.3 分层<a href="#33-分层" class="hash-link" aria-label="3.3 分层的直接链接" title="3.3 分层的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/20220618183115.png" alt="分层" class="img_ev3q"></p>
+<p><strong>设计决策与约束</strong></p>
+<ol>
+<li>从最底层到最⾼层,部件的抽象层次逐渐提升。每个下层为邻接上层提供服务, 每个上层将邻接下层作为基础设施使⽤。也就是说,在程序调⽤机制中上层调⽤下层。</li>
+<li>两个层次之间的连接要遵守特定的交互协议,该交互协议应该是成熟、稳定和标准化的。也就是说,只要遵守交互协议,不同部件实例之间是可以互相替换的。</li>
+<li>跨层次的连接是禁⽌的,不允许第 I 层直接调⽤ I+N(N&gt;1)层的服务。</li>
+<li>逆向的连接是禁⽌的,不允许第 I 层调⽤第 J(J 小于 I)层的服务。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="331-优点">3.3.1 优点<a href="#331-优点" class="hash-link" aria-label="3.3.1 优点的直接链接" title="3.3.1 优点的直接链接">​</a></h4>
+<ol>
+<li>设计机制清晰，易于理解。</li>
+<li>支持并行开发。</li>
+<li>更好的可复用性与内部可修改性</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="332-缺点">3.3.2 缺点<a href="#332-缺点" class="hash-link" aria-label="3.3.2 缺点的直接链接" title="3.3.2 缺点的直接链接">​</a></h4>
+<ol>
+<li>交互协议难以修改</li>
+<li>性能损失。逐层调用可能会产生冗余的请求调用导致性能损失</li>
+<li>难以确定层次数量和粒度</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="34-mvc">3.4 MVC<a href="#34-mvc" class="hash-link" aria-label="3.4 MVC的直接链接" title="3.4 MVC的直接链接">​</a></h3>
+<p><img decoding="async" loading="lazy" src="https://img-bed-1309306776.cos.ap-shanghai.myqcloud.com/img/MVC.png" alt="MVC" class="img_ev3q"></p>
+<p><strong>设计决策和约束</strong></p>
+<ol>
+<li>模型、视图、控制是分别是关于业务逻辑、表现和控制的三种不同内容抽象。</li>
+<li>如果视图需要持续地显示某个数据的状态,那么它⾸先需要在模型中注册对该数据的兴趣。如果该数据状态发⽣了变更,模型会主动通知视图,然后再由视图查询数据的更新情况。</li>
+<li>视图只能使⽤模型的数据查询服务,只有控制部件可以调⽤可能修改模型状态的程序。</li>
+<li>⽤户⾏为虽然由视图发起,但是必须转交给控制部件处理。对接收到的⽤户⾏为, 控制部件
+可能会执⾏两种处理中的⼀种或两种:调⽤模型的服务,执⾏业务逻辑;提供下⼀个业务展现。
+模型部件相对独⽴,既不依赖于视图,也不依赖于控制。虽然模型与视图之间存在⼀个“通知
+变更”的连接,但该连接的交互协议是⾮常稳定的,可以认为是⾮常弱的依赖。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="341-优点">3.4.1 优点<a href="#341-优点" class="hash-link" aria-label="3.4.1 优点的直接链接" title="3.4.1 优点的直接链接">​</a></h4>
+<ol>
+<li>易开发性。视图和控制的可修改性</li>
+<li>模型封装了系统的业务逻辑，所以是三种类型中最为复杂的系统部件。MVC中模型是相对独立的，所以对视图实现和控制实现的修改不会影响到模型实现。再考虑到业务逻辑通常比业务表现和控制逻辑更加稳定，所以MVC具有一定的可修改性优势</li>
+<li>适用于网络系统开发的特征。MVC不仅允许视图和控制的可修改性,⽽且其对业务逻辑、表现和控制的分离使得⼀个模型可以同时建⽴并保持多个视图,这⾮常适 ⽤于⽹络系统开发。</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="342-缺点">3.4.2 缺点<a href="#342-缺点" class="hash-link" aria-label="3.4.2 缺点的直接链接" title="3.4.2 缺点的直接链接">​</a></h4>
+<ol>
+<li>复杂性。MVC 将用户任务分解成了表现、控制和模型三个部分，这增加了系统的复杂性，不利于理解任务的实现</li>
+<li>模型修改困难。视图和控制都要依赖于模型，因此模型难以修改</li>
+</ol>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="reference">Reference<a href="#reference" class="hash-link" aria-label="Reference的直接链接" title="Reference的直接链接">​</a></h2>
+<ol>
+<li>南京大学软件学院2022春季学期《软件工程与计算二》</li>
+</ol></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/software-engineering/software-system-style.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/software-engineering/software-delivery"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">软件交付</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/software-engineering/software-development-process-model"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">软件开发过程模型</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-软件体系结构的发展" class="table-of-contents__link toc-highlight">1 软件体系结构的发展</a></li><li><a href="#2-理解软件体系结构" class="table-of-contents__link toc-highlight">2 理解软件体系结构</a><ul><li><a href="#21-概念和定义" class="table-of-contents__link toc-highlight">2.1 概念和定义</a></li><li><a href="#22-区分物理和逻辑" class="table-of-contents__link toc-highlight">2.2 区分物理和逻辑</a></li><li><a href="#23-高层抽象" class="table-of-contents__link toc-highlight">2.3 高层抽象</a></li></ul></li><li><a href="#3-体系结构风格初步" class="table-of-contents__link toc-highlight">3 体系结构风格初步</a><ul><li><a href="#31-主程序子程序" class="table-of-contents__link toc-highlight">3.1 主程序/子程序</a></li><li><a href="#32-面向对象式" class="table-of-contents__link toc-highlight">3.2 面向对象式</a></li><li><a href="#33-分层" class="table-of-contents__link toc-highlight">3.3 分层</a></li><li><a href="#34-mvc" class="table-of-contents__link toc-highlight">3.4 MVC</a></li></ul></li><li><a href="#reference" class="table-of-contents__link toc-highlight">Reference</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Tutorial</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://twitter.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
